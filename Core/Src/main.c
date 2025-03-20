@@ -62,10 +62,10 @@ void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN 0 */
 uint8_t vis[14] = {0};
 int step_counter = 0;
-int16_t ang_set[3] = {0}; 
-uint16_t ms_set[3] = {0}; 
-int16_t ang_goal[14] = {0}; 
-uint16_t ms_goal[14] = {0}; 
+int16_t ang_set[6] = {0}; 
+uint16_t ms_set[6] = {0}; 
+int16_t ang_goal[15] = {0}; 
+uint16_t ms_goal[15] = {0}; 
 uint8_t usart_tx_buf[40] = {0};
 uint8_t Action_done[50] = {0};
 uint8_t ActionPreFlag = 0;
@@ -108,53 +108,15 @@ int main(void)
   MX_TIM4_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  HAL_Delay(5000);
   Action_init();//动作库初始化（动作信息）
   User_ServoInit();//舵机信息初始化（对应串口等）
-	/*ang_set[0] = 0;
-	ang_set[1] = 0;
-	ang_set[2] = 0;
-	
-	ang_goal[1] = 950;
-	ang_goal[2] = 0;
-	ang_goal[3] = 0;
-	ang_goal[4] = 0;
-	ang_goal[5] = 0;
-	ang_goal[6] = 0;
-	ang_goal[7] = 900;
-	ang_goal[8] = 0;
-	ang_goal[9] = 0;
-	ang_goal[10] = -900;
-	ang_goal[11] = 0;
-	ang_goal[12] = 0;
-	
-	ms_set[0] = 2;
-	ms_set[1] = 2;
-	ms_set[2] = 2;
-	HAL_Delay(5000);
+  User_TimerInit();	
+  
 	
 	
-	  ang_set[0] = ang_goal[1];
-	  ang_set[1] = ang_goal[2];
-	  ang_set[2] = ang_goal[3];
-	  User_UsartSetLegAngTime(1,ang_set,ms_set);
-	  HAL_Delay(5);
-	  ang_set[0] = ang_goal[4];
-	  ang_set[1] = ang_goal[5];
-	  ang_set[2] = ang_goal[6];
-	  User_UsartSetLegAngTime(2,ang_set,ms_set);
-	  HAL_Delay(5);
-	  ang_set[0] = ang_goal[7];
-	  ang_set[1] = ang_goal[8];
-	  ang_set[2] = ang_goal[9];
-	  User_UsartSetLegAngTime(3,ang_set,ms_set);
-	  HAL_Delay(5);
-	  ang_set[0] = ang_goal[10];
-	  ang_set[1] = ang_goal[11];
-	  ang_set[2] = ang_goal[12];
-	  User_UsartSetLegAngTime(4,ang_set,ms_set);
-	  HAL_Delay(5);
-	HAL_Delay(1500);
-	int speed = 10;*/
+	
+	int speed = 10;
 	//int wait_flag = 0;
   /* USER CODE END 2 */
 
@@ -175,7 +137,7 @@ int main(void)
 	  
 	  
 	  
-	  /*if(Action_done[ActionNowFlag] == 0 && Action_index[ActionNowFlag]->actionId == ActionNowFlag && ActionNowFlag != 0)
+	  if(Action_done[ActionNowFlag] == 0 && Action_index[ActionNowFlag]->actionId == ActionNowFlag && ActionNowFlag != 0)
 	  {
 		  speed = 5;
 		  for(int i = 1;i <= 12;i++)
@@ -213,29 +175,10 @@ int main(void)
 			}	
 		  }
 	  }
-	  
-	  
-	  ang_set[0] = ang_goal[1];
-	  ang_set[1] = ang_goal[2];
-	  ang_set[2] = ang_goal[3];
-	  User_UsartSetLegAngTime(1,ang_set,ms_set);
-	  HAL_Delay(2);
-	  ang_set[0] = ang_goal[4];
-	  ang_set[1] = ang_goal[5];
-	  ang_set[2] = ang_goal[6];
-	  User_UsartSetLegAngTime(2,ang_set,ms_set);
-	  HAL_Delay(2);
-	  ang_set[0] = ang_goal[7];
-	  ang_set[1] = ang_goal[8];
-	  ang_set[2] = ang_goal[9];
-	  User_UsartSetLegAngTime(3,ang_set,ms_set);
-	  HAL_Delay(2);
-	  ang_set[0] = ang_goal[10];
-	  ang_set[1] = ang_goal[11];
-	  ang_set[2] = ang_goal[12];
-	  User_UsartSetLegAngTime(4,ang_set,ms_set);
-	  HAL_Delay(2);*/
-	  User_UsartReadServoAng(1);
+	  HAL_Delay(5);
+	  /*User_UsartReadServoData(1,1);
+	  HAL_Delay(5);*/
+	  /*User_UsartReadServoAng(1);
 	  //User_UsartReadServoAng(4);
 	  User_UsartReadServoAng(7);
 	  //User_UsartReadServoAng(10);
@@ -249,7 +192,7 @@ int main(void)
 	  //User_UsartReadServoAng(6);
 	  User_UsartReadServoAng(9);
 	  //User_UsartReadServoAng(12);
-	  HAL_Delay(5);
+	  HAL_Delay(5);*/
   }
   /* USER CODE END 3 */
 }
