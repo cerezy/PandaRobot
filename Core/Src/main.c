@@ -28,11 +28,7 @@
 /* USER CODE BEGIN Includes */
 #include "user_servo.h"
 #include "Action_library.h"
-int16_t ang_set[3] = {0}; 
-uint16_t ms_set[3] = {0}; 
-int16_t ang_goal[14] = {0}; 
-uint16_t ms_goal[14] = {0}; 
-uint8_t usart_tx_buf[40] = {0};
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,6 +62,14 @@ void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN 0 */
 uint8_t vis[14] = {0};
 int step_counter = 0;
+int16_t ang_set[3] = {0}; 
+uint16_t ms_set[3] = {0}; 
+int16_t ang_goal[14] = {0}; 
+uint16_t ms_goal[14] = {0}; 
+uint8_t usart_tx_buf[40] = {0};
+uint8_t Action_done[50] = {0};
+uint8_t ActionPreFlag = 0;
+uint8_t ActionNowFlag = 7;
 /* USER CODE END 0 */
 
 /**
@@ -97,23 +101,24 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_UART4_Init();
-  MX_USART1_UART_Init();
   MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   MX_UART5_Init();
   MX_TIM4_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-    Action_init();
-	User_ServoInit();
-	ang_set[0] = 0;
+  Action_init();//动作库初始化（动作信息）
+  User_ServoInit();//舵机信息初始化（对应串口等）
+	/*ang_set[0] = 0;
 	ang_set[1] = 0;
 	ang_set[2] = 0;
-	ang_goal[1] = 700;
+	
+	ang_goal[1] = 950;
 	ang_goal[2] = 0;
 	ang_goal[3] = 0;
 	ang_goal[4] = 0;
-	ang_goal[5] = 900;
+	ang_goal[5] = 0;
 	ang_goal[6] = 0;
 	ang_goal[7] = 900;
 	ang_goal[8] = 0;
@@ -121,11 +126,14 @@ int main(void)
 	ang_goal[10] = -900;
 	ang_goal[11] = 0;
 	ang_goal[12] = 0;
+	
 	ms_set[0] = 2;
 	ms_set[1] = 2;
 	ms_set[2] = 2;
-	HAL_Delay(3500);
-	ang_set[0] = ang_goal[1];
+	HAL_Delay(5000);
+	
+	
+	  ang_set[0] = ang_goal[1];
 	  ang_set[1] = ang_goal[2];
 	  ang_set[2] = ang_goal[3];
 	  User_UsartSetLegAngTime(1,ang_set,ms_set);
@@ -146,8 +154,8 @@ int main(void)
 	  User_UsartSetLegAngTime(4,ang_set,ms_set);
 	  HAL_Delay(5);
 	HAL_Delay(1500);
-	int speed = 10;
-	int wait_flag = 0;
+	int speed = 10;*/
+	//int wait_flag = 0;
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -165,126 +173,46 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  
-	  /*ang_set[0] = ang_goal[1];
-	  ang_set[1] = ang_goal[2];
-	  ang_set[2] = ang_goal[3];
-	  User_UsartSetLegAngTime(1,ang_set,ms_set);
-	  HAL_Delay(5);
-	  ang_set[0] = ang_goal[4];
-	  ang_set[1] = ang_goal[5];
-	  ang_set[2] = ang_goal[6];
-	  User_UsartSetLegAngTime(2,ang_set,ms_set);
-	  HAL_Delay(5);
-	  ang_set[0] = ang_goal[7];
-	  ang_set[1] = ang_goal[8];
-	  ang_set[2] = ang_goal[9];
-	  User_UsartSetLegAngTime(3,ang_set,ms_set);
-	  HAL_Delay(5);
-	  ang_set[0] = ang_goal[10];
-	  ang_set[1] = ang_goal[11];
-	  ang_set[2] = ang_goal[12];
-	  User_UsartSetLegAngTime(4,ang_set,ms_set);
-	  HAL_Delay(5);*/
-	  /*for(int i = 0;i < 3;i++)
-	  {
-		if(ang_set[i] < ang_goal[i+1])
-			ang_set[i] += 10;
-		else if(ang_set[i] > ang_goal[i+1])
-			ang_set[i] -= 10;
-	  }
-	  User_UsartSetLegAngTime(1,ang_set,ms_set);
-	  HAL_Delay(1);
-	  for(int i = 0;i < 3;i++)
-	  {
-		if(ang_set[i] < ang_goal[i+4])
-			ang_set[i] += 10;
-		else if(ang_set[i] > ang_goal[i+4])
-			ang_set[i] -= 10;
-	  }
-	  User_UsartSetLegAngTime(2,ang_set,ms_set);
-	  HAL_Delay(1);
-	  for(int i = 0;i < 3;i++)
-	  {
-		if(ang_set[i] < ang_goal[i+7])
-			ang_set[i] += 10;
-		else if(ang_set[i] > ang_goal[i+7])
-			ang_set[i] -= 10;
-	  }
-	  User_UsartSetLegAngTime(3,ang_set,ms_set);
-	  HAL_Delay(1);
-	  for(int i = 0;i < 3;i++)
-	  {
-		if(ang_set[i] < ang_goal[i+10])
-			ang_set[i] += 10;
-		else if(ang_set[i] > ang_goal[i+10])
-			ang_set[i] -= 10;
-	  }
-	  User_UsartSetLegAngTime(4,ang_set,ms_set);
-	  HAL_Delay(1);*/
-	  /*ang_set[0] = ang_goal[1];
-	  ang_set[1] = ang_goal[2];
-	  ang_set[2] = ang_goal[3];
-	  User_UsartSetLegAngTime(1,ang_set,ms_set);*/
-	  //HAL_Delay(5);
 	  
 	  
-	  
-	  if(step_counter == 1 || step_counter == 2)
-		  speed = 2;
-	  else speed = 5;
-	  for(int i = 1;i <= 12;i++)
+	  /*if(Action_done[ActionNowFlag] == 0 && Action_index[ActionNowFlag]->actionId == ActionNowFlag && ActionNowFlag != 0)
 	  {
-		if(ang_goal[i] < Action_Hello.actions[step_counter].servoAngles[i-1])
-			ang_goal[i] += speed;
-		else if(ang_goal[i] > Action_Hello.actions[step_counter].servoAngles[i-1])
-			ang_goal[i] -= speed;
-		if(ang_goal[i] == Action_Hello.actions[step_counter].servoAngles[i-1])
-			vis[i] = 1;
+		  speed = 5;
+		  for(int i = 1;i <= 12;i++)
+		  {
+			if(ang_goal[i] < Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1])
+				ang_goal[i] += speed;
+			else if(ang_goal[i] > Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1])
+				ang_goal[i] -= speed;
+			if(ang_goal[i] == Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1])
+				vis[i] = 1;
+		  }
+		  for(int i = 1;i <= 12;i++)
+		  {
+			if(vis[i] == 0)
+				break;
+			if(i == 12)
+			{
+				if(step_counter <  Action_index[ActionNowFlag]->total_step -1)
+				{
+					step_counter ++;
+					for(int i = 1;i <= 12;i++)
+						vis[i] = 0;
+				}
+				else if(step_counter == Action_index[ActionNowFlag]->total_step - 1)
+				{
+					if(ActionNowFlag == 7) 
+						ActionNowFlag = 10;
+					Action_done[Action_index[ActionNowFlag]->actionId] = 1;
+					if(ActionNowFlag == 10) 
+						Action_done[Action_index[ActionNowFlag]->actionId] = 0;
+					step_counter = 0;
+					for(int i = 1;i <= 12;i++)
+						vis[i] = 0;
+				}
+			}	
+		  }
 	  }
-	  for(int i = 1;i <= 12;i++)
-	  {
-		if(vis[i] == 0)
-			break;
-		if(i == 12 && step_counter < Action_Hello.total_step - 1)
-		{
-			step_counter ++;
-			for(int i = 1;i <= 12;i++)
-				vis[i] = 0;
-		}	
-	  }
-	  
-	  /*speed = 2;
-	  if(step_counter == 2 && wait_flag == 0)
-	  {
-		  HAL_Delay(1500);
-		  wait_flag = 1;
-	  }
-	  if(step_counter == 3 && wait_flag == 1)
-	  {
-		  HAL_Delay(2500);
-		  wait_flag = 0;
-	  }
-	  for(int i = 1;i <= 12;i++)
-	  {
-		if(ang_goal[i] < Action_Hug.actions[step_counter].servoAngles[i-1])
-			ang_goal[i] += speed;
-		else if(ang_goal[i] > Action_Hug.actions[step_counter].servoAngles[i-1])
-			ang_goal[i] -= speed;
-		if(ang_goal[i] == Action_Hug.actions[step_counter].servoAngles[i-1])
-			vis[i] = 1;
-	  }
-	  for(int i = 1;i <= 12;i++)
-	  {
-		if(vis[i] == 0)
-			break;
-		if(i == 12 && step_counter < Action_Hug.total_step - 1)
-		{
-			step_counter ++;
-			for(int i = 1;i <= 12;i++)
-				vis[i] = 0;
-		}	
-	  }*/
-	  
 	  
 	  
 	  ang_set[0] = ang_goal[1];
@@ -306,7 +234,22 @@ int main(void)
 	  ang_set[1] = ang_goal[11];
 	  ang_set[2] = ang_goal[12];
 	  User_UsartSetLegAngTime(4,ang_set,ms_set);
-	  HAL_Delay(2);
+	  HAL_Delay(2);*/
+	  User_UsartReadServoAng(1);
+	  //User_UsartReadServoAng(4);
+	  User_UsartReadServoAng(7);
+	  //User_UsartReadServoAng(10);
+	  HAL_Delay(5);
+	  User_UsartReadServoAng(2);
+	  //User_UsartReadServoAng(5);
+	  User_UsartReadServoAng(8);
+	  //User_UsartReadServoAng(11);
+	  HAL_Delay(5);
+	  User_UsartReadServoAng(3);
+	  //User_UsartReadServoAng(6);
+	  User_UsartReadServoAng(9);
+	  //User_UsartReadServoAng(12);
+	  HAL_Delay(5);
   }
   /* USER CODE END 3 */
 }

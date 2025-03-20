@@ -16,10 +16,10 @@ uint8_t SERVO_COMM_BUSY = 0;
 void User_ServoInit(void)
 {               
 	//各组舵机对应串口
-	USART_LEG1.p_usart_n = &huart5;
-	USART_LEG1.p_hdma_usart_n_rx = &hdma_uart5_rx;
-	USART_LEG2.p_usart_n = &huart3;
-	USART_LEG2.p_hdma_usart_n_rx = &hdma_usart3_rx;
+	USART_LEG1.p_usart_n = &huart1;
+	USART_LEG1.p_hdma_usart_n_rx = &hdma_usart1_rx;
+	USART_LEG2.p_usart_n = &huart1;
+	USART_LEG2.p_hdma_usart_n_rx = &hdma_usart1_rx;
 	USART_LEG3.p_usart_n = &huart2;
 	USART_LEG3.p_hdma_usart_n_rx = &hdma_usart2_rx;
 	USART_LEG4.p_usart_n = &huart2;
@@ -29,25 +29,68 @@ void User_ServoInit(void)
 	SERVO[1].zero_ang = 0;
 	
 	
-	//__HAL_UART_ENABLE_IT(USART_LEG1.p_usart_n, UART_IT_IDLE);         
-	//HAL_UART_Receive_DMA(USART_LEG1.p_usart_n, (uint8_t*)USART_LEG1.usart_rx_buf, USART_SERVO_RX_SIZE);   
+	//启动空闲中断接收
+	__HAL_UART_ENABLE_IT(USART_LEG1.p_usart_n, UART_IT_IDLE);         
+	HAL_UART_Receive_DMA(USART_LEG1.p_usart_n, (uint8_t*)USART_LEG1.usart_rx_buf, USART_SERVO_RX_SIZE);  
 	
+	__HAL_UART_ENABLE_IT(USART_LEG2.p_usart_n, UART_IT_IDLE);         
+	HAL_UART_Receive_DMA(USART_LEG2.p_usart_n, (uint8_t*)USART_LEG2.usart_rx_buf, USART_SERVO_RX_SIZE); 
+  
+	__HAL_UART_ENABLE_IT(USART_LEG3.p_usart_n, UART_IT_IDLE);         
+	HAL_UART_Receive_DMA(USART_LEG3.p_usart_n, (uint8_t*)USART_LEG3.usart_rx_buf, USART_SERVO_RX_SIZE); 
+  
+	__HAL_UART_ENABLE_IT(USART_LEG4.p_usart_n, UART_IT_IDLE);         
+	HAL_UART_Receive_DMA(USART_LEG4.p_usart_n, (uint8_t*)USART_LEG4.usart_rx_buf, USART_SERVO_RX_SIZE); 
+  
 }
-
+//串口空闲中断接收
 void User_ServoLeg1IRQHandler(void)
 {
-	if(RESET != __HAL_UART_GET_FLAG(USART_LEG1.p_usart_n, UART_FLAG_IDLE))   
+	if(RESET != __HAL_UART_GET_FLAG(USART_LEG1.p_usart_n, UART_FLAG_IDLE))  //检查UART的空闲中断标志位是否被置位
 	{
-		__HAL_UART_CLEAR_IDLEFLAG(USART_LEG1.p_usart_n);    		
-		HAL_UART_DMAStop(USART_LEG1.p_usart_n);                                                        
-    USART_LEG1.rx_data_len  = USART_SERVO_RX_SIZE - __HAL_DMA_GET_COUNTER(USART_LEG1.p_hdma_usart_n_rx);  
-		User_UsartServoDataParas(&USART_LEG1);///////
-		HAL_UART_Receive_DMA(USART_LEG1.p_usart_n, (uint8_t*)USART_LEG1.usart_rx_buf, USART_SERVO_RX_SIZE);
+		__HAL_UART_CLEAR_IDLEFLAG(USART_LEG1.p_usart_n);   				    //清除中断标志位，防止重复触发中断		
+		HAL_UART_DMAStop(USART_LEG1.p_usart_n);             				//终止当前DMA传输，确保后续操作（如计算数据长度）的准确性                                         
+		USART_LEG1.rx_data_len  = USART_SERVO_RX_SIZE - __HAL_DMA_GET_COUNTER(USART_LEG1.p_hdma_usart_n_rx);  //计算实际接收长度
+		User_UsartServoDataParas(&USART_LEG1);								//解析数据
+		HAL_UART_Receive_DMA(USART_LEG1.p_usart_n, (uint8_t*)USART_LEG1.usart_rx_buf, USART_SERVO_RX_SIZE);//重启DMA接收
 	}
 }
- 
-void User_UsartServoDataParas(USART_SERVO_TYPEDEF* p_usart_servo_x)
+/*void User_ServoLeg2IRQHandler(void)
 {
+	if(RESET != __HAL_UART_GET_FLAG(USART_LEG2.p_usart_n, UART_FLAG_IDLE))   
+	{
+		__HAL_UART_CLEAR_IDLEFLAG(USART_LEG2.p_usart_n);    		
+		HAL_UART_DMAStop(USART_LEG2.p_usart_n);                                                        
+        USART_LEG2.rx_data_len  = USART_SERVO_RX_SIZE - __HAL_DMA_GET_COUNTER(USART_LEG2.p_hdma_usart_n_rx);  
+		User_UsartServoDataParas(&USART_LEG2);///////
+		HAL_UART_Receive_DMA(USART_LEG2.p_usart_n, (uint8_t*)USART_LEG2.usart_rx_buf, USART_SERVO_RX_SIZE);
+	}
+}*/
+void User_ServoLeg3IRQHandler(void)
+{
+	if(RESET != __HAL_UART_GET_FLAG(USART_LEG3.p_usart_n, UART_FLAG_IDLE))   
+	{
+		__HAL_UART_CLEAR_IDLEFLAG(USART_LEG3.p_usart_n);    		
+		HAL_UART_DMAStop(USART_LEG3.p_usart_n);                                                        
+        USART_LEG3.rx_data_len  = USART_SERVO_RX_SIZE - __HAL_DMA_GET_COUNTER(USART_LEG3.p_hdma_usart_n_rx);  
+		User_UsartServoDataParas(&USART_LEG3);///////
+		HAL_UART_Receive_DMA(USART_LEG3.p_usart_n, (uint8_t*)USART_LEG3.usart_rx_buf, USART_SERVO_RX_SIZE);
+	}
+}
+void User_ServoLeg4IRQHandler(void)
+{
+	if(RESET != __HAL_UART_GET_FLAG(USART_LEG4.p_usart_n, UART_FLAG_IDLE))   
+	{
+		__HAL_UART_CLEAR_IDLEFLAG(USART_LEG4.p_usart_n);    		
+		HAL_UART_DMAStop(USART_LEG4.p_usart_n);                                                        
+        USART_LEG4.rx_data_len  = USART_SERVO_RX_SIZE - __HAL_DMA_GET_COUNTER(USART_LEG4.p_hdma_usart_n_rx);  
+		User_UsartServoDataParas(&USART_LEG4);///////
+		HAL_UART_Receive_DMA(USART_LEG4.p_usart_n, (uint8_t*)USART_LEG4.usart_rx_buf, USART_SERVO_RX_SIZE);
+	}
+}
+//舵机返回数据解析
+void User_UsartServoDataParas(USART_SERVO_TYPEDEF* p_usart_servo_x)
+{		
 	uint8_t i = 0;
 	uint8_t sum = 0;
 	
@@ -88,7 +131,7 @@ void User_UsartServoDataParas(USART_SERVO_TYPEDEF* p_usart_servo_x)
 		}
 	}
 }
-
+//舵机角度读取函数
 void User_UsartReadServoAng(uint8_t servo_id)
 {
 	uint8_t i = 0;
@@ -98,6 +141,9 @@ void User_UsartReadServoAng(uint8_t servo_id)
 	switch(servo_id)
 	{
 		case 1:;case 2:;case 3:p_usart_servo_x = &USART_LEG1;break;
+		case 4:;case 5:;case 6:p_usart_servo_x = &USART_LEG2;break;
+		case 7:;case 8:;case 9:p_usart_servo_x = &USART_LEG3;break;
+		case 10:;case 11:;case 12:p_usart_servo_x = &USART_LEG4;break;
 		default:break;
 	}
 	
@@ -124,6 +170,9 @@ void User_UsartReadServoData(uint8_t servo_id,uint8_t data_id)
 	switch(servo_id)
 	{
 		case 1:;case 2:;case 3:p_usart_servo_x = &USART_LEG1;break;
+		case 4:;case 5:;case 6:p_usart_servo_x = &USART_LEG2;break;
+		case 7:;case 8:;case 9:p_usart_servo_x = &USART_LEG3;break;
+		case 10:;case 11:;case 12:p_usart_servo_x = &USART_LEG4;break;
 		default:break;
 	}
 	p_usart_servo_x->usart_tx_buf[0] = 0x12;// 帧头
@@ -171,6 +220,33 @@ void User_UsartSetServoAngTime(uint8_t servo_id,int16_t ang,uint16_t ms)
 	p_usart_servo_x->usart_tx_buf[11] = sum;// 数据包校验和（对0到n-1的字节数据求和，然后跟256取余数）
 	
 	HAL_UART_Transmit_DMA(p_usart_servo_x->p_usart_n,p_usart_servo_x->usart_tx_buf,12);
+}
+void User_SetOriginPoint(uint8_t leg_id)
+{
+	uint8_t i = 0;
+	uint8_t sum = 0;
+	USART_SERVO_TYPEDEF* p_usart_servo_x;
+	
+	switch(leg_id)
+	{
+		case 1:;case 2:;case 3:p_usart_servo_x = &USART_LEG1;break;
+		case 4:;case 5:;case 6:p_usart_servo_x = &USART_LEG2;break;
+		case 7:;case 8:;case 9:p_usart_servo_x = &USART_LEG3;break;
+		case 10:;case 11:;case 12:p_usart_servo_x = &USART_LEG4;break;
+		default:break;
+	}	
+	p_usart_servo_x->usart_tx_buf[0] = 0x12;// 帧头
+	p_usart_servo_x->usart_tx_buf[1] = 0x4c;// 帧头
+	p_usart_servo_x->usart_tx_buf[2] = 0x17;// 角度控制模式
+	p_usart_servo_x->usart_tx_buf[3] = 0x02;// 数据包内容的字节长度
+	p_usart_servo_x->usart_tx_buf[4] = 0x05;// 数据包内容 舵机ID
+	p_usart_servo_x->usart_tx_buf[5] = 0x00;//舵机目标角度 低8位
+	for(i=0;i<=5;i++)
+	{
+		sum += p_usart_servo_x->usart_tx_buf[i];
+	}
+	p_usart_servo_x->usart_tx_buf[6] = sum%256;// 数据包校验和（对0到n-1的字节数据求和，然后跟256取余数）	
+	HAL_UART_Transmit_DMA(p_usart_servo_x->p_usart_n,p_usart_servo_x->usart_tx_buf,7);
 }
 
 void User_UsartSetLegAngTime(uint8_t leg_id,int16_t ang[3],uint16_t ms[3])
@@ -242,19 +318,30 @@ void User_UsartSetLegAngTime(uint8_t leg_id,int16_t ang[3],uint16_t ms[3])
 	
 	HAL_UART_Transmit_DMA(p_usart_servo_x->p_usart_n,p_usart_servo_x->usart_tx_buf,36);
 }
-
+extern int16_t ang_goal[14]; 
 void User_LegAllSetAngTime(void) 
 {
 	int16_t ang_set[3] = {0}; 
 	uint16_t ms_set[3] = {0}; 
-	
-	ang_set[0] = SERVO[1].ang_set + SERVO[1].zero_ang;
-	//ang_set[1] = SERVO[2].ang_set + SERVO[2].zero_ang;
-	//ang_set[2] = SERVO[3].ang_set + SERVO[3].zero_ang;
-	//User_SeovoActTimeCalcu();
-	ms_set[0] = 2;//SERVO[1].ms_set;
-	//ms_set[1] = SERVO[2].ms_set;
-	//ms_set[2] = SERVO[3].ms_set;
+	ms_set[0] = 2;
+	ms_set[1] = 2;
+	ms_set[2] = 2;
+	ang_set[0] = ang_goal[1];
+	ang_set[1] = ang_goal[2];
+	ang_set[2] = ang_goal[3];
+	User_UsartSetLegAngTime(1,ang_set,ms_set);
+	ang_set[0] = ang_goal[4];
+	ang_set[1] = ang_goal[5];
+	ang_set[2] = ang_goal[6];
+	User_UsartSetLegAngTime(2,ang_set,ms_set);
+	ang_set[0] = ang_goal[7];
+	ang_set[1] = ang_goal[8];
+	ang_set[2] = ang_goal[9];
+	User_UsartSetLegAngTime(3,ang_set,ms_set);
+	ang_set[0] = ang_goal[10];
+	ang_set[1] = ang_goal[11];
+	ang_set[2] = ang_goal[12];
+	User_UsartSetLegAngTime(4,ang_set,ms_set);
 	User_UsartSetLegAngTime(1,ang_set,ms_set);
 }
 

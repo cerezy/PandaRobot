@@ -45,6 +45,7 @@ void User_UsartReadServoData(uint8_t servo_id,uint8_t data_id);
 void User_UsartSetServoAngTime(uint8_t servo_id,int16_t ang,uint16_t ms);
 void User_UsartSetLegAngTime(uint8_t leg_id,int16_t ang[3],uint16_t ms[3]);
 void User_LegAllSetAngTime(void);
+void User_SetOriginPoint(uint8_t leg_id);
 void User_SeovoActTimeCalcu(void);
 uint8_t User_IsLegAngArrive(uint8_t leg_id);
 uint8_t User_IsLegTrigFloor(uint8_t leg_id);
