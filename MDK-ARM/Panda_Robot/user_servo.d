@@ -61,5 +61,6 @@ panda_robot\user_servo.o: ..\Users\user_imu.h
 panda_robot\user_servo.o: ..\Users\user_comm.h
 panda_robot\user_servo.o: ..\Users\user_servo.h
 panda_robot\user_servo.o: ..\Users\user_gait.h
+panda_robot\user_servo.o: ..\Users\Action_Library.h
 panda_robot\user_servo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 panda_robot\user_servo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

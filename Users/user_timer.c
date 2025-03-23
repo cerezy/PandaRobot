@@ -19,6 +19,10 @@ void User_TimerInit(void)
 {
 	HAL_TIM_Base_Start_IT(&USER_htim_servo);//  	
 }
+void User_TeachTimerInit(void)
+{
+	HAL_TIM_Base_Start_IT(&htim6);
+}
 /*
 舵机控制：
 定时器周期：1ms
@@ -62,7 +66,8 @@ void User_TimerServoIRQ(void)
 				wait_to_set ++;
 				if(wait_to_set == 1)
 				{
-					User_LegAllSetAngTime();
+					if(TEACHMODE != 1) //示教模式下，电机不动
+						User_LegAllSetAngTime();
 				}					
 				else if(wait_to_set == 2)
 				{
@@ -112,5 +117,32 @@ void User_TimerServoIRQ(void)
 	}
 		
 }
-
+int T_COUNTER = 0;
+int step_record = 0;
+int last_step_record = 0;
+void User_TimerTeachIRQ(void)
+{
+	
+	if (__HAL_TIM_GET_IT_SOURCE(&USER_htim_teach, TIM_IT_UPDATE) != RESET)
+	{
+		T_COUNTER++;
+		if(step_record == last_step_record && TEACH_OK == 1 && TEACH_FINISH != 1)
+		{
+			step_record = T_COUNTER;
+		}
+		if(TEACH_OK == 1 && step_record != last_step_record && TEACH_FINISH != 1)
+		{
+			if(T_COUNTER - step_record >= 35)
+			{
+				TEACH_FINISH = 1;
+				last_step_record = step_record;
+			}
+			else {
+				for(int i = 0;i<14; i++)
+					Action_TEACH.actions[T_COUNTER - step_record].servoAngles[i] = SERVO[i+1].ang_read;
+				Action_TEACH.actions[T_COUNTER - step_record].stepDuration = 2;
+			}
+		}
+	}
+}
 

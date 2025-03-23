@@ -45,6 +45,7 @@ void User_UsartSetLegAngTime(uint8_t leg_id,int16_t ang[6],uint16_t ms[6]);
 void User_LegAllSetAngTime(void);
 void User_SetOriginPoint(uint8_t leg_id);
 void User_SeovoActTimeCalcu(void);
+void User_SetDamping(uint8_t leg_id,uint16_t Power);
 uint8_t User_IsLegAngArrive(uint8_t leg_id);
 uint8_t User_IsLegTrigFloor(uint8_t leg_id);
 #endif

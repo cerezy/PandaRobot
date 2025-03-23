@@ -52,6 +52,7 @@ extern DMA_HandleTypeDef hdma_usart3_tx;
 extern DMA_HandleTypeDef hdma_usart6_rx;
 extern DMA_HandleTypeDef hdma_usart6_tx;
 extern TIM_HandleTypeDef htim4;
+extern TIM_HandleTypeDef htim6;
 
 
 #include "main.h"
@@ -64,7 +65,7 @@ extern TIM_HandleTypeDef htim4;
 #include "user_comm.h"
 #include "user_servo.h"
 #include "user_gait.h"
-
+#include "Action_Library.h"
 #endif
 
 

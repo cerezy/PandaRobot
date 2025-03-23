@@ -70,6 +70,8 @@ uint8_t usart_tx_buf[40] = {0};
 uint8_t Action_done[50] = {0};
 uint8_t ActionPreFlag = 0;
 uint8_t ActionNowFlag = 7;
+uint8_t AngTeachInfo[30] = {0};
+int FW = 0;
 /* USER CODE END 0 */
 
 /**
@@ -102,16 +104,19 @@ int main(void)
   MX_GPIO_Init();
   MX_UART4_Init();
   MX_DMA_Init();
-  MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   MX_UART5_Init();
   MX_TIM4_Init();
   MX_USART1_UART_Init();
+  MX_TIM6_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_Delay(5000);
+  //Action_Teachmode_Init();
   Action_init();//动作库初始化（动作信息）
   User_ServoInit();//舵机信息初始化（对应串口等）
   User_TimerInit();	
+  User_TeachTimerInit();
   
 	
 	
@@ -136,63 +141,72 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  
 	  
-	  
-	  if(Action_done[ActionNowFlag] == 0 && Action_index[ActionNowFlag]->actionId == ActionNowFlag && ActionNowFlag != 0)
+	  /*if(TEACHMODE == 1)
 	  {
-		  speed = 5;
-		  for(int i = 1;i <= 12;i++)
+		  if(FW == 1)
 		  {
-			if(ang_goal[i] < Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1])
-				ang_goal[i] += speed;
-			else if(ang_goal[i] > Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1])
-				ang_goal[i] -= speed;
-			if(ang_goal[i] == Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1])
-				vis[i] = 1;
+			User_SetDamping(1,2);
+			User_SetDamping(2,2);
+			FW = 0;
 		  }
-		  for(int i = 1;i <= 12;i++)
+		  //Action_Teachmode();
+		  if(TEACH_FINISH == 1)
 		  {
-			if(vis[i] == 0)
-				break;
-			if(i == 12)
-			{
-				if(step_counter <  Action_index[ActionNowFlag]->total_step -1)
-				{
-					step_counter ++;
-					for(int i = 1;i <= 12;i++)
-						vis[i] = 0;
-				}
-				else if(step_counter == Action_index[ActionNowFlag]->total_step - 1)
-				{
-					if(ActionNowFlag == 7) 
-						ActionNowFlag = 10;
-					Action_done[Action_index[ActionNowFlag]->actionId] = 1;
-					if(ActionNowFlag == 10) 
-						Action_done[Action_index[ActionNowFlag]->actionId] = 0;
-					step_counter = 0;
-					for(int i = 1;i <= 12;i++)
-						vis[i] = 0;
-				}
-			}	
+			  TEACHMODE = 0;
+			  TEACH_OK = 0;
+			  ActionNowFlag = 0;
+			  Action_done[Action_index[ActionNowFlag]->actionId] = 0;
+			  step_counter = 0;
+			  TEACH_FINISH = 0;
+			  //HAL_TIM_Base_Stop_IT(&htim6);
 		  }
+		  HAL_Delay(500);
 	  }
+	  else 
+	  {
+		  if(Action_done[ActionNowFlag] == 0 && Action_index[ActionNowFlag]->actionId == ActionNowFlag)
+		  {
+			  speed = 5;
+			  for(int i = 1;i <= 12;i++)
+			  {
+				if(ang_goal[i] <= Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1] - speed)
+					ang_goal[i] += speed;
+				else if(ang_goal[i] >= Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1] + speed)
+					ang_goal[i] -= speed;
+				if(ang_goal[i] > Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1] - speed && ang_goal[i] < Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1] + speed)
+					vis[i] = 1;
+			  }
+			  for(int i = 1;i <= 12;i++)
+			  {
+				if(vis[i] == 0)
+					break;
+				if(i == 12)
+				{
+					if(step_counter <  Action_index[ActionNowFlag]->total_step -1)
+					{
+						step_counter ++;
+						for(int i = 1;i <= 12;i++)
+							vis[i] = 0;
+					}
+					else if(step_counter == Action_index[ActionNowFlag]->total_step - 1)
+					{
+						if(ActionNowFlag == 7) 
+							ActionNowFlag = 10;
+						Action_done[Action_index[ActionNowFlag]->actionId] = 1;
+						if(ActionNowFlag == 10) 
+							Action_done[Action_index[ActionNowFlag]->actionId] = 0;
+						step_counter = 0;
+						for(int i = 1;i <= 12;i++)
+							vis[i] = 0;
+					}
+				}	
+			  }
+		  }
+		 // User_LegAllSetAngTime();
+		  HAL_Delay(5);
+	  }*/
 	  HAL_Delay(5);
-	  /*User_UsartReadServoData(1,1);
-	  HAL_Delay(5);*/
-	  /*User_UsartReadServoAng(1);
-	  //User_UsartReadServoAng(4);
-	  User_UsartReadServoAng(7);
-	  //User_UsartReadServoAng(10);
-	  HAL_Delay(5);
-	  User_UsartReadServoAng(2);
-	  //User_UsartReadServoAng(5);
-	  User_UsartReadServoAng(8);
-	  //User_UsartReadServoAng(11);
-	  HAL_Delay(5);
-	  User_UsartReadServoAng(3);
-	  //User_UsartReadServoAng(6);
-	  User_UsartReadServoAng(9);
-	  //User_UsartReadServoAng(12);
-	  HAL_Delay(5);*/
+	  
   }
   /* USER CODE END 3 */
 }

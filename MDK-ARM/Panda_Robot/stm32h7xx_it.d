@@ -62,3 +62,4 @@ panda_robot\stm32h7xx_it.o: ../Users/user_imu.h
 panda_robot\stm32h7xx_it.o: ../Users/user_comm.h
 panda_robot\stm32h7xx_it.o: ../Users/user_servo.h
 panda_robot\stm32h7xx_it.o: ../Users/user_gait.h
+panda_robot\stm32h7xx_it.o: ../Users/Action_Library.h

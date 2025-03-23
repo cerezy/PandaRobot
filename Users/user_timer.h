@@ -5,6 +5,7 @@
 
 
 #define USER_htim_servo	htim4
+#define USER_htim_teach   htim6
 #define USER_TIM_SERVO	TIM4
 
 
@@ -17,8 +18,9 @@ extern TIMER_TYPEDEF TIMER;
 
 
 void User_TimerInit(void);
+void User_TeachTimerInit(void);
 void User_TimerServoIRQ(void);
-
+void User_TimerTeachIRQ(void);
 
 #endif
 

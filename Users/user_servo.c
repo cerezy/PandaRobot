@@ -23,14 +23,14 @@ void User_ServoInit(void)
 	USART_LEG1.p_hdma_usart_n_rx = &hdma_usart1_rx;
 	USART_LEG2.p_usart_n = &huart1;
 	USART_LEG2.p_hdma_usart_n_rx = &hdma_usart1_rx;
-	USART_LEG3.p_usart_n = &huart2;
-	USART_LEG3.p_hdma_usart_n_rx = &hdma_usart2_rx;
-	USART_LEG4.p_usart_n = &huart2;
-	USART_LEG4.p_hdma_usart_n_rx = &hdma_usart2_rx;
+	USART_LEG3.p_usart_n = &huart3;
+	USART_LEG3.p_hdma_usart_n_rx = &hdma_usart3_rx;
+	USART_LEG4.p_usart_n = &huart3;
+	USART_LEG4.p_hdma_usart_n_rx = &hdma_usart3_rx;
 	USART_RIGHT_LEG.p_usart_n = &huart1;
 	USART_RIGHT_LEG.p_hdma_usart_n_rx = &hdma_usart1_rx;
-	USART_LEFT_LEG.p_usart_n = &huart2;
-	USART_LEFT_LEG.p_hdma_usart_n_rx = &hdma_usart2_rx;
+	USART_LEFT_LEG.p_usart_n = &huart3;
+	USART_LEFT_LEG.p_hdma_usart_n_rx = &hdma_usart3_rx;
 	
 	//各个伺服舵机的初始角度（*10）
 	ang_goal[1] = 950;
@@ -45,7 +45,8 @@ void User_ServoInit(void)
 	ang_goal[10] = -900;
 	ang_goal[11] = 0;
 	ang_goal[12] = 0;
-	SERVO[1].zero_ang = 0;
+	for(int i=0;i<=14;i++)
+		SERVO[i].zero_ang = 0;
 	
 	
 	//启动空闲中断接收
@@ -212,6 +213,33 @@ void User_UsartSetServoAngTime(uint8_t servo_id,int16_t ang,uint16_t ms)
 	p_usart_servo_x->usart_tx_buf[11] = sum;// 数据包校验和（对0到n-1的字节数据求和，然后跟256取余数）
 	
 	HAL_UART_Transmit_DMA(p_usart_servo_x->p_usart_n,p_usart_servo_x->usart_tx_buf,12);
+}
+//设置阻尼模式函数（固件目前不支持）
+void User_SetDamping(uint8_t leg_id,uint16_t Power)
+{
+	uint8_t i = 0;
+	uint8_t sum = 0;
+	USART_SERVO_TYPEDEF* p_usart_servo_x;
+	
+	switch(leg_id)
+	{
+		case 1:p_usart_servo_x = &USART_RIGHT_LEG;break;
+		case 2:p_usart_servo_x = &USART_LEFT_LEG;break;
+		default:break;
+	}	
+	p_usart_servo_x->usart_tx_buf[0] = 0x12;// 帧头
+	p_usart_servo_x->usart_tx_buf[1] = 0x4c;// 帧头
+	p_usart_servo_x->usart_tx_buf[2] = 0x09;// 阻尼控制模式
+	p_usart_servo_x->usart_tx_buf[3] = 0x03;// 数据包内容的字节长度
+	p_usart_servo_x->usart_tx_buf[4] = 0xff;// 数据包内容 舵机ID
+	p_usart_servo_x->usart_tx_buf[5] = Power&0xff;//舵机目标角度 低8位
+	p_usart_servo_x->usart_tx_buf[6] = Power>>8;//舵机目标角度 低8位
+	for(i=0;i<=6;i++)
+	{
+		sum += p_usart_servo_x->usart_tx_buf[i];
+	}
+	p_usart_servo_x->usart_tx_buf[7] = sum%256;// 数据包校验和（对0到n-1的字节数据求和，然后跟256取余数）	
+	HAL_UART_Transmit_DMA(p_usart_servo_x->p_usart_n,p_usart_servo_x->usart_tx_buf,8);
 }
 //设置原点函数（固件目前不支持）
 void User_SetOriginPoint(uint8_t leg_id)

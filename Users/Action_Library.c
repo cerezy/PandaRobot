@@ -9,9 +9,58 @@ ServoActionSeries Action_PronetoSit;
 ServoActionSeries Action_Lie2Standup;
 ServoActionSeries Action_Crawl;
 ServoActionSeries Action_Crawlrepeat;
+ServoActionSeries Action_TEACH;
+int TEACHMODE = 0;
+int TEACH_OK = 0;
+int TEACH_FINISH = 0;
+#if 0
+#include <stdio.h>
 
+/* 告知连接器不从C库链接使用半主机的函数 */
+#pragma import(__use_no_semihosting)
+
+/* 定义 _sys_exit() 以避免使用半主机模式 */
+void _sys_exit(int x)
+{
+    x = x;
+}
+
+/* 标准库需要的支持类型 */
+struct __FILE
+{
+    int handle;
+};
+
+FILE __stdout;
+
+/*  */
+int fputc(int ch, FILE *stream)
+{
+    /* 堵塞判断串口是否发送完成 */
+    while((UART4->ISR & 0X40) == 0);
+
+    /* 串口发送完成，将该字符发送 */
+    UART4->TDR = (uint8_t) ch;
+
+    return ch;
+}
+
+#endif
+void Action_Teachmode_Init(void)
+{
+	TEACHMODE = 1;
+}
+void Action_Teachmode(void)
+{
+	for(int i = 1;i <= 12;i++)
+    {
+	    //printf("%d ", SERVO[i].ang_read);
+    }
+	//printf("\r\n");
+}
 void Action_init(void)
 {
+	Action_index[0] = &Action_TEACH;
 	Action_index[1] = &Action_Hello;
 	Action_index[2] = &Action_Hug;
 	Action_index[3] = &Action_Standup;
@@ -20,11 +69,18 @@ void Action_init(void)
 	Action_index[6] = &Action_Lie2Standup;
 	Action_index[7] = &Action_Crawl;
 	Action_index[10] = &Action_Crawlrepeat;
+	
+	Action_TEACH.actionId = 0;
+	Action_TEACH.emotionType = EMOTION_NEUTRAL;
+	Action_TEACH.totalDuration = 5000;
+	Action_TEACH.total_step = 35;
+	
 	//1：挥手动作
 	Action_Hello.actionId = 1;
 	Action_Hello.emotionType = EMOTION_HAPPY;
 	Action_Hello.totalDuration = 5000;
 	Action_Hello.total_step = 6;
+	
 	Action_Hello.actions[0] = (ServoActionStep){
         .servoAngles = {1650, 200, 0, 0, 900, 0, 900, 0, 0, -900, 0, 0, 0, 0},
         .stepDuration = 2
