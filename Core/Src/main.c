@@ -141,7 +141,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  
 	  
-	  /*if(TEACHMODE == 1)
+	  if(TEACHMODE == 1)
 	  {
 		  if(FW == 1)
 		  {
@@ -204,7 +204,7 @@ int main(void)
 		  }
 		 // User_LegAllSetAngTime();
 		  HAL_Delay(5);
-	  }*/
+	  }
 	  HAL_Delay(5);
 	  
   }
