@@ -112,6 +112,7 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_Delay(5000);
+  TEACHMODE = 1;
   //Action_Teachmode_Init();
   Action_init();//动作库初始化（动作信息）
   User_ServoInit();//舵机信息初始化（对应串口等）
@@ -145,8 +146,8 @@ int main(void)
 	  {
 		  if(FW == 1)
 		  {
-			User_SetDamping(1,2);
-			User_SetDamping(2,2);
+			//User_SetDamping(1,2);
+			//User_SetDamping(2,2);
 			FW = 0;
 		  }
 		  //Action_Teachmode();

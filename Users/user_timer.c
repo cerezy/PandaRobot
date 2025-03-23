@@ -125,22 +125,25 @@ void User_TimerTeachIRQ(void)
 	
 	if (__HAL_TIM_GET_IT_SOURCE(&USER_htim_teach, TIM_IT_UPDATE) != RESET)
 	{
-		T_COUNTER++;
-		if(step_record == last_step_record && TEACH_OK == 1 && TEACH_FINISH != 1)
+		if(TEACHMODE == 1)
 		{
-			step_record = T_COUNTER;
-		}
-		if(TEACH_OK == 1 && step_record != last_step_record && TEACH_FINISH != 1)
-		{
-			if(T_COUNTER - step_record >= 35)
+			T_COUNTER++;
+			if(step_record == last_step_record && TEACH_OK == 1 && TEACH_FINISH != 1)
 			{
-				TEACH_FINISH = 1;
-				last_step_record = step_record;
+				step_record = T_COUNTER;
 			}
-			else {
-				for(int i = 0;i<14; i++)
-					Action_TEACH.actions[T_COUNTER - step_record].servoAngles[i] = SERVO[i+1].ang_read;
-				Action_TEACH.actions[T_COUNTER - step_record].stepDuration = 2;
+			if(TEACH_OK == 1 && step_record != last_step_record && TEACH_FINISH != 1)
+			{
+				if(T_COUNTER - step_record >= 35)
+				{
+					TEACH_FINISH = 1;
+					last_step_record = step_record;
+				}
+				else if((T_COUNTER - step_record)>=0 && (T_COUNTER - step_record) <= 34){
+					for(int i = 0;i<14; i++)
+						Action_TEACH.actions[T_COUNTER - step_record].servoAngles[i] = SERVO[i+1].ang_read;
+					Action_TEACH.actions[T_COUNTER - step_record].stepDuration = 2;
+				}
 			}
 		}
 	}
