@@ -160,6 +160,36 @@ ServoActionSeries Action_Test = (ServoActionSeries){
 	
 	
 };
+
+
+ServoActionSeries Active_Micromove_1 = (ServoActionSeries){
+		
+};
+
+ServoActionSeries Active_Micromove_2 = (ServoActionSeries){
+		
+};
+
+ServoActionSeries Active_Micromove_3 = (ServoActionSeries){
+		
+};
+
+ServoActionSeries Active_Micromove_4 = (ServoActionSeries){
+		
+};
+
+ServoActionSeries Active_Micromove_5 = (ServoActionSeries){
+		
+};
+
+ServoActionSeries Active_Micromove_6 = (ServoActionSeries){
+		
+};
+
+ServoActionSeries Active_Micromove_7 = (ServoActionSeries){
+		
+};
+
 int TEACHMODE = 0;
 int TEACH_OK = 0;
 int TEACH_FINISH = 0;

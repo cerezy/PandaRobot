@@ -83,13 +83,21 @@ void User_TimerServoIRQ(void)
 				{
 					cnt_servo_id++;	
 					User_UsartReadServoAng(cnt_servo_id);
-					User_UsartReadServoAng(cnt_servo_id+6);						
+					User_UsartReadServoAng(cnt_servo_id+6);	
+					if(cnt_servo_id == 1)
+						User_UsartReadServoAng(13);			
+					else if(cnt_servo_id == 4)
+						User_UsartReadServoAng(14);	
 				}
 				else//读数据：1-电压,2-电流，3-功率，4-温度
 				{
 					cnt_servo_id++;
 					User_UsartReadServoData(cnt_servo_id,data_type);
-					User_UsartReadServoData(cnt_servo_id+6,data_type);	
+					User_UsartReadServoData(cnt_servo_id+6,data_type);
+					if(cnt_servo_id == 1)
+						User_UsartReadServoData(13,data_type);			
+					else if(cnt_servo_id == 4)
+						User_UsartReadServoData(14,data_type);	
 				}
 				if(cnt_servo_id == 6)//6个1ms分别读取了6个舵机的数据后，进入新的周期并切换读取内容（读角度/读数据）
 				{

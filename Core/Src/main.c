@@ -60,7 +60,7 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t vis[14] = {0};
+uint8_t vis[15] = {0};
 int step_counter = 0;
 int16_t ang_set[6] = {0}; 
 uint16_t ms_set[6] = {0}; 
@@ -72,6 +72,7 @@ uint8_t ActionPreFlag = 0;
 uint8_t ActionNowFlag = 14;
 uint8_t AngTeachInfo[30] = {0};
 int FW = 0;
+int speed = 10;
 /* USER CODE END 0 */
 
 /**
@@ -122,7 +123,8 @@ int main(void)
 	
 	
 	
-	int speed = 10;
+	
+	speed = 2;
 	//int wait_flag = 0;
   /* USER CODE END 2 */
 
@@ -146,8 +148,9 @@ int main(void)
 	  {
 		  if(FW == 1)
 		  {
-			//User_SetDamping(1,2);
-			//User_SetDamping(2,2);
+			User_SetDamping(1,1000);
+			User_SetDamping(2,1000);
+		    User_SetDamping(3,1000);
 			FW = 0;
 		  }
 		  //
@@ -168,8 +171,8 @@ int main(void)
 	  {
 		  if(Action_done[ActionNowFlag] == 0 && Action_index[ActionNowFlag]->actionId == ActionNowFlag)
 		  {
-			  speed = 5;
-			  for(int i = 1;i <= 12;i++)
+			  
+			  for(int i = 1;i <= 14;i++)
 			  {
 				if(ang_goal[i] <= Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1] - speed)
 					ang_goal[i] += speed;
@@ -178,16 +181,16 @@ int main(void)
 				if(ang_goal[i] > Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1] - speed && ang_goal[i] < Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1] + speed)
 					vis[i] = 1;
 			  }
-			  for(int i = 1;i <= 12;i++)
+			  for(int i = 1;i <= 14;i++)
 			  {
 				if(vis[i] == 0)
 					break;
-				if(i == 12)
+				if(i == 14)
 				{
 					if(step_counter <  Action_index[ActionNowFlag]->total_step -1)
 					{
 						step_counter ++;
-						for(int i = 1;i <= 12;i++)
+						for(int i = 1;i <= 14;i++)
 							vis[i] = 0;
 					}
 					else if(step_counter == Action_index[ActionNowFlag]->total_step - 1)
@@ -198,7 +201,7 @@ int main(void)
 						if(ActionNowFlag == 10) 
 							Action_done[Action_index[ActionNowFlag]->actionId] = 0;
 						step_counter = 0;
-						for(int i = 1;i <= 12;i++)
+						for(int i = 1;i <= 14;i++)
 							vis[i] = 0;
 					}
 				}	
