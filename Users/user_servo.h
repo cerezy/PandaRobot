@@ -3,8 +3,8 @@
 
 #include "user_includes.h"
 
-#define USART_SERVO_TX_SIZE	100
-#define USART_SERVO_RX_SIZE	40
+#define USART_SERVO_TX_SIZE	90
+#define USART_SERVO_RX_SIZE	50
 
 
 

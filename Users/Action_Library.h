@@ -30,7 +30,7 @@ typedef enum {
 
 typedef struct {
     uint16_t        actionId;        // 系列动作唯一标识
-    ServoActionStep actions[50];     // 假定每一个表达情绪的整个动作被拆分为10个离散的单步动作
+    ServoActionStep actions[100];     // 假定每一个表达情绪的整个动作被拆分为10个离散的单步动作
     EmotionType     emotionType;     // 对应的情绪类型
 	uint16_t        total_step;
     float           totalDuration;   // 总执行时间（单位：ms）

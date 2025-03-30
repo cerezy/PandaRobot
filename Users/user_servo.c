@@ -23,14 +23,14 @@ void User_ServoInit(void)
 	USART_LEG1.p_hdma_usart_n_rx = &hdma_usart1_rx;
 	USART_LEG2.p_usart_n = &huart1;
 	USART_LEG2.p_hdma_usart_n_rx = &hdma_usart1_rx;
-	USART_LEG3.p_usart_n = &huart3;
-	USART_LEG3.p_hdma_usart_n_rx = &hdma_usart3_rx;
-	USART_LEG4.p_usart_n = &huart3;
-	USART_LEG4.p_hdma_usart_n_rx = &hdma_usart3_rx;
+	USART_LEG3.p_usart_n = &huart2;
+	USART_LEG3.p_hdma_usart_n_rx = &hdma_usart2_rx;
+	USART_LEG4.p_usart_n = &huart2;
+	USART_LEG4.p_hdma_usart_n_rx = &hdma_usart2_rx;
 	USART_RIGHT_LEG.p_usart_n = &huart1;
 	USART_RIGHT_LEG.p_hdma_usart_n_rx = &hdma_usart1_rx;
-	USART_LEFT_LEG.p_usart_n = &huart3;
-	USART_LEFT_LEG.p_hdma_usart_n_rx = &hdma_usart3_rx;
+	USART_LEFT_LEG.p_usart_n = &huart2;
+	USART_LEFT_LEG.p_hdma_usart_n_rx = &hdma_usart2_rx;
 	
 	//各个伺服舵机的初始角度（*10）
 	ang_goal[1] = 950;
@@ -389,6 +389,7 @@ void User_UsartSetLegAngTime(uint8_t leg_id,int16_t ang[6],uint16_t ms[6])
 	}
 	p_usart_servo_x->usart_tx_buf[60+11] = sum;// 数据包校验和（对0到n-1的字节数据求和，然后跟256取余数）	
 	
+	//HAL_UART_Transmit(p_usart_servo_x->p_usart_n,p_usart_servo_x->usart_tx_buf,72, 1000);
 	HAL_UART_Transmit_DMA(p_usart_servo_x->p_usart_n,p_usart_servo_x->usart_tx_buf,72);
 }
 //用来综合控制整个机器人的所有腿部

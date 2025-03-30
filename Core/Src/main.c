@@ -69,7 +69,7 @@ uint16_t ms_goal[15] = {0};
 uint8_t usart_tx_buf[40] = {0};
 uint8_t Action_done[50] = {0};
 uint8_t ActionPreFlag = 0;
-uint8_t ActionNowFlag = 7;
+uint8_t ActionNowFlag = 14;
 uint8_t AngTeachInfo[30] = {0};
 int FW = 0;
 /* USER CODE END 0 */
@@ -150,7 +150,7 @@ int main(void)
 			//User_SetDamping(2,2);
 			FW = 0;
 		  }
-		  //Action_Teachmode();
+		  //
 		  if(TEACH_FINISH == 1)
 		  {
 			  TEACHMODE = 0;
@@ -159,6 +159,7 @@ int main(void)
 			  Action_done[Action_index[ActionNowFlag]->actionId] = 0;
 			  step_counter = 0;
 			  TEACH_FINISH = 0;
+			  Action_Teachmode();
 			  //HAL_TIM_Base_Stop_IT(&htim6);
 		  }
 		  HAL_Delay(500);
@@ -203,11 +204,10 @@ int main(void)
 				}	
 			  }
 		  }
-		 // User_LegAllSetAngTime();
+		  
+		  //User_LegAllSetAngTime();
 		  HAL_Delay(5);
 	  }
-	  HAL_Delay(5);
-	  
   }
   /* USER CODE END 3 */
 }

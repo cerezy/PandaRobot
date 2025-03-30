@@ -50,7 +50,7 @@ void User_TeachTimerInit(void)
 */
 void User_TimerServoIRQ(void)
 {
-	static uint8_t cmd_type = _CMD_TYPE_SET;
+	static uint8_t cmd_type = _CMD_TYPE_READ;
 	static uint8_t read_type = _READ_TYPE_ANG;
 	static uint8_t data_type = _DATA_TYPE_CUR;
 	static uint8_t cnt_servo_id = 0;	
