@@ -1,7 +1,15 @@
 #ifndef __ACTION_LIBRARY_H__
 #define __ACTION_LIBRARY_H__
 #include "stdint.h"
-//#pragma pack(push, 1)
+
+#define ACTION_COUNT_MAX 50
+//示教总步进数设置（默认定时器为5次/秒，例如35次对应了7s总时长）
+#define TEACH_TOTAL_STEP 35
+//定义了每个动作最大的步进数
+#define MAX_TOTAL_STEP 100
+
+
+
 //坐标点结构体（3维空间坐标）（用于反解）
 typedef struct {
     float x;
@@ -30,7 +38,7 @@ typedef enum {
 
 typedef struct {
     uint16_t        actionId;        // 系列动作唯一标识
-    ServoActionStep actions[100];     // 假定每一个表达情绪的整个动作被拆分为10个离散的单步动作
+    ServoActionStep actions[MAX_TOTAL_STEP];     // 假定每一个表达情绪的整个动作被拆分为10个离散的单步动作
     EmotionType     emotionType;     // 对应的情绪类型
 	uint16_t        total_step;
     float           totalDuration;   // 总执行时间（单位：ms）
@@ -41,11 +49,6 @@ void Action_Teachmode_Init(void);
 void Action_Teachmode(void);
 extern ServoActionSeries* Action_index[50];
 extern int TEACHMODE;
-extern ServoActionSeries Action_Hello;
-extern ServoActionSeries Action_Hug;
-extern ServoActionSeries Action_Standup;
-extern ServoActionSeries Action_Sit2Prone;
-extern ServoActionSeries Action_Lie2Standup;
 extern ServoActionSeries Action_TEACH;
 extern int TEACH_OK;
 extern int TEACH_FINISH;

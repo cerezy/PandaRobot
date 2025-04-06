@@ -1,6 +1,49 @@
 #include "Action_library.h"
 #include "user_servo.h"
-ServoActionSeries* Action_index[50];
+
+
+#if 1
+#include <stdio.h>
+
+/* 告知连接器不从C库链接使用半主机的函数 */
+#pragma import(__use_no_semihosting)
+
+/* 定义 _sys_exit() 以避免使用半主机模式 */
+void _sys_exit(int x)
+{
+    x = x;
+}
+
+/* 标准库需要的支持类型 */
+struct __FILE
+{
+    int handle;
+};
+
+FILE __stdout;
+
+/*  */
+int fputc(int ch, FILE *stream)
+{
+    /* 堵塞判断串口是否发送完成 */
+    while((UART4->ISR & 0X40) == 0);
+
+    /* 串口发送完成，将该字符发送 */
+    UART4->TDR = (uint8_t) ch;
+
+    return ch;
+}
+
+#endif
+
+
+//指示当前序号动作的具体地址（用于调度动作）
+ServoActionSeries* Action_index[ACTION_COUNT_MAX];
+int TEACHMODE = 0;//表示示教模式的开闭
+int TEACH_OK = 0;//置位表示开始实际进行示教
+int TEACH_FINISH = 0;//标识当前示教结束与否
+
+//下面为实际动作序列的定义
 ServoActionSeries Action_Hello;
 ServoActionSeries Action_Hug;
 ServoActionSeries Action_Standup;
@@ -189,47 +232,12 @@ ServoActionSeries Active_Micromove_6 = (ServoActionSeries){
 ServoActionSeries Active_Micromove_7 = (ServoActionSeries){
 		
 };
-
-int TEACHMODE = 0;
-int TEACH_OK = 0;
-int TEACH_FINISH = 0;
-#if 1
-#include <stdio.h>
-
-/* 告知连接器不从C库链接使用半主机的函数 */
-#pragma import(__use_no_semihosting)
-
-/* 定义 _sys_exit() 以避免使用半主机模式 */
-void _sys_exit(int x)
-{
-    x = x;
-}
-
-/* 标准库需要的支持类型 */
-struct __FILE
-{
-    int handle;
-};
-
-FILE __stdout;
-
-/*  */
-int fputc(int ch, FILE *stream)
-{
-    /* 堵塞判断串口是否发送完成 */
-    while((UART4->ISR & 0X40) == 0);
-
-    /* 串口发送完成，将该字符发送 */
-    UART4->TDR = (uint8_t) ch;
-
-    return ch;
-}
-
-#endif
+//开启示教模式
 void Action_Teachmode_Init(void)
 {
 	TEACHMODE = 1;
 }
+//示教结束后向上位机发送的代码格式（可设置）
 void Action_Teachmode(void)
 {
 	for(int si = 0;si < 35;si++)
@@ -247,6 +255,7 @@ void Action_Teachmode(void)
 	}
 	printf("	.emotionType = EMOTION_NEUTRAL,\r\n		.total_step = 35,\r\n	.totalDuration = 5000\r\n");
 }
+//动作库初始化函数
 void Action_init(void)
 {
 	Action_index[0] = &Action_TEACH;
@@ -263,7 +272,7 @@ void Action_init(void)
 	Action_TEACH.actionId = 0;
 	Action_TEACH.emotionType = EMOTION_NEUTRAL;
 	Action_TEACH.totalDuration = 5000;
-	Action_TEACH.total_step = 35;
+	Action_TEACH.total_step = TEACH_TOTAL_STEP;
 	
 	
 	

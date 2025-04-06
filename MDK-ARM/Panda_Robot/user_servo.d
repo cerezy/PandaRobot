@@ -53,8 +53,8 @@ panda_robot\user_servo.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/sem
 panda_robot\user_servo.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 panda_robot\user_servo.o: ../Core/Inc/main.h
 panda_robot\user_servo.o: ..\Users\user_tasks.h
-panda_robot\user_servo.o: ..\Users\user_includes.h
 panda_robot\user_servo.o: ..\Users\user_led.h
+panda_robot\user_servo.o: ..\Users\user_includes.h
 panda_robot\user_servo.o: ..\Users\user_adc.h
 panda_robot\user_servo.o: ..\Users\user_timer.h
 panda_robot\user_servo.o: ..\Users\user_imu.h

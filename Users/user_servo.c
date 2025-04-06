@@ -36,16 +36,16 @@ void User_ServoInit(void)
 	USART_HEAD.p_hdma_usart_n_rx = &hdma_usart3_rx;
 	
 	//各个伺服舵机的初始角度（*10）
-	ang_goal[1] = 0;//950;
+	ang_goal[1] = 950;
 	ang_goal[2] = 0;
 	ang_goal[3] = 0;
 	ang_goal[4] = 0;
 	ang_goal[5] = 0;
 	ang_goal[6] = 0;
-	ang_goal[7] = 0;//900;
+	ang_goal[7] = 900;
 	ang_goal[8] = 0;
 	ang_goal[9] = 0;
-	ang_goal[10] = 0;//-900;
+	ang_goal[10] = -900;
 	ang_goal[11] = 0;
 	ang_goal[12] = 0;
 	ang_goal[13] = 0;
@@ -212,6 +212,10 @@ void User_UsartSetServoAngTime(uint8_t servo_id,int16_t ang,uint16_t ms)
 	switch(servo_id)
 	{
 		case 1:;case 2:;case 3:p_usart_servo_x = &USART_LEG1;break;
+		case 4:;case 5:;case 6:p_usart_servo_x = &USART_LEG2;break;
+		case 7:;case 8:;case 9:p_usart_servo_x = &USART_LEG3;break;
+		case 10:;case 11:;case 12:p_usart_servo_x = &USART_LEG4;break;
+		case 13:;case 14:p_usart_servo_x = &USART_HEAD;break;
 		default:break;
 	}
 	
@@ -234,7 +238,7 @@ void User_UsartSetServoAngTime(uint8_t servo_id,int16_t ang,uint16_t ms)
 	
 	HAL_UART_Transmit_DMA(p_usart_servo_x->p_usart_n,p_usart_servo_x->usart_tx_buf,12);
 }
-//设置阻尼模式函数（固件目前不支持）
+//设置阻尼模式函数(0xFF代表广播模式)
 void User_SetDamping(uint8_t leg_id,uint16_t Power)
 {
 	uint8_t i = 0;
@@ -488,8 +492,6 @@ void User_LegAllSetAngTime(void)
 	ang_set[1] = ang_goal[14];
 	User_UsartSetHeadAngTime(ang_set,ms_set);//头部
 }
-
-
 uint16_t User_AbsAngErr(int16_t ang)
 {
 	return (ang>=0)?ang:-ang;

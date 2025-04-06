@@ -58,8 +58,8 @@ panda_robot\main.o: ../Users/user_servo.h
 panda_robot\main.o: ../Users/user_includes.h
 panda_robot\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 panda_robot\main.o: ../Users/user_tasks.h
-panda_robot\main.o: ../Users/user_includes.h
 panda_robot\main.o: ../Users/user_led.h
+panda_robot\main.o: ../Users/user_includes.h
 panda_robot\main.o: ../Users/user_adc.h
 panda_robot\main.o: ../Users/user_timer.h
 panda_robot\main.o: ../Users/user_imu.h

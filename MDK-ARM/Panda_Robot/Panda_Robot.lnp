@@ -44,6 +44,8 @@
 "panda_robot\user_servo.o"
 "panda_robot\action_library.o"
 "panda_robot\resolve.o"
+"panda_robot\user_tasks.o"
+"panda_robot\user_states.o"
 --strict --scatter "Panda_Robot\Panda_Robot.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

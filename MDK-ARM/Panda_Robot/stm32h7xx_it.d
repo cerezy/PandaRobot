@@ -54,8 +54,8 @@ panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/q
 panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 panda_robot\stm32h7xx_it.o: ../Users/user_tasks.h
-panda_robot\stm32h7xx_it.o: ../Users/user_includes.h
 panda_robot\stm32h7xx_it.o: ../Users/user_led.h
+panda_robot\stm32h7xx_it.o: ../Users/user_includes.h
 panda_robot\stm32h7xx_it.o: ../Users/user_adc.h
 panda_robot\stm32h7xx_it.o: ../Users/user_timer.h
 panda_robot\stm32h7xx_it.o: ../Users/user_imu.h

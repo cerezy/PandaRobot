@@ -125,29 +125,32 @@ void User_TimerServoIRQ(void)
 	}
 		
 }
-int T_COUNTER = 0;
-int step_record = 0;
-int last_step_record = 0;
+//用于示教的定时器中断，如果不需要示教模式可以关闭
+int T_COUNTER = 0;//记录示教过程中进入中断的次数
+int step_record = 0;//记录此次示教模式的初始时刻
+int last_step_record = 0;//记录上次示教模式的结束时刻
 void User_TimerTeachIRQ(void)
 {
 	
 	if (__HAL_TIM_GET_IT_SOURCE(&USER_htim_teach, TIM_IT_UPDATE) != RESET)
 	{
-		if(TEACHMODE == 1)
+		if(TEACHMODE == 1)//如果是示教模式
 		{
-			T_COUNTER++;
-			if(step_record == last_step_record && TEACH_OK == 1 && TEACH_FINISH != 1)
+			T_COUNTER++;//进入计数
+			if(step_record == last_step_record && TEACH_OK == 1 && TEACH_FINISH != 1)//如果示教模式刚刚开始
 			{
-				step_record = T_COUNTER;
+				step_record = T_COUNTER;//记录此次示教模式的初始时刻
 			}
-			if(TEACH_OK == 1 && step_record != last_step_record && TEACH_FINISH != 1)
+			else if(step_record != last_step_record && TEACH_OK == 1 && TEACH_FINISH != 1)
 			{
-				if(T_COUNTER - step_record >= 35)
+				if(T_COUNTER - step_record >= TEACH_TOTAL_STEP)
 				{
+					//结束本次示教
 					TEACH_FINISH = 1;
 					last_step_record = step_record;
 				}
-				else if((T_COUNTER - step_record)>=0 && (T_COUNTER - step_record) <= 34){
+				else if((T_COUNTER - step_record)>=0 && (T_COUNTER - step_record) <= TEACH_TOTAL_STEP - 1){
+					//存储示教过程中的角度数据
 					for(int i = 0;i<14; i++)
 						Action_TEACH.actions[T_COUNTER - step_record].servoAngles[i] = SERVO[i+1].ang_read;
 					Action_TEACH.actions[T_COUNTER - step_record].stepDuration = 2;

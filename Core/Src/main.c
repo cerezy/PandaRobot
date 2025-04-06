@@ -60,19 +60,8 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t vis[15] = {0};
-int step_counter = 0;
-int16_t ang_set[6] = {0}; 
-uint16_t ms_set[6] = {0}; 
-int16_t ang_goal[15] = {0}; 
-uint16_t ms_goal[15] = {0}; 
-uint8_t usart_tx_buf[40] = {0};
-uint8_t Action_done[50] = {0};
-uint8_t ActionPreFlag = 0;
-uint8_t ActionNowFlag = 14;
-uint8_t AngTeachInfo[30] = {0};
-int FW = 0;
-int speed = 10;
+
+
 /* USER CODE END 0 */
 
 /**
@@ -112,27 +101,15 @@ int main(void)
   MX_TIM6_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_Delay(5000);
-  TEACHMODE = 1;
-  //Action_Teachmode_Init();
-  Action_init();//动作库初始化（动作信息）
-  User_ServoInit();//舵机信息初始化（对应串口等）
-  User_TimerInit();	
-  User_TeachTimerInit();
+  HAL_Delay(5000);//等待舵机上电
   
-	
-	
-	
-	
-	speed = 2;
-	//int wait_flag = 0;
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
-  //MX_FREERTOS_Init();
+  MX_FREERTOS_Init();
 
   /* Start scheduler */
-  //osKernelStart();
+  osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
@@ -142,75 +119,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  
-	  
-	  if(TEACHMODE == 1)
-	  {
-		  if(FW == 1)
-		  {
-			User_SetDamping(1,1000);
-			User_SetDamping(2,1000);
-		    User_SetDamping(3,1000);
-			FW = 0;
-		  }
-		  //
-		  if(TEACH_FINISH == 1)
-		  {
-			  TEACHMODE = 0;
-			  TEACH_OK = 0;
-			  ActionNowFlag = 0;
-			  Action_done[Action_index[ActionNowFlag]->actionId] = 0;
-			  step_counter = 0;
-			  TEACH_FINISH = 0;
-			  Action_Teachmode();
-			  //HAL_TIM_Base_Stop_IT(&htim6);
-		  }
-		  HAL_Delay(500);
-	  }
-	  else 
-	  {
-		  if(Action_done[ActionNowFlag] == 0 && Action_index[ActionNowFlag]->actionId == ActionNowFlag)
-		  {
-			  
-			  for(int i = 1;i <= 14;i++)
-			  {
-				if(ang_goal[i] <= Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1] - speed)
-					ang_goal[i] += speed;
-				else if(ang_goal[i] >= Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1] + speed)
-					ang_goal[i] -= speed;
-				if(ang_goal[i] > Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1] - speed && ang_goal[i] < Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i-1] + speed)
-					vis[i] = 1;
-			  }
-			  for(int i = 1;i <= 14;i++)
-			  {
-				if(vis[i] == 0)
-					break;
-				if(i == 14)
-				{
-					if(step_counter <  Action_index[ActionNowFlag]->total_step -1)
-					{
-						step_counter ++;
-						for(int i = 1;i <= 14;i++)
-							vis[i] = 0;
-					}
-					else if(step_counter == Action_index[ActionNowFlag]->total_step - 1)
-					{
-						if(ActionNowFlag == 7) 
-							ActionNowFlag = 10;
-						Action_done[Action_index[ActionNowFlag]->actionId] = 1;
-						if(ActionNowFlag == 10) 
-							Action_done[Action_index[ActionNowFlag]->actionId] = 0;
-						step_counter = 0;
-						for(int i = 1;i <= 14;i++)
-							vis[i] = 0;
-					}
-				}	
-			  }
-		  }
-		  
-		  //User_LegAllSetAngTime();
-		  HAL_Delay(5);
-	  }
+	HAL_Delay(5);
   }
   /* USER CODE END 3 */
 }
