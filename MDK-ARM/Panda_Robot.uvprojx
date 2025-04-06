@@ -729,6 +729,16 @@
               <FileType>5</FileType>
               <FilePath>..\Users\user_states.h</FilePath>
             </File>
+            <File>
+              <FileName>user_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\user_flash.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_flash.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Users\user_flash.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -61,7 +61,6 @@ void MX_FREERTOS_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-
 /* USER CODE END 0 */
 
 /**
@@ -102,7 +101,6 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   HAL_Delay(5000);//等待舵机上电
-  
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
