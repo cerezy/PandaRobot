@@ -50,6 +50,17 @@ void User_SeovoActTimeCalcu(void);
 void User_SetDamping(uint8_t leg_id,uint16_t Power);
 uint8_t User_IsLegAngArrive(uint8_t leg_id);
 uint8_t User_IsLegTrigFloor(uint8_t leg_id);
+
+//FEETECH MOTOR
+void FEETECH_UsartSetServoPos(uint8_t servo_id,int16_t pos,uint16_t ms,int16_t speed);
+void FEETECH_LEGSYNCWRITE(uint8_t leg_id,int16_t pos[5],int16_t ms[5],int16_t speed[5]);
+void FEETECH_HEADSYNCWRITE(int16_t pos[5],int16_t ms[5],int16_t speed[5]);
+void FEETECH_ReadServoPos(uint8_t servo_id);
+void FEETECH_LEGSYNCRead(uint8_t servo_id);
+extern int16_t goal_pos[15];//FEETECH POS GOAL
+extern int16_t goal_speed[15];//FEETECH SPEED GOAL
+extern int16_t goal_ms[15];//FEETECH MS GOAL
+
 #endif
 
 

@@ -60,7 +60,10 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+uint8_t usart_tx_buf[13] = {0};
+uint8_t POWERON = 0;
+uint8_t SHUTDOWN = 0;
+int cococo = 0;
 /* USER CODE END 0 */
 
 /**
@@ -92,6 +95,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_UART4_Init();
+  
   MX_DMA_Init();
   MX_USART3_UART_Init();
   MX_UART5_Init();
@@ -100,7 +104,19 @@ int main(void)
   MX_TIM6_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_Delay(5000);//等待舵机上电
+  HAL_Delay(1500);
+  //读取引脚状态，判定开机
+  if (HAL_GPIO_ReadPin(Power_in_GPIO_Port, Power_in_Pin) == GPIO_PIN_RESET)
+  {
+	  HAL_GPIO_WritePin(Power_out_GPIO_Port,Power_out_Pin,GPIO_PIN_SET);//板子供电
+	  POWERON = 1;
+  }
+  HAL_Delay(500);
+  HAL_GPIO_WritePin(Servo_Power_GPIO_Port,Servo_Power_Pin,GPIO_PIN_SET);//舵机供电
+  HAL_Delay(2500);//等待舵机上电
+  //User_ServoInit();
+  cococo = 1;
+  
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -116,7 +132,9 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */     
+	  
+	FEETECH_ReadServoPos(cococo);
 	HAL_Delay(5);
   }
   /* USER CODE END 3 */

@@ -48,6 +48,8 @@ void User_TeachTimerInit(void)
 每个舵机电压读取周期：160ms
 每个舵机电压读取周期：160ms
 */
+
+extern uint8_t OPEN;
 void User_TimerServoIRQ(void)
 {
 	static uint8_t cmd_type = _CMD_TYPE_READ;
@@ -56,7 +58,7 @@ void User_TimerServoIRQ(void)
 	static uint8_t cnt_servo_id = 0;	
 	static uint8_t cnt_data_read = 0;//计算读取数据读取了多少次了
 	static uint8_t wait_to_set = 0;
-	if (__HAL_TIM_GET_IT_SOURCE(&USER_htim_servo, TIM_IT_UPDATE) != RESET)
+	if (__HAL_TIM_GET_IT_SOURCE(&USER_htim_servo, TIM_IT_UPDATE) != RESET && OPEN == 1)
 	{
 		SERVO_COMM_BUSY = 1;
 		switch(cmd_type)
@@ -69,7 +71,7 @@ void User_TimerServoIRQ(void)
 					if(TEACHMODE != 1) //示教模式下，电机不动
 						User_LegAllSetAngTime();
 				}					
-				else if(wait_to_set == 2)
+				else if(wait_to_set == 2) //2
 				{
 					//for(int i = 0;i< 10000;i++);
 					cmd_type = _CMD_TYPE_READ;
@@ -82,41 +84,13 @@ void User_TimerServoIRQ(void)
 				if(read_type == _READ_TYPE_ANG)//读角度
 				{
 					cnt_servo_id++;	
-					User_UsartReadServoAng(cnt_servo_id);
-					User_UsartReadServoAng(cnt_servo_id+6);	
-					if(cnt_servo_id == 1)
-						User_UsartReadServoAng(13);			
-					else if(cnt_servo_id == 4)
-						User_UsartReadServoAng(14);	
+					FEETECH_ReadServoPos(cnt_servo_id);
+					FEETECH_ReadServoPos(cnt_servo_id + 5);
 				}
-				else//读数据：1-电压,2-电流，3-功率，4-温度
-				{
-					cnt_servo_id++;
-					User_UsartReadServoData(cnt_servo_id,data_type);
-					User_UsartReadServoData(cnt_servo_id+6,data_type);
-					if(cnt_servo_id == 1)
-						User_UsartReadServoData(13,data_type);			
-					else if(cnt_servo_id == 4)
-						User_UsartReadServoData(14,data_type);	
-				}
-				if(cnt_servo_id == 6)//6个1ms分别读取了6个舵机的数据后，进入新的周期并切换读取内容（读角度/读数据）
+				if(cnt_servo_id == 5)//6个1ms分别读取了6个舵机的数据后，进入新的周期并切换读取内容（读角度/读数据）
 				{
 					cnt_servo_id = 0;
-					cmd_type = _CMD_TYPE_SET;					
-					if(read_type == _READ_TYPE_ANG)
-						read_type = _READ_TYPE_DATA;
-					else
-					{
-						read_type = _READ_TYPE_ANG;
-						cnt_data_read++;
-						switch(cnt_data_read)
-						{
-							case 8:data_type = _DATA_TYPE_VOLT;break;
-							case 9:data_type = _DATA_TYPE_TEMP;break;
-							case 10:data_type = _DATA_TYPE_CUR;cnt_data_read = 0;break;
-							default:break;
-						}					
-					}									
+					cmd_type = _CMD_TYPE_SET;						
 				}						
 			}break;	
 			default:break;
@@ -152,7 +126,7 @@ void User_TimerTeachIRQ(void)
 				else if((T_COUNTER - step_record)>=0 && (T_COUNTER - step_record) <= TEACH_TOTAL_STEP - 1){
 					//存储示教过程中的角度数据
 					for(int i = 0;i<14; i++)
-						Action_TEACH.actions[T_COUNTER - step_record].servoAngles[i] = SERVO[i+1].ang_read;
+						Action_TEACH.actions[T_COUNTER - step_record].servoAngles[i] = SERVO[i].ang_read;
 					Action_TEACH.actions[T_COUNTER - step_record].stepDuration = 2;
 				}
 			}

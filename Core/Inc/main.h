@@ -67,6 +67,12 @@ void Error_Handler(void);
 #define UART_HEAD_GPIO_Port GPIOB
 #define UART_LEG1_Pin GPIO_PIN_14
 #define UART_LEG1_GPIO_Port GPIOB
+#define Power_out_Pin GPIO_PIN_8
+#define Power_out_GPIO_Port GPIOD
+#define Power_in_Pin GPIO_PIN_9
+#define Power_in_GPIO_Port GPIOD
+#define Servo_Power_Pin GPIO_PIN_4
+#define Servo_Power_GPIO_Port GPIOD
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
