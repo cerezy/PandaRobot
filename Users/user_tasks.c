@@ -28,14 +28,14 @@ void User_Init(void)
 void ActionRUN(void)
 {
 	/*for(int i = 1;i <= 12;i++)
-		goal_pos[i] = Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i];
-	if(step_counter<14)
+		goal_pos[i] = 0;*/
+	/*if(step_counter<14)
 		step_counter++;
 	if(step_counter==14)
 		step_counter=0;*/
 	
 	//判断当前在进行的动作ActionNowFlag是没有结束的并且验证ID的正确性
-	if(Action_done[ActionNowFlag] == 0 && Action_index[ActionNowFlag]->actionId == ActionNowFlag)
+	/*if(Action_done[ActionNowFlag] == 0 && Action_index[ActionNowFlag]->actionId == ActionNowFlag)
 	{
 		//遍历舵机并更新下一时刻的目标值
 		for(int i = 1;i <= 12;i++)
@@ -78,7 +78,7 @@ void ActionRUN(void)
 				}
 			}	
 		 }
-	 }
+	 }*/
 }
 
 void TeachmodeRUN(void)
@@ -140,7 +140,7 @@ void StartTaskMid(void const * argument)
 			HAL_GPIO_WritePin(Servo_Power_GPIO_Port,Servo_Power_Pin,GPIO_PIN_SET);//舵机供电
 		else 
 			HAL_GPIO_WritePin(Servo_Power_GPIO_Port,Servo_Power_Pin,GPIO_PIN_RESET);//舵机供电
-		osDelay(20);	
+		osDelay(10);	
 	}
 }
 void StartTaskLow(void const * argument)

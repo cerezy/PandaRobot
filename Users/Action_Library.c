@@ -26,10 +26,10 @@ FILE __stdout;
 int fputc(int ch, FILE *stream)
 {
     /* 堵塞判断串口是否发送完成 */
-    while((UART4->ISR & 0X40) == 0);
+    while((UART7->ISR & 0X40) == 0);
 
     /* 串口发送完成，将该字符发送 */
-    UART4->TDR = (uint8_t) ch;
+    UART7->TDR = (uint8_t) ch;
 
     return ch;
 }

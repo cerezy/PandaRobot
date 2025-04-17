@@ -54,9 +54,7 @@ void User_TimerServoIRQ(void)
 {
 	static uint8_t cmd_type = _CMD_TYPE_READ;
 	static uint8_t read_type = _READ_TYPE_ANG;
-	static uint8_t data_type = _DATA_TYPE_CUR;
 	static uint8_t cnt_servo_id = 0;	
-	static uint8_t cnt_data_read = 0;//计算读取数据读取了多少次了
 	static uint8_t wait_to_set = 0;
 	if (__HAL_TIM_GET_IT_SOURCE(&USER_htim_servo, TIM_IT_UPDATE) != RESET && OPEN == 1)
 	{
