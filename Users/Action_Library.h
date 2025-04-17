@@ -42,7 +42,11 @@ typedef struct {
     EmotionType     emotionType;     // 对应的情绪类型
 	uint16_t        total_step;
     float           totalDuration;   // 总执行时间（单位：ms）
+    int16_t         startservoAngles[14];  // 该动作开始时14个舵机角度值
+    int16_t         endservoAngles[14];    // 该动作结束时14个舵机角度值
+    uint8_t         ifNeedBezier; // 是否需要贝塞尔曲线插值
 } ServoActionSeries;
+
 //#pragma pack(pop)
 void Action_init(void);
 void Action_Teachmode_Init(void);

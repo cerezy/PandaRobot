@@ -2,7 +2,7 @@
 #include "user_servo.h"
 
 
-STATE_TYPEDEF ACTION_STATE = {0};
+//STATE_TYPEDEF ACTION_STATE = {0};
 
 void User_StatesInit(void)
 {

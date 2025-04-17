@@ -754,5 +754,85 @@ uint8_t User_IsLegTrigFloor(uint8_t leg_id)
 	return 0;
 }
 
+/*用贝塞尔来计算每单个动作的舵机角度*/
+void User_BezierCurve(int stepping, ServoActionSeries* Action_analyze)
+{
+    //曲线上控制点个数(分度值)
+    float count_t = 1.0f /(stepping - 1);
+    for(int i = 0; i <= stepping - 1; i++)
+    {
+        float cur_t = count_t * (float)i;
+        float one_minus_t = 1.0f - cur_t;
+        int j = 0;
+        for(j = 1; j <= 12; j++)
+        {
+            Action_analyze->actions[i].servoAngles[j] =  (int)(one_minus_t * Action_analyze->startservoAngles[j] + cur_t * Action_analyze->endservoAngles[j]);
+            Action_analyze->actions[i].stepDuration = 2;
+        }
+    }
+}
 
+/*
+//前后腿分开跑
+void User_BezierCurve_separationLeg(int stepping_Back,int stepping_Front, ServoActionSeries* Action_analyze)
+{   
+    //曲线上控制点个数(分度值)
+    float count_t_F = 1.0f /(stepping_Front - 1);
+    for(int i = 0; i <= stepping_Front - 1; i++)
+    {
+        float cur_t = count_t_F * (float)i;
+        float one_minus_t = 1.0f - cur_t;
+        for(int j = 1; j <= 12; j++)
+        {
+			if(i==4|i==5|i==9|i==10) continue;
+            Action_analyze->actions[i].servoAngles[j] =  one_minus_t * Action_analyze->startservoAngles[j] + cur_t * Action_analyze->endservoAngles[j];
+            Action_analyze->actions[i].stepDuration = 2;
+        }
+    }
+	float count_t_B = 1.0f /(stepping_Back - 1);
+	for(int i = 0; i <= stepping_Back - 1; i++)
+    {
+        float cur_t = count_t_B * (float)i;
+        float one_minus_t = 1.0f - cur_t;
+        for(int j = 1; j <= 12; j++)
+        {
+			if(i==4|i==5|i==9|i==10)
+			{
+				Action_analyze->actions[i].servoAngles[j] =  one_minus_t * Action_analyze->startservoAngles[j] + cur_t * Action_analyze->endservoAngles[j];
+				Action_analyze->actions[i].stepDuration = 2;
+			}
+			else continue;
+        }
+    }
+	if(stepping_Back >= stepping_Front) 
+	{
+		Action_analyze->total_step = stepping_Back;
+		for(int i = stepping_Front-1;i<stepping_Back;i++)
+		{
+			for(int j = 1; j <= 12; j++)
+			{
+				if(i==4|i==5|i==9|i==10) continue;
+				Action_analyze->actions[i].servoAngles[j] =  Action_analyze->endservoAngles[j];
+				Action_analyze->actions[i].stepDuration = 2;
+			}
+		}
+	}
+	else 
+	{
+		Action_analyze->total_step = stepping_Front;
+		for(int i = stepping_Back-1;i<stepping_Front;i++)
+		{
+			for(int j = 1; j <= 12; j++)
+			{
+				if(i==4|i==5|i==9|i==10)
+				{
+					Action_analyze->actions[i].servoAngles[j] =  Action_analyze->endservoAngles[j];
+					Action_analyze->actions[i].stepDuration = 2;
+				}
+				else continue;
+			}
+		}
+	}
+}
+*/
 

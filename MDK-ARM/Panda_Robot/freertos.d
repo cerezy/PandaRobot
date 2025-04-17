@@ -1,7 +1,7 @@
 panda_robot\freertos.o: ../Core/Src/freertos.c
 panda_robot\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-panda_robot\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-panda_robot\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+panda_robot\freertos.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stddef.h
+panda_robot\freertos.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdint.h
 panda_robot\freertos.o: ../Core/Inc/FreeRTOSConfig.h
 panda_robot\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 panda_robot\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
@@ -25,7 +25,7 @@ panda_robot\freertos.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 panda_robot\freertos.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h
 panda_robot\freertos.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
 panda_robot\freertos.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-panda_robot\freertos.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+panda_robot\freertos.o: D:\Dkong\ARM\ARMCC\Bin\..\include\math.h
 panda_robot\freertos.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h
 panda_robot\freertos.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h
 panda_robot\freertos.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h

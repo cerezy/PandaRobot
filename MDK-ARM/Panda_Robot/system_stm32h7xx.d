@@ -2,7 +2,7 @@ panda_robot\system_stm32h7xx.o: ../Core/Src/system_stm32h7xx.c
 panda_robot\system_stm32h7xx.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h
 panda_robot\system_stm32h7xx.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h
 panda_robot\system_stm32h7xx.o: ../Drivers/CMSIS/Include/core_cm7.h
-panda_robot\system_stm32h7xx.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+panda_robot\system_stm32h7xx.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdint.h
 panda_robot\system_stm32h7xx.o: ../Drivers/CMSIS/Include/cmsis_version.h
 panda_robot\system_stm32h7xx.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 panda_robot\system_stm32h7xx.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -14,8 +14,8 @@ panda_robot\system_stm32h7xx.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ha
 panda_robot\system_stm32h7xx.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h
 panda_robot\system_stm32h7xx.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h
 panda_robot\system_stm32h7xx.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-panda_robot\system_stm32h7xx.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-panda_robot\system_stm32h7xx.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+panda_robot\system_stm32h7xx.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stddef.h
+panda_robot\system_stm32h7xx.o: D:\Dkong\ARM\ARMCC\Bin\..\include\math.h
 panda_robot\system_stm32h7xx.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h
 panda_robot\system_stm32h7xx.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h
 panda_robot\system_stm32h7xx.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h

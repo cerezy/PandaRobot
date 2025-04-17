@@ -1,6 +1,7 @@
 #ifndef _USER_SERVO_H
 #define _USER_SERVO_H
 
+#include "Action_Library.h"
 #include "user_includes.h"
 
 #define USART_SERVO_TX_SIZE	90
@@ -31,6 +32,19 @@ typedef struct
 }SERVO_INFO_TYPEDEF;
 extern SERVO_INFO_TYPEDEF SERVO[17];
 
+/*
+	Action_index[0] = &Action_TEACH;
+	Action_index[1] = &Action_Walk;
+	Action_index[2] = &Action_Hug;
+	Action_index[3] = &Action_Standup;
+	Action_index[4] = &Action_Sit2Prone;
+	Action_index[5] = &Action_PronetoSit;
+	Action_index[6] = &Action_Lie2Standup;
+	Action_index[7] = &Action_Crawl;
+	Action_index[10] = &Action_Crawlrepeat;
+	Action_index[14] = &Action_Test;
+*/
+
 extern uint8_t SERVO_COMM_BUSY;
 
 void User_ServoInit(void);
@@ -50,6 +64,7 @@ void User_SeovoActTimeCalcu(void);
 void User_SetDamping(uint8_t leg_id,uint16_t Power);
 uint8_t User_IsLegAngArrive(uint8_t leg_id);
 uint8_t User_IsLegTrigFloor(uint8_t leg_id);
+void User_BezierCurve(int stepping, ServoActionSeries* Action_analyze);
 
 //FEETECH MOTOR
 void FEETECH_UsartSetServoPos(uint8_t servo_id,int16_t pos,uint16_t ms,int16_t speed);

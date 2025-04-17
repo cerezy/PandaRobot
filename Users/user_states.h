@@ -29,7 +29,6 @@ typedef struct
 	uint8_t state_now;
 	uint8_t state_last;
 	uint8_t state_next;
-				
 }STATE_TYPEDEF;
 
 
