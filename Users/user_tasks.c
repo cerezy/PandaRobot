@@ -35,7 +35,7 @@ void ActionRUN(void)
 		step_counter=0;*/
 	
 	//判断当前在进行的动作ActionNowFlag是没有结束的并且验证ID的正确性
-	/*if(Action_done[ActionNowFlag] == 0 && Action_index[ActionNowFlag]->actionId == ActionNowFlag)
+	if(Action_done[ActionNowFlag] == 0 && Action_index[ActionNowFlag]->actionId == ActionNowFlag)
 	{
 		//遍历舵机并更新下一时刻的目标值
 		for(int i = 1;i <= 12;i++)
@@ -78,7 +78,7 @@ void ActionRUN(void)
 				}
 			}	
 		 }
-	 }*/
+	 }
 }
 
 void TeachmodeRUN(void)

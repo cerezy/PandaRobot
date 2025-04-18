@@ -136,7 +136,8 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	
 	//FEETECH_ReadServoPos(cococo);
-	if (HAL_GPIO_ReadPin(Power_in_GPIO_Port, Power_in_Pin) == GPIO_PIN_RESET)
+	 Action_Teachmode();
+	 if (HAL_GPIO_ReadPin(Power_in_GPIO_Port, Power_in_Pin) == GPIO_PIN_RESET)
 	{
 		cococo++;
 		if(cococo > 5)

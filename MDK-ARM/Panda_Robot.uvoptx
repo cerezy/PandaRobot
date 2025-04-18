@@ -158,7 +158,7 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>TEACHMODE</ItemText>
+          <ItemText>TEACHMODE,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
@@ -168,7 +168,7 @@
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>cococo</ItemText>
+          <ItemText>cococo,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
@@ -183,7 +183,12 @@
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>TEACH_OK</ItemText>
+          <ItemText>TEACH_OK,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>TEACH_FINISH,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
