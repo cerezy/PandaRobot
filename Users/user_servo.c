@@ -767,6 +767,7 @@ void User_BezierCurve(int stepping, ServoActionSeries* Action_analyze)
         for(j = 1; j <= 12; j++)
         {
             Action_analyze->actions[i].servoAngles[j] =  (int)(one_minus_t * Action_analyze->startservoAngles[j] + cur_t * Action_analyze->endservoAngles[j]);
+<<<<<<< Updated upstream
             Action_analyze->actions[i].stepDuration = 2;
         }
     }
@@ -835,4 +836,9 @@ void User_BezierCurve_separationLeg(int stepping_Back,int stepping_Front, ServoA
 	}
 }
 */
+=======
+        }
+    }
+}
+>>>>>>> Stashed changes
 

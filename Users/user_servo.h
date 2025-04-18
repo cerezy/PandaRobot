@@ -76,6 +76,8 @@ extern int16_t goal_pos[15];//FEETECH POS GOAL
 extern int16_t goal_speed[15];//FEETECH SPEED GOAL
 extern int16_t goal_ms[15];//FEETECH MS GOAL
 
+void User_BezierCurve(int stepping, ServoActionSeries* Action_analyze);
+
 #endif
 
 

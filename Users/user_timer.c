@@ -80,7 +80,7 @@ void User_TimerServoIRQ(void)
 				
 			}break;
 			case _CMD_TYPE_READ://发送一次读指令，从发送该指令到舵机返回数据串口总共通信时间约400us（发送100us，等待响应100us，回传200us）
-			{			
+			{
 				if(read_type == _READ_TYPE_ANG)//读角度
 				{
 					cnt_servo_id++;	
@@ -126,8 +126,12 @@ void User_TimerTeachIRQ(void)
 				else if((T_COUNTER - step_record)>=0 && (T_COUNTER - step_record) <= TEACH_TOTAL_STEP - 1){
 					//存储示教过程中的角度数据
 					for(int i = 0;i<14; i++)
+<<<<<<< Updated upstream
 						Action_TEACH.actions[T_COUNTER - step_record].servoAngles[i] = SERVO[i].ang_read;
 					Action_TEACH.actions[T_COUNTER - step_record].stepDuration = 2;
+=======
+					_Action_TEACH.motion[0].actions[T_COUNTER - step_record].servoAngles[i] = SERVO[i].pos_read;
+>>>>>>> Stashed changes
 				}
 			}
 		}

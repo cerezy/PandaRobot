@@ -7,7 +7,8 @@
 #define TEACH_TOTAL_STEP 35
 //定义了每个动作最大的步进数
 #define MAX_TOTAL_STEP 100
-
+//定义了一个动作最多分为几步
+#define MAX_NUM_MOTION 5
 
 
 //坐标点结构体（3维空间坐标）（用于反解）
@@ -42,11 +43,26 @@ typedef struct {
     EmotionType     emotionType;     // 对应的情绪类型
 	uint16_t        total_step;
     float           totalDuration;   // 总执行时间（单位：ms）
+<<<<<<< Updated upstream
     int16_t         startservoAngles[14];  // 该动作开始时14个舵机角度值
+=======
+	int16_t         startservoAngles[14];  // 该动作开始时14个舵机角度值
+>>>>>>> Stashed changes
     int16_t         endservoAngles[14];    // 该动作结束时14个舵机角度值
     uint8_t         ifNeedBezier; // 是否需要贝塞尔曲线插值
 } ServoActionSeries;
 
+<<<<<<< Updated upstream
+=======
+typedef struct 
+{
+    ServoActionSeries motion[MAX_NUM_MOTION];
+    uint32_t point_total;
+    uint32_t point_iter;
+} Motion_t;
+
+
+>>>>>>> Stashed changes
 //#pragma pack(pop)
 void Action_init(void);
 void Action_Teachmode_Init(void);
@@ -57,5 +73,20 @@ extern ServoActionSeries Action_TEACH;
 extern int TEACH_OK;
 extern int TEACH_FINISH;
 
+
+extern Motion_t _Action_TEACH;
+extern Motion_t _Action_Walk;
+extern Motion_t _Active_Wave;
+extern Motion_t _Action_Standup;
+extern Motion_t _Active_Sit;
+extern Motion_t _Active_SittoEat;
+extern Motion_t _Action_Hug;
+extern Motion_t _Action_LieDown;
+extern Motion_t _Action_Sit2Prone;
+extern Motion_t _Action_PronetoSit;
+extern Motion_t _Action_Lie2Standup;
+extern Motion_t _Action_Crawl;
+extern Motion_t _Action_Crawlrepeat;
+extern Motion_t _Action_Test;
 
 #endif
