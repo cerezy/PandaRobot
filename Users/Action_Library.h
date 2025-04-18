@@ -19,9 +19,7 @@ typedef struct {
 
 // 动作序列结构体（单步动作）
 typedef struct {
-    //Coordinate discretePoints[14];   // 14个舵机对应的坐标点
-    int16_t    servoAngles[14];      // 该动作下14个舵机角度值
-    float      stepDuration;         // 本步执行时间（单位：ms）
+    int16_t    servoAngles[14];      // 该动作下舵机角度值
 } ServoActionStep;
 
 // 情绪类型枚举

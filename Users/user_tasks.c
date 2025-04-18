@@ -86,9 +86,6 @@ void TeachmodeRUN(void)
 	//用于三个串口上的舵机进入阻尼模式，一般在示教时使用
 	if(Servo_Reset_Flag == 1)
 	{
-		//User_SetDamping(1,1000);
-		//User_SetDamping(2,1000);
-		//User_SetDamping(3,1000);
 		Servo_Reset_Flag = 0;
 	}
 	if(TEACHMODE == 1)
@@ -135,7 +132,7 @@ void StartTaskMid(void const * argument)
 			if(Init_OK == 1)
 				ActionRUN();
 		for(int i=1;i<=12;i++)
-			LookPos[i] = SERVO[i].ang_read;
+			LookPos[i] = SERVO[i].pos_read;
 		if(OPEN == 1)
 			HAL_GPIO_WritePin(Servo_Power_GPIO_Port,Servo_Power_Pin,GPIO_PIN_SET);//舵机供电
 		else 
