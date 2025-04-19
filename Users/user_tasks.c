@@ -8,11 +8,11 @@ int16_t ang_goal[15] = {0};
 uint16_t ms_goal[15] = {0};
 uint8_t Action_done[50] = {0};
 uint8_t ActionNowFlag = 1;
-ACTION_STATE ActionNow = IDLE; // 当前动作状态
+ACTION_STATE ActionNow = IDLE;	// 当前动作状态
 ACTION_STATE ActionLast = IDLE; // 上一个动作状态
-uint8_t speed = 5;		  // 动作的步进速度（单位0.1°）
-int32_t step_counter = 0; // 当前步进到该动作序列的第几步
-uint8_t vis[15] = {0};	  // 判断舵机是否抵达位置
+uint8_t speed = 8;				// 动作的步进速度（单位0.1°）
+int32_t step_counter = 0;		// 当前步进到该动作序列的第几步
+uint8_t vis[15] = {0};			// 判断舵机是否抵达位置
 uint8_t Servo_Reset_Flag = 0;
 uint8_t Init_OK = 0;
 int16_t LookPos[14] = {0};
@@ -72,7 +72,6 @@ bool _SingleAction_CheckApproch(ServoActionSeries *action)
 				// 当前动作Done
 				Action_done[action->actionId] = 1;
 				// 相关参数复位
-				step_counter = 0;
 				for (int i = 1; i <= 12; i++)
 					vis[i] = 0;
 				return true;
@@ -85,13 +84,16 @@ bool _SingleAction_CheckApproch(ServoActionSeries *action)
 // 将iter清零，方便再次做这个动作
 void Motion_Reset(Motion_t *motion_)
 {
-	for(int i = 0;i<motion_->point_total;i++)
+	for (int i = 0; i < motion_->point_total; i++)
 	{
 		Action_done[motion_->motion[i].actionId] = 0; // 重置动作完成标志
 	}
 	motion_->point_iter = 0; // 重置动作点序号
+	step_counter = 0;
+	actionStandup_getStartAngle = 0; // 用于重新获取当前角度从而进行新的贝塞尔曲线计算
 }
 
+int delTim = 0;
 // 运动函数，通过判断iter返回true或false
 bool Motion_Run(Motion_t *motion_)
 {
@@ -99,20 +101,20 @@ bool Motion_Run(Motion_t *motion_)
 	{
 		if (motion_->point_iter < motion_->point_total - 1)
 		{
-			if(motion_ == & _Action_Hug)
+			if (motion_ == &_Action_Hug)
 			{
-				static int delTim = 0;
 				delTim++;
-				if(delTim > 100)
+				if (delTim > 100)
 				{
 					delTim = 0;
 					motion_->point_iter++;
 				}
 			}
-			else motion_->point_iter++; // 切换下一个动作点
+			else
+				motion_->point_iter++; // 切换下一个动作点
 			return false;
 		}
-			
+
 		else if (motion_->point_iter == motion_->point_total - 1)
 		{
 			return true;
@@ -126,17 +128,17 @@ void robotRun()
 {
 	switch (ActionNow)
 	{
-	case ACTION_TEACH://0
+	case ACTION_TEACH: // 0
 		// 示教
 		if (Motion_Run(&_Action_TEACH) == true)
 		{
 			Motion_Reset(&_Action_TEACH); // 重新使能该动作，便于下次再次跑
-			step_counter = 1;//测爬行需要重复
-			//ActionNow = IDLE;
+			// step_counter = 1;//测爬行需要重复
+			ActionNow = IDLE;
 		}
 		break;
 
-	case ACTION_WALK://1
+	case ACTION_WALK: // 1
 		// 走路
 		if (Motion_Run(&_Action_Walk) == true)
 		{
@@ -145,16 +147,16 @@ void robotRun()
 
 		break;
 
-	case ACTION_WAVE://2
+	case ACTION_WAVE: // 2
 		// 挥手
-		if (Motion_Run(&_Action_Walk) == true)
+		if (Motion_Run(&_Active_Wave) == true)
 		{
-			Motion_Reset(&_Action_Walk); // 重新使能该动作，便于下次再次跑
+			Motion_Reset(&_Active_Wave); // 重新使能该动作，便于下次再次跑
 			ActionNow = IDLE;
 		}
 		break;
 
-	case ACTION_STANDUP://3
+	case ACTION_STANDUP: // 3
 		// 站立
 		if (Motion_Run(&_Action_Standup) == true)
 		{
@@ -163,7 +165,7 @@ void robotRun()
 		}
 		break;
 
-	case ACTION_SIT://4
+	case ACTION_SIT: // 4
 		// 坐下
 		if (Motion_Run(&_Active_Sit) == true)
 		{
@@ -172,7 +174,7 @@ void robotRun()
 		}
 		break;
 
-	case ACTION_SITTOEAT://5
+	case ACTION_SITTOEAT: // 5
 		// 坐下吃东西
 		if (Motion_Run(&_Active_SittoEat) == true)
 		{
@@ -181,7 +183,7 @@ void robotRun()
 		}
 		break;
 
-	case ACTION_HUG://64.18 23：04，参数还没改，要达瓦明天改
+	case ACTION_HUG: //
 		// 拥抱
 		if (Motion_Run(&_Action_Hug) == true)
 		{
@@ -189,19 +191,38 @@ void robotRun()
 		}
 		break;
 
-	case ACTION_LIEDOWN:
-		if (Motion_Run(&_Action_LieDown) == true)
+	case ACTION_LIEPRONE:
+		if (Motion_Run(&_Action_LieProne) == true)
 		{
-			Motion_Reset(&_Action_LieDown); // 重新使能该动作，便于下次再次跑
+			Motion_Reset(&_Action_LieProne); // 重新使能该动作，便于下次再次跑
+			ActionNow = IDLE;
+		}
+		break;
+
+	case ACTION_BIGLIE:
+		if (Motion_Run(&_Action_BigLie) == true)
+		{
+			Motion_Reset(&_Action_BigLie); // 重新使能该动作，便于下次再次跑
 			ActionNow = IDLE;
 		}
 		break;
 
 	case ACTION_SIT2PRONE:
-		// 坐下
+		// 坐->卧着
+		if (Motion_Run(&_Action_Sit2Prone) == true)
+		{
+			Motion_Reset(&_Action_Sit2Prone); // 重新使能该动作，便于下次再次跑
+			ActionNow = IDLE;
+		}
 		break;
 
 	case ACTION_PRONETOSIT:
+		// 卧着->坐
+		if (Motion_Run(&_Action_PronetoSit) == true)
+		{
+			Motion_Reset(&_Action_PronetoSit); // 重新使能该动作，便于下次再次跑
+			ActionNow = IDLE;
+		}
 
 		break;
 
@@ -221,12 +242,15 @@ void robotRun()
 
 		break;
 
+	case ACTION_HELLO:
+		if (Motion_Run(&_Action_Hello) == true)
+		{
+			Motion_Reset(&_Action_Hello); // 重新使能该动作，便于下次再次跑
+		}
+		break;
+
 	case IDLE:
 		// 空闲
-		for (int i = 1; i <= 12; i++)
-		{
-			goal_pos[i] = SERVO[i].pos_read;
-		}
 		step_counter = 0;
 		break;
 	default:
@@ -254,7 +278,7 @@ void TeachmodeRUN(void)
 			TEACHMODE = 0;
 			TEACH_OK = 0;
 			TEACH_FINISH = 0;
-			
+
 			/*用于立刻复现刚刚的动作*/
 			ActionNowFlag = 0;
 			Action_done[_Action_TEACH.motion[0].actionId] = 0;

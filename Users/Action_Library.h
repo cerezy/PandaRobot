@@ -72,12 +72,14 @@ extern Motion_t _Action_Standup;
 extern Motion_t _Active_Sit;
 extern Motion_t _Active_SittoEat;
 extern Motion_t _Action_Hug;
-extern Motion_t _Action_LieDown;
+extern Motion_t _Action_LieProne;
+extern Motion_t _Action_BigLie;
 extern Motion_t _Action_Sit2Prone;
 extern Motion_t _Action_PronetoSit;
 extern Motion_t _Action_Lie2Standup;
 extern Motion_t _Action_Crawl;
 extern Motion_t _Action_Crawlrepeat;
 extern Motion_t _Action_Test;
+extern Motion_t _Action_Hello;
 
 #endif

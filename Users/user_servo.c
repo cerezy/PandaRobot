@@ -381,7 +381,6 @@ void User_AllSetAngTime(void)
 		tmp_ms[x] = goal_ms[x];
 		tmp_speed[x] = goal_speed[x];
 	}
-	
 	tmp_pos[0] = 2048 + goal_pos[1];
 	tmp_pos[1] = 2048 + goal_pos[2];
 	tmp_pos[2] = 2048 + goal_pos[3];
@@ -408,10 +407,9 @@ void User_BezierCurve(int stepping, ServoActionSeries* Action_analyze)
     {
         float cur_t = count_t * (float)i;
         float one_minus_t = 1.0f - cur_t;
-        int j = 0;
-        for(j = 1; j <= 12; j++)
+        for(int j = 1; j <= 12; j++)
         {
-            Action_analyze->actions[i].servoAngles[j] =  (int)(one_minus_t * Action_analyze->startservoAngles[j] + cur_t * Action_analyze->endservoAngles[j]);
+            Action_analyze->actions[i].servoAngles[j] = one_minus_t * Action_analyze->startservoAngles[j] + cur_t * Action_analyze->endservoAngles[j];
         }
     }
 }

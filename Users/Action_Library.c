@@ -134,15 +134,13 @@ Motion_t _Active_Wave = {
 Motion_t _Action_Standup = {
 	.point_total = 2,
 	.motion = {
-		{
-			.actionId = 3, // 单个动作的id
+		{.actionId = 3, // 单个动作的id
 		 .ifNeedBezier = 1,
 		 .total_step = 35,
 		 .emotionType = EMOTION_NEUTRAL,
 		 .totalDuration = 2000,
 		 .endservoAngles = {0, 20, -406, 325, -543, 629, -73, 539, -442, 651, -629, 0, 0, 0}},
-		{
-			.actionId = 4, // 单个动作的id
+		{.actionId = 4, // 单个动作的id
 		 .ifNeedBezier = 1,
 		 .total_step = 35,
 		 .emotionType = EMOTION_NEUTRAL,
@@ -175,20 +173,20 @@ Motion_t _Active_Sit = {
 		 .actions[18].servoAngles = {0, 171, 422, 642, -72, 895, -134, -803, -596, 105, -837, 0, 0, 0},
 		 .actions[19].servoAngles = {0, 188, 425, 643, -72, 896, -133, -806, -596, 106, -831, 0, 0, 0},
 		 .actions[20].servoAngles = {0, 279, 423, 643, -72, 895, -136, -795, -594, 106, -836, 0, 0, 0},
-		 .actions[21].servoAngles = {0, 445, 424, 643, -72, 895, -168, -795, -594, 106, -836, 0, 0, 0},
-		 .actions[22].servoAngles = {0, 447, 425, 643, -72, 895, -356, -724, -593, 106, -836, 0, 0, 0},
-		 .actions[23].servoAngles = {0, 447, 426, 643, -72, 895, -461, -670, -593, 106, -836, 0, 0, 0},
-		 .actions[24].servoAngles = {0, 447, 427, 643, -72, 895, -456, -674, -595, 106, -836, 0, 0, 0},
-		 .actions[25].servoAngles = {0, 446, 481, 642, -72, 895, -436, -674, -595, 106, -836, 0, 0, 0},
-		 .actions[26].servoAngles = {0, 446, 653, 642, -72, 895, -297, -710, -602, 106, -835, 0, 0, 0},
-		 .actions[27].servoAngles = {0, 445, 726, 642, -72, 895, -244, -850, -602, 106, -835, 0, 0, 0},
-		 .actions[28].servoAngles = {0, 445, 752, 642, -72, 895, -213, -884, -604, 106, -835, 0, 0, 0},
-		 .actions[29].servoAngles = {0, 446, 826, 642, -72, 895, -218, -819, -594, 106, -833, 0, 0, 0},
-		 .actions[30].servoAngles = {0, 446, 846, 642, -75, 895, -236, -589, -594, 106, -829, 0, 0, 0},
-		 .actions[31].servoAngles = {0, 445, 839, 642, -73, 895, -380, -454, -594, 106, -829, 0, 0, 0},
-		 .actions[32].servoAngles = {0, 428, 836, 641, -73, 895, -516, -456, -603, 107, -829, 0, 0, 0},
-		 .actions[33].servoAngles = {0, 308, 835, 604, -73, 895, -570, -562, -604, 108, -829, 0, 0, 0},
-		 .actions[34].servoAngles = {0, 307, 835, 542, -72, 894, -545, -758, -603, 106, -829, 0, 0, 0},
+		 .actions[21].servoAngles = {0, 300, 424, 643, -72, 895, -168, -795, -594, 106, -836, 0, 0, 0},
+		 .actions[22].servoAngles = {0, 300, 425, 643, -72, 895, -356, -724, -593, 106, -836, 0, 0, 0},
+		 .actions[23].servoAngles = {0, 302, 426, 643, -72, 895, -461, -670, -593, 106, -836, 0, 0, 0},
+		 .actions[24].servoAngles = {0, 304, 427, 643, -72, 895, -456, -674, -595, 106, -836, 0, 0, 0},
+		 .actions[25].servoAngles = {0, 300, 481, 642, -72, 895, -436, -674, -595, 106, -836, 0, 0, 0},
+		 .actions[26].servoAngles = {0, 300, 653, 642, -72, 895, -297, -710, -602, 106, -835, 0, 0, 0},
+		 .actions[27].servoAngles = {0, 300, 726, 642, -72, 895, -244, -850, -602, 106, -835, 0, 0, 0},
+		 .actions[28].servoAngles = {0, 300, 752, 642, -72, 895, -213, -884, -604, 106, -835, 0, 0, 0},
+		 .actions[29].servoAngles = {0, 300, 826, 642, -72, 895, -218, -819, -594, 106, -833, 0, 0, 0},
+		 .actions[30].servoAngles = {0, 300, 846, 642, -75, 895, -236, -589, -594, 106, -829, 0, 0, 0},
+		 .actions[31].servoAngles = {0, 300, 839, 642, -73, 895, -380, -454, -594, 106, -829, 0, 0, 0},
+		 .actions[32].servoAngles = {0, 300, 836, 641, -73, 895, -400, -456, -603, 107, -829, 0, 0, 0},
+		 .actions[33].servoAngles = {0, 308, 835, 604, -73, 895, -400, -562, -604, 108, -829, 0, 0, 0},
+		 .actions[34].servoAngles = {0, 307, 835, 542, -72, 894, -400, -758, -603, 106, -829, 0, 0, 0},
 		 .emotionType = EMOTION_NEUTRAL,
 		 .total_step = 35,
 		 .totalDuration = 5000},
@@ -242,225 +240,233 @@ Motion_t _Active_SittoEat = {
 Motion_t _Action_Hug = {
 	.point_total = 2,
 	.motion = {
-		{
-			.actionId = 7, // 单个动作的id
+		{.actionId = 7, // 单个动作的id
 		 .ifNeedBezier = 1,
 		 .total_step = 20,
 		 .emotionType = EMOTION_NEUTRAL,
 		 .totalDuration = 2000,
 		 .endservoAngles = {0, -3, 779, 607, -62, 1056, 87, -845, -513, 96, -1097, 0, 0, 0}},
-		{
-			.actionId = 8, // 单个动作的id
+		{.actionId = 8, // 单个动作的id
 		 .ifNeedBezier = 1,
 		 .total_step = 20,
 		 .emotionType = EMOTION_NEUTRAL,
 		 .totalDuration = 2000,
 		 .endservoAngles = {0, -2, 453, 326, -62, 1056, 87, -277, -360, 96, -1097, 0, 0, 0}}}};
 
-//趴着躺
-Motion_t _Action_LieDown = {
-	.point_total = 1,
+// 趴着
+Motion_t _Action_LieProne = {
+	.point_total = 2,
 	.motion = {
 		{.actionId = 9, // 单个动作的id
 		 .ifNeedBezier = 1,
 		 .emotionType = EMOTION_NEUTRAL,
 		 .total_step = 35,
 		 .totalDuration = 5000,
-		 .endservoAngles = {0, 662, 778, 432, -843, 1044, -720, -678, -564, 867, -1096, 0, 0, 0}}
+		 .endservoAngles = {0, 300, 768, 537, -225, 66, -320, -770, -582, 170, 33, 1, 1, 0}},
+		{.actionId = 9, // 单个动作的id
+		 .ifNeedBezier = 1,
+		 .emotionType = EMOTION_NEUTRAL,
+		 .total_step = 35,
+		 .totalDuration = 5000,
+		 .endservoAngles = {0, 662, 778, 432, -843, 1044, -720, -678, -564, 867, -1096, 0, 0, 0}}}};
+
+// 大字躺
+Motion_t _Action_BigLie = {
+	.point_total = 1,
+	.motion = {
+		{.actionId = 10, // 单个动作的id
+		 .ifNeedBezier = 1,
+		 .emotionType = EMOTION_NEUTRAL,
+		 .total_step = 15,
+		 .totalDuration = 5000,
+		 .endservoAngles = {0, -10, -402, 71, -114, 16, -3, 206, -27, -19, -242, 0, 0, 0}}}};
+
+Motion_t _Action_Sit2Prone = {
+	.point_total = 1,
+	.motion = {
+		{.actionId = 11, // 单个动作的id
+		 .ifNeedBezier = 0,
+		 .actions[0].servoAngles = {0, 301, 838, 546, -66, 898, -398, -758, -598, 101, -834, 2, 4, 0},
+		 .actions[1].servoAngles = {0, 301, 838, 546, -66, 898, -398, -758, -598, 101, -834, 2, 4, 0},
+		 .actions[2].servoAngles = {0, 301, 838, 546, -66, 898, -398, -754, -598, 101, -834, 2, 4, 0},
+		 .actions[3].servoAngles = {0, 301, 838, 546, -66, 898, -398, -758, -598, 101, -833, 1, 4, 0},
+		 .actions[4].servoAngles = {0, 301, 845, 546, -66, 898, -398, -758, -598, 101, -833, 2, 4, 0},
+		 .actions[5].servoAngles = {0, 300, 847, 539, -57, 898, -396, -750, -598, 78, -834, 2, 4, 0},
+		 .actions[6].servoAngles = {0, 284, 837, 538, 39, 898, -396, -758, -597, -1, -834, 2, 4, 0},
+		 .actions[7].servoAngles = {0, 282, 837, 538, 118, 898, -391, -758, -597, -81, -830, 2, 4, 0},
+		 .actions[8].servoAngles = {0, 281, 837, 538, 202, 901, -288, -759, -597, -204, -826, 0, 4, 0},
+		 .actions[9].servoAngles = {0, 282, 837, 548, 298, 906, -237, -756, -597, -356, -826, -9, 1, 0},
+		 .actions[10].servoAngles = {0, 281, 847, 548, 368, 906, -228, -754, -597, -382, -825, -11, 0, 0},
+		 .actions[11].servoAngles = {0, 269, 848, 548, 396, 906, -219, -758, -605, -389, -824, -10, 0, 0},
+		 .actions[12].servoAngles = {0, 179, 847, 543, 396, 906, -127, -759, -605, -388, -823, 2, 0, 0},
+		 .actions[13].servoAngles = {0, 115, 838, 539, 397, 905, -116, -760, -605, -389, -814, 2, 1, 0},
+		 .actions[14].servoAngles = {0, 110, 841, 539, 396, 898, -116, -750, -601, -390, -752, 2, 1, 0},
+		 .actions[15].servoAngles = {0, 110, 839, 538, 397, 898, -46, -761, -604, -457, -739, 3, 1, 0},
+		 .actions[16].servoAngles = {0, 112, 838, 539, 396, 898, -55, -761, -606, -457, -739, 2, 1, 0},
+		 .actions[17].servoAngles = {0, 112, 845, 539, 396, 898, -55, -761, -606, -457, -739, 1, 1, 0},
+		 .actions[18].servoAngles = {0, 119, 847, 539, 395, 897, -55, -761, -606, -457, -739, 1, 1, 0},
+		 .actions[19].servoAngles = {0, 120, 847, 539, 395, 897, -55, -761, -606, -458, -739, 1, 1, 0},
+		 .actions[20].servoAngles = {0, 120, 839, 539, 395, 894, -55, -761, -606, -458, -729, 1, 1, 0},
+		 .actions[21].servoAngles = {0, 113, 838, 539, 397, 735, -57, -761, -606, -464, -528, 2, 1, 0},
+		 .actions[22].servoAngles = {0, 113, 838, 539, 397, 474, -58, -761, -606, -465, -301, 2, 1, 0},
+		 .actions[23].servoAngles = {0, 113, 838, 539, 394, 242, -96, -767, -607, -463, -122, 1, 1, 0},
+		 .actions[24].servoAngles = {0, 139, 850, 550, 384, 184, -169, -801, -606, -457, -77, 0, 1, 0},
+		 .actions[25].servoAngles = {0, 201, 849, 550, 348, 163, -212, -829, -606, -427, -42, 1, 1, 0},
+		 .actions[26].servoAngles = {0, 284, 846, 549, 118, 75, -317, -853, -606, -229, 38, 2, 1, 0},
+		 .actions[27].servoAngles = {0, 292, 848, 549, -14, 74, -327, -853, -606, -78, 34, 1, 1, 0},
+		 .actions[28].servoAngles = {0, 297, 848, 549, -34, 74, -328, -853, -606, -61, 33, -2, 1, 0},
+		 .actions[29].servoAngles = {0, 294, 844, 548, -187, 74, -329, -854, -606, 52, 32, 1, 1, 0},
+		 .actions[30].servoAngles = {0, 298, 849, 548, -225, 73, -328, -852, -606, 170, 33, 2, 1, 0},
+		 .actions[31].servoAngles = {0, 299, 848, 548, -225, 73, -328, -853, -606, 170, 33, 2, 1, 0},
+		 .actions[32].servoAngles = {0, 299, 849, 548, -225, 73, -325, -853, -606, 170, 33, 0, 1, 0},
+		 .actions[33].servoAngles = {0, 299, 839, 539, -225, 67, -316, -853, -598, 170, 33, -6, 1, 0},
+		 .actions[34].servoAngles = {0, 300, 768, 537, -225, 66, -320, -770, -582, 170, 33, 1, 1, 0},
+		 .emotionType = EMOTION_NEUTRAL,
+		 .total_step = 35,
+		 .totalDuration = 5000},
 	}};
 
-Motion_t _Action_Sit2Prone;
-Motion_t _Action_PronetoSit;
+//{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+	
+Motion_t _Action_PronetoSit = {
+	.point_total = 2,
+	.motion = {
+		{.actionId = 10, // 先卧着
+		 .ifNeedBezier = 0,
+		.actions[0].servoAngles = {0, 658, 781, 436, -840, 1044, -724, -678, -565, 865, -1096, -2, 0, 0 },
+		.actions[1].servoAngles = {0, 658, 781, 436, -840, 1044, -724, -678, -565, 865, -1096, -2, 0, 0 },
+		.actions[2].servoAngles = {0, 658, 781, 436, -840, 1044, -724, -678, -565, 865, -1096, -2, 0, 0 },
+		.actions[3].servoAngles = {0, 658, 781, 436, -840, 1044, -724, -678, -565, 865, -1096, -2, 0, 0 },
+		.actions[4].servoAngles = {0, 658, 781, 436, -840, 1044, -724, -678, -565, 865, -1096, -3, 0, 0 },
+		.actions[5].servoAngles = {0, 658, 781, 436, -840, 1044, -724, -678, -565, 865, -1096, -3, 0, 0 },
+		.actions[6].servoAngles = {0, 658, 781, 436, -840, 1044, -724, -678, -565, 865, -1096, -3, 0, 0 },
+		.actions[7].servoAngles = {0, 658, 781, 436, -840, 1044, -724, -678, -565, 865, -1096, -3, 0, 0 },
+		.actions[8].servoAngles = {0, 658, 781, 436, -831, 1034, -724, -678, -565, 863, -1084, -2, -1, 0 },
+		.actions[9].servoAngles = {0, 657, 781, 436, -830, 1033, -724, -678, -565, 863, -1074, -2, -1, 0 },
+		.actions[10].servoAngles = {0, 657, 781, 436, -830, 950, -724, -678, -565, 864, -969, 3, -1, 0 },
+		.actions[11].servoAngles = {0, 657, 781, 436, -830, 794, -723, -678, -565, 864, -863, 0, -1, 0 },
+		.actions[12].servoAngles = {0, 657, 781, 436, -831, 611, -723, -678, -565, 888, -715, 1, -1, 0 },
+		.actions[13].servoAngles = {0, 657, 781, 436, -830, 432, -723, -678, -565, 905, -497, 1, -1, 0 },
+		.actions[14].servoAngles = {0, 656, 778, 435, -826, 270, -718, -678, -565, 890, -283, -1, -1, 0 },
+		.actions[15].servoAngles = {0, 656, 779, 435, -719, 163, -723, -678, -565, 680, -145, 4, -1, 0 },
+		.actions[16].servoAngles = {0, 655, 779, 435, -519, 132, -724, -678, -565, 548, -112, 6, -1, 0 },
+		.actions[17].servoAngles = {0, 647, 774, 435, -263, 116, -724, -678, -565, 467, -110, 2, -1, 0 },
+		.actions[18].servoAngles = {0, 654, 779, 435, -17, 115, -724, -678, -565, 295, -110, 3, -1, 0 },
+		.actions[19].servoAngles = {0, 655, 780, 435, 92, 115, -724, -678, -565, 148, -111, 4, -1, 0 },
+		.actions[20].servoAngles = {0, 656, 780, 435, 94, 115, -724, -678, -565, 140, -111, 4, -1, 0 },
+		.actions[21].servoAngles = {0, 656, 780, 435, 103, 115, -724, -678, -565, 133, -112, 5, -1, 0 },
+		.actions[22].servoAngles = {0, 650, 777, 435, 107, 115, -716, -678, -565, 128, -112, 0, -1, 0 },
+		.actions[23].servoAngles = {0, 646, 771, 435, 235, 122, -714, -678, -565, 12, -115, 5, -1, 0 },
+		.actions[24].servoAngles = {0, 656, 780, 435, 461, 144, -715, -678, -565, -161, -126, 3, -1, 0 },
+		.actions[25].servoAngles = {0, 655, 780, 435, 566, 246, -722, -678, -565, -284, -126, 7, -1, 0 },
+		.actions[26].servoAngles = {0, 650, 779, 435, 594, 338, -723, -678, -565, -380, -127, 5, -1, 0 },
+		.actions[27].servoAngles = {0, 83, 573, 547, 99, 78, -171, -551, -401, -30, -25, 3, -1, 0 },
+		 .emotionType = EMOTION_NEUTRAL,
+		 .total_step = 28,
+		 .totalDuration = 5000},
+		{.actionId = 5,
+		 .ifNeedBezier = 1,
+//		.actions[0].servoAngles = {0, 113, 892, 644, 388, 903, -124, -798, -595, -361, -827, 0, 0, 0},
+//		 .actions[1].servoAngles = {0, 113, 892, 644, 388, 903, -124, -798, -595, -361, -827, 0, 0, 0},
+//		 .actions[2].servoAngles = {0, 113, 892, 644, 388, 903, -124, -798, -595, -361, -827, 0, 0, 0},
+//		 .actions[3].servoAngles = {0, 113, 892, 644, 388, 903, -124, -798, -595, -361, -827, 0, 0, 0},
+//		 .actions[4].servoAngles = {0, 113, 892, 644, 388, 903, -124, -798, -595, -361, -828, 0, 0, 0},
+//		 .actions[5].servoAngles = {0, 117, 892, 644, 388, 903, -132, -798, -595, -361, -835, 0, 0, 0},
+//		 .actions[6].servoAngles = {0, 121, 892, 644, 376, 904, -134, -797, -595, -349, -838, 0, 0, 0},
+//		 .actions[7].servoAngles = {0, 122, 891, 644, 303, 904, -135, -797, -595, -310, -838, 0, 0, 0},
+//		 .actions[8].servoAngles = {0, 122, 891, 644, 285, 904, -135, -797, -595, -247, -837, 0, 0, 0},
+//		 .actions[9].servoAngles = {0, 122, 891, 644, 234, 904, -135, -797, -595, -189, -838, 0, 0, 0},
+//		 .actions[10].servoAngles = {0, 122, 891, 644, 100, 904, -135, -803, -595, -78, -830, 0, 0, 0},
+//		 .actions[11].servoAngles = {0, 121, 891, 644, -55, 904, -135, -803, -595, 89, -828, 0, 0, 0},
+//		 .actions[12].servoAngles = {0, 121, 891, 644, -73, 904, -135, -804, -595, 105, -828, 0, 0, 0},
+//		 .actions[13].servoAngles = {0, 121, 891, 644, -72, 903, -134, -802, -595, 105, -828, 0, 0, 0},
+//		 .actions[14].servoAngles = {0, 120, 891, 644, -72, 903, -134, -801, -595, 107, -827, 0, 0, 0},
+//		 .actions[15].servoAngles = {0, 116, 887, 642, -72, 899, -133, -797, -595, 107, -827, 0, 0, 0},
+//		 .actions[16].servoAngles = {0, 123, 709, 642, -72, 895, -136, -796, -599, 110, -828, 0, 0, 0},
+//		 .actions[17].servoAngles = {0, 123, 486, 642, -72, 895, -136, -796, -600, 106, -836, 0, 0, 0},
+//		 .actions[18].servoAngles = {0, 171, 422, 642, -72, 895, -134, -803, -596, 105, -837, 0, 0, 0},
+//		 .actions[19].servoAngles = {0, 188, 425, 643, -72, 896, -133, -806, -596, 106, -831, 0, 0, 0},
+//		 .actions[20].servoAngles = {0, 279, 423, 643, -72, 895, -136, -795, -594, 106, -836, 0, 0, 0},
+//		 .actions[21].servoAngles = {0, 300, 424, 643, -72, 895, -168, -795, -594, 106, -836, 0, 0, 0},
+//		 .actions[22].servoAngles = {0, 300, 425, 643, -72, 895, -356, -724, -593, 106, -836, 0, 0, 0},
+//		 .actions[23].servoAngles = {0, 302, 426, 643, -72, 895, -461, -670, -593, 106, -836, 0, 0, 0},
+//		 .actions[24].servoAngles = {0, 304, 427, 643, -72, 895, -456, -674, -595, 106, -836, 0, 0, 0},
+//		 .actions[25].servoAngles = {0, 300, 481, 642, -72, 895, -436, -674, -595, 106, -836, 0, 0, 0},
+//		 .actions[26].servoAngles = {0, 300, 653, 642, -72, 895, -297, -710, -602, 106, -835, 0, 0, 0},
+//		 .actions[27].servoAngles = {0, 300, 726, 642, -72, 895, -244, -850, -602, 106, -835, 0, 0, 0},
+//		 .actions[28].servoAngles = {0, 300, 752, 642, -72, 895, -213, -884, -604, 106, -835, 0, 0, 0},
+//		 .actions[29].servoAngles = {0, 300, 826, 642, -72, 895, -218, -819, -594, 106, -833, 0, 0, 0},
+//		 .actions[30].servoAngles = {0, 300, 846, 642, -75, 895, -236, -589, -594, 106, -829, 0, 0, 0},
+//		 .actions[31].servoAngles = {0, 300, 839, 642, -73, 895, -380, -454, -594, 106, -829, 0, 0, 0},
+//		 .actions[32].servoAngles = {0, 300, 836, 641, -73, 895, -400, -456, -603, 107, -829, 0, 0, 0},
+//		 .actions[33].servoAngles = {0, 308, 835, 604, -73, 895, -400, -562, -604, 108, -829, 0, 0, 0},
+//		 .actions[34].servoAngles = {0, 307, 835, 542, -72, 894, -400, -758, -603, 106, -829, 0, 0, 0},
+		 .emotionType = EMOTION_NEUTRAL,
+		 .total_step = 35,
+		 .endservoAngles = {0, -400, 621, 529, -62, 1056, 400, -657, -462, 96, -1097, 0, 0, 0},
+		 .totalDuration = 5000}}};
+
 Motion_t _Action_Lie2Standup;
 Motion_t _Action_Crawl;
 Motion_t _Action_Crawlrepeat;
-Motion_t _Action_Hello;
 
-// 下面为实际动作序列的定义
-ServoActionSeries Action_Hello;
-ServoActionSeries Action_Hug;
-ServoActionSeries Action_Standup;
-ServoActionSeries Action_Sit2Prone;
-ServoActionSeries Action_PronetoSit;
-ServoActionSeries Action_Lie2Standup;
-ServoActionSeries Action_Crawl;
-ServoActionSeries Action_Crawlrepeat;
+Motion_t _Action_Hello = {
+	.point_total = 1,
+	.motion = {
+		{.actionId = 12,
+		 .ifNeedBezier = 0,
+		 .actions[0].servoAngles = {0, 300, 840, 547, -69, 894, -395, -763, -596, 78, -831, 4, 6, 0},
+		 .actions[1].servoAngles = {0, 300, 840, 547, -69, 894, -395, -763, -596, 78, -831, 4, 6, 0},
+		 .actions[2].servoAngles = {0, 300, 840, 547, -69, 894, -396, -762, -596, 78, -831, 4, 6, 0},
+		 .actions[3].servoAngles = {0, 300, 840, 547, -69, 894, -396, -764, -596, 79, -832, -6, 6, 0},
+		 .actions[4].servoAngles = {0, 300, 840, 547, -69, 894, -396, -759, -596, 79, -832, 3, 6, 0},
+		 .actions[5].servoAngles = {0, 300, 840, 547, -69, 894, -396, -757, -596, 79, -832, -1, 8, 0},
+		 .actions[6].servoAngles = {0, 300, 840, 547, -70, 894, -395, -756, -596, 81, -832, -6, 59, 0},
+		 .actions[7].servoAngles = {0, 300, 840, 547, -70, 894, -395, -756, -596, 79, -832, 5, 182, 0},
+		 .actions[8].servoAngles = {0, 300, 840, 547, -70, 894, -395, -764, -596, 85, -832, 5, 173, 0},
+		 .actions[9].servoAngles = {0, 300, 840, 547, -70, 894, -395, -765, -596, 79, -832, 5, 160, 0},
+		 .actions[10].servoAngles = {0, 300, 840, 547, -70, 894, -395, -765, -596, 84, -832, 4, 4, 0},
+		 .actions[11].servoAngles = {0, 300, 840, 547, -70, 894, -395, -765, -596, 82, -832, 5, -4, 0},
+		 .actions[12].servoAngles = {0, 300, 840, 547, -70, 893, -394, -756, -596, 85, -832, 1, 14, 0},
+		 .actions[13].servoAngles = {0, 300, 840, 547, -70, 893, -394, -756, -596, 81, -832, 4, 156, 0},
+		 .actions[14].servoAngles = {0, 300, 840, 547, -70, 893, -394, -765, -596, 85, -832, 4, 175, 0},
+		 .actions[15].servoAngles = {0, 300, 840, 547, -69, 893, -394, -765, -596, 83, -832, 6, 174, 0},
+		 .actions[16].servoAngles = {0, 300, 840, 547, -69, 892, -394, -765, -596, 83, -832, 6, 107, 0},
+		 .actions[17].servoAngles = {0, 300, 840, 547, -70, 893, -394, -766, -596, 86, -832, 5, 46, 0},
+		 .actions[18].servoAngles = {0, 300, 840, 547, -70, 893, -395, -754, -595, 86, -832, 5, 45, 0},
+		 .actions[19].servoAngles = {0, 300, 840, 547, -69, 893, -402, -736, -594, 84, -832, 0, 45, 0},
+		 .actions[20].servoAngles = {0, 300, 840, 547, -69, 892, -406, -575, -594, 86, -832, -4, 45, 0},
+		 .actions[21].servoAngles = {0, 300, 840, 547, -69, 892, -403, -414, -593, 86, -832, -6, 45, 0},
+		 .actions[22].servoAngles = {0, 300, 840, 547, -69, 892, -395, -279, -593, 86, -832, -2, 45, 0},
+		 .actions[23].servoAngles = {0, 300, 840, 547, -69, 897, -394, -309, -595, 86, -832, 5, 45, 0},
+		 .actions[24].servoAngles = {0, 300, 840, 547, -69, 897, -394, -483, -595, 86, -832, 5, 45, 0},
+		 .actions[25].servoAngles = {0, 300, 840, 547, -69, 897, -394, -593, -601, 86, -832, 5, 45, 0},
+		 .actions[26].servoAngles = {0, 300, 840, 547, -69, 896, -408, -639, -603, 86, -832, 4, 45, 0},
+		 .actions[27].servoAngles = {0, 300, 840, 547, -69, 895, -479, -611, -600, 86, -832, 3, 45, 0},
+		 .actions[28].servoAngles = {0, 300, 840, 547, -69, 895, -494, -443, -603, 85, -832, 3, 45, 0},
+		 .actions[29].servoAngles = {0, 300, 840, 547, -70, 895, -531, -266, -602, 86, -832, 3, 45, 0},
+		 .actions[30].servoAngles = {0, 300, 840, 547, -70, 899, -525, -210, -599, 86, -832, 4, 45, 0},
+		 .actions[31].servoAngles = {0, 300, 840, 547, -69, 900, -507, -257, -604, 86, -832, 7, 46, 0},
+		 .actions[32].servoAngles = {0, 300, 840, 547, -69, 899, -467, -489, -604, 86, -832, 7, 46, 0},
+		 .actions[33].servoAngles = {0, 300, 840, 547, -69, 894, -451, -635, -604, 86, -832, 6, 51, 0},
+		 .actions[34].servoAngles = {0, 300, 840, 547, -69, 894, -451, -644, -596, 85, -832, 4, 51, 0},
+		 .emotionType = EMOTION_NEUTRAL,
+		 .total_step = 35,
+		 .totalDuration = 5000}}};
 
-ServoActionSeries Action_Walk = (ServoActionSeries){
-	.actionId = 1,
-
-	.actions[0].servoAngles = {0, 97, 504, 658, 37, 801, -75, -642, -524, 217, -1082, 0, 0, 0},
-	.actions[1].servoAngles = {0, 97, 504, 658, 37, 801, -75, -642, -524, 217, -1082, 0, 0, 0},
-	.actions[2].servoAngles = {0, 300, 504, 658, 37, 801, -75, -642, -524, 217, -1082, 0, 0, 0},
-	.actions[3].servoAngles = {0, 266, 442, 410, 42, 796, -81, -647, -527, 218, -1082, 0, 0, 0},
-	.actions[4].servoAngles = {0, 179, 535, 542, 16, 914, -87, -591, -527, 198, -946, 0, 0, 0},
-	.actions[5].servoAngles = {0, 84, 614, 644, -123, 890, 100, -539, -700, 250, -915, 0, 0, 0},
-	.actions[6].servoAngles = {0, 84, 614, 644, -123, 890, 100, -539, -700, 125, -755, 0, 0, 0},
-	.actions[7].servoAngles = {0, 7, 563, 647, -188, 843, 96, -603, -704, -61, -850, 0, 0, 0},
-	.actions[8].servoAngles = {0, 13, 644, 651, -243, 1100, 38, -600, -692, 78, -823, 0, 0, 0},
-	.actions[9].servoAngles = {0, 13, 644, 651, -243, 1050, -275, -598, -692, 78, -823, 0, 0, 0},
-	.actions[10].servoAngles = {0, 13, 644, 651, -243, 1050, -250, -639, -315, 78, -823, 0, 0, 0},
-	.actions[11].servoAngles = {0, 19, 580, 658, -325, 900, -125, -614, -600, 250, -1050, 0, 0, 0},
-	.actions[12].servoAngles = {0, 19, 580, 658, -200, 700, -125, -614, -600, 250, -1050, 0, 0, 0},
-	.actions[13].servoAngles = {0, 24, 586, 662, -22, 860, 27, -639, -674, 349, -1053, 0, 0, 0},
-	.actions[14].servoAngles = {0, 97, 504, 658, 37, 801, -75, -642, -524, 217, -1082, 0, 0, 0},
-
-	.emotionType = EMOTION_NEUTRAL,
-	.total_step = 15,
-	.totalDuration = 5000};
-
-ServoActionSeries Action_TEACH;
-ServoActionSeries Action_Test = (ServoActionSeries){
-
-};
-
-ServoActionSeries Active_Wave = (ServoActionSeries){
-	.actionId = 3,
-
-	.actions[0].servoAngles = {0, 169, 613, 559, -49, 896, -266, -540, -552, 90, -827, 0, 0, 0},
-	.actions[1].servoAngles = {0, 169, 613, 559, -49, 896, -266, -540, -552, 90, -827, 0, 0, 0},
-	.actions[2].servoAngles = {0, 169, 614, 559, -49, 896, -266, -540, -552, 90, -827, 0, 0, 0},
-	.actions[3].servoAngles = {0, 169, 615, 559, -49, 898, -266, -547, -553, 89, -827, 0, 0, 0},
-	.actions[4].servoAngles = {0, 169, 615, 559, -49, 896, -266, -548, -553, 89, -827, 0, 0, 0},
-	.actions[5].servoAngles = {0, 169, 615, 559, -49, 896, -276, -541, -548, 89, -827, 0, 0, 0},
-	.actions[6].servoAngles = {0, 168, 612, 559, -59, 896, -291, -540, -551, 94, -827, 0, 0, 0},
-	.actions[7].servoAngles = {0, 168, 611, 557, -60, 896, -508, -543, -553, 95, -827, 0, 0, 0},
-	.actions[8].servoAngles = {0, 168, 614, 559, -50, 896, -777, -541, -553, 91, -827, 0, 0, 0},
-	.actions[9].servoAngles = {0, 175, 615, 561, -48, 897, -766, -540, -553, 88, -827, 0, 0, 0},
-	.actions[10].servoAngles = {0, 176, 616, 561, -48, 897, -523, -541, -553, 88, -827, 0, 0, 0},
-	.actions[11].servoAngles = {0, 176, 616, 561, -48, 897, -226, -547, -553, 88, -827, 0, 0, 0},
-	.actions[12].servoAngles = {0, 176, 616, 561, -49, 897, -8, -549, -553, 88, -827, 0, 0, 0},
-	.actions[13].servoAngles = {0, 169, 615, 561, -59, 897, -42, -549, -553, 94, -827, 0, 0, 0},
-	.actions[14].servoAngles = {0, 169, 608, 560, -60, 897, -310, -549, -554, 95, -827, 0, 0, 0},
-	.actions[15].servoAngles = {0, 169, 614, 560, -58, 897, -628, -549, -554, 95, -827, 0, 0, 0},
-	.actions[16].servoAngles = {0, 175, 616, 561, -49, 898, -759, -549, -554, 90, -827, 0, 0, 0},
-	.actions[17].servoAngles = {0, 176, 616, 561, -48, 898, -630, -548, -554, 88, -827, 0, 0, 0},
-	.actions[18].servoAngles = {0, 176, 616, 561, -48, 898, -349, -548, -554, 88, -827, 0, 0, 0},
-	.actions[19].servoAngles = {0, 176, 616, 561, -49, 899, -85, -549, -554, 88, -827, 0, 0, 0},
-	.actions[20].servoAngles = {0, 170, 616, 561, -49, 899, -13, -550, -554, 89, -827, 0, 0, 0},
-	.actions[21].servoAngles = {0, 169, 615, 561, -59, 899, -169, -549, -554, 94, -827, 0, 0, 0},
-	.actions[22].servoAngles = {0, 169, 615, 561, -59, 899, -470, -541, -554, 94, -827, 0, 0, 0},
-	.actions[23].servoAngles = {0, 169, 615, 561, -50, 899, -736, -550, -554, 94, -827, 0, 0, 0},
-	.actions[24].servoAngles = {0, 169, 616, 555, -55, 899, -785, -581, -564, 95, -827, 0, 0, 0},
-	.actions[25].servoAngles = {0, 175, 616, 555, -49, 898, -783, -765, -598, 90, -827, 0, 0, 0},
-	.actions[26].servoAngles = {0, 176, 616, 561, -48, 898, -710, -800, -597, 89, -827, 0, 0, 0},
-	.actions[27].servoAngles = {0, 176, 616, 561, -48, 898, -464, -799, -596, 89, -827, 0, 0, 0},
-	.actions[28].servoAngles = {0, 176, 616, 561, -49, 897, -242, -798, -596, 89, -827, 0, 0, 0},
-	.actions[29].servoAngles = {0, 176, 616, 561, -49, 897, -117, -798, -596, 89, -827, 0, 0, 0},
-	.actions[30].servoAngles = {0, 172, 615, 561, -50, 897, -106, -799, -597, 91, -827, 0, 0, 0},
-	.actions[31].servoAngles = {0, 171, 615, 561, -50, 897, -106, -799, -597, 90, -827, 0, 0, 0},
-	.actions[32].servoAngles = {0, 170, 615, 561, -50, 897, -106, -799, -597, 90, -827, 0, 0, 0},
-	.actions[33].servoAngles = {0, 169, 615, 561, -50, 897, -106, -799, -597, 90, -827, 0, 0, 0},
-	.actions[34].servoAngles = {0, 169, 608, 561, -49, 897, -106, -799, -597, 90, -827, 0, 0, 0},
-
-	.emotionType = EMOTION_NEUTRAL,
-	.total_step = 35,
-	.totalDuration = 5000
+Motion_t Active_Micromove_4 = {
 
 };
 
-ServoActionSeries Active_Sit = (ServoActionSeries){
-	.actionId = 4,
-	.actions[0].servoAngles = {0, 113, 892, 644, 388, 903, -124, -798, -595, -361, -827, 0, 0, 0},
-	.actions[1].servoAngles = {0, 113, 892, 644, 388, 903, -124, -798, -595, -361, -827, 0, 0, 0},
-	.actions[2].servoAngles = {0, 113, 892, 644, 388, 903, -124, -798, -595, -361, -827, 0, 0, 0},
-	.actions[3].servoAngles = {0, 113, 892, 644, 388, 903, -124, -798, -595, -361, -827, 0, 0, 0},
-	.actions[4].servoAngles = {0, 113, 892, 644, 388, 903, -124, -798, -595, -361, -828, 0, 0, 0},
-	.actions[5].servoAngles = {0, 117, 892, 644, 388, 903, -132, -798, -595, -361, -835, 0, 0, 0},
-	.actions[6].servoAngles = {0, 121, 892, 644, 376, 904, -134, -797, -595, -349, -838, 0, 0, 0},
-	.actions[7].servoAngles = {0, 122, 891, 644, 303, 904, -135, -797, -595, -310, -838, 0, 0, 0},
-	.actions[8].servoAngles = {0, 122, 891, 644, 285, 904, -135, -797, -595, -247, -837, 0, 0, 0},
-	.actions[9].servoAngles = {0, 122, 891, 644, 234, 904, -135, -797, -595, -189, -838, 0, 0, 0},
-	.actions[10].servoAngles = {0, 122, 891, 644, 100, 904, -135, -803, -595, -78, -830, 0, 0, 0},
-	.actions[11].servoAngles = {0, 121, 891, 644, -55, 904, -135, -803, -595, 89, -828, 0, 0, 0},
-	.actions[12].servoAngles = {0, 121, 891, 644, -73, 904, -135, -804, -595, 105, -828, 0, 0, 0},
-	.actions[13].servoAngles = {0, 121, 891, 644, -72, 903, -134, -802, -595, 105, -828, 0, 0, 0},
-	.actions[14].servoAngles = {0, 120, 891, 644, -72, 903, -134, -801, -595, 107, -827, 0, 0, 0},
-	.actions[15].servoAngles = {0, 116, 887, 642, -72, 899, -133, -797, -595, 107, -827, 0, 0, 0},
-	.actions[16].servoAngles = {0, 123, 709, 642, -72, 895, -136, -796, -599, 110, -828, 0, 0, 0},
-	.actions[17].servoAngles = {0, 123, 486, 642, -72, 895, -136, -796, -600, 106, -836, 0, 0, 0},
-	.actions[18].servoAngles = {0, 171, 422, 642, -72, 895, -134, -803, -596, 105, -837, 0, 0, 0},
-	.actions[19].servoAngles = {0, 188, 425, 643, -72, 896, -133, -806, -596, 106, -831, 0, 0, 0},
-	.actions[20].servoAngles = {0, 279, 423, 643, -72, 895, -136, -795, -594, 106, -836, 0, 0, 0},
-	.actions[21].servoAngles = {0, 445, 424, 643, -72, 895, -168, -795, -594, 106, -836, 0, 0, 0},
-	.actions[22].servoAngles = {0, 447, 425, 643, -72, 895, -356, -724, -593, 106, -836, 0, 0, 0},
-	.actions[23].servoAngles = {0, 447, 426, 643, -72, 895, -461, -670, -593, 106, -836, 0, 0, 0},
-	.actions[24].servoAngles = {0, 447, 427, 643, -72, 895, -456, -674, -595, 106, -836, 0, 0, 0},
-	.actions[25].servoAngles = {0, 446, 481, 642, -72, 895, -436, -674, -595, 106, -836, 0, 0, 0},
-	.actions[26].servoAngles = {0, 446, 653, 642, -72, 895, -297, -710, -602, 106, -835, 0, 0, 0},
-	.actions[27].servoAngles = {0, 445, 726, 642, -72, 895, -244, -850, -602, 106, -835, 0, 0, 0},
-	.actions[28].servoAngles = {0, 445, 752, 642, -72, 895, -213, -884, -604, 106, -835, 0, 0, 0},
-	.actions[29].servoAngles = {0, 446, 826, 642, -72, 895, -218, -819, -594, 106, -833, 0, 0, 0},
-	.actions[30].servoAngles = {0, 446, 846, 642, -75, 895, -236, -589, -594, 106, -829, 0, 0, 0},
-	.actions[31].servoAngles = {0, 445, 839, 642, -73, 895, -380, -454, -594, 106, -829, 0, 0, 0},
-	.actions[32].servoAngles = {0, 428, 836, 641, -73, 895, -516, -456, -603, 107, -829, 0, 0, 0},
-	.actions[33].servoAngles = {0, 308, 835, 604, -73, 895, -570, -562, -604, 108, -829, 0, 0, 0},
-	.actions[34].servoAngles = {0, 307, 835, 542, -72, 894, -545, -758, -603, 106, -829, 0, 0, 0},
-
-	.emotionType = EMOTION_NEUTRAL,
-	.total_step = 35,
-	.totalDuration = 5000
+Motion_t Active_Micromove_5 = {
 
 };
 
-ServoActionSeries Active_SittoEat = (ServoActionSeries){
-	.actionId = 5,
-
-	.actions[0].servoAngles = {0, 97, 858, 557, -53, 897, -41, -810, -600, 94, -828, 0, 0, 0},
-	.actions[1].servoAngles = {0, 97, 858, 557, -53, 897, -41, -810, -600, 94, -828, 0, 0, 0},
-	.actions[2].servoAngles = {0, 97, 859, 557, -53, 897, -41, -810, -600, 94, -828, 0, 0, 0},
-	.actions[3].servoAngles = {0, 97, 858, 552, -53, 897, -41, -811, -600, 94, -828, 0, 0, 0},
-	.actions[4].servoAngles = {0, 97, 859, 552, -53, 897, -40, -811, -600, 93, -828, 0, 0, 0},
-	.actions[5].servoAngles = {0, 94, 858, 551, -47, 896, -35, -809, -600, 83, -828, 0, 0, 0},
-	.actions[6].servoAngles = {0, 94, 857, 551, 22, 896, 65, -808, -600, 20, -828, 0, 0, 0},
-	.actions[7].servoAngles = {0, 50, 856, 550, 53, 896, 74, -808, -600, -23, -832, 0, 0, 0},
-	.actions[8].servoAngles = {0, 34, 856, 550, 45, 896, 72, -808, -600, -18, -831, 0, 0, 0},
-	.actions[9].servoAngles = {0, 72, 856, 550, 44, 899, 70, -808, -600, -17, -831, 0, 0, 0},
-	.actions[10].servoAngles = {0, 234, 856, 550, 44, 899, -108, -808, -600, -17, -831, 0, 0, 0},
-	.actions[11].servoAngles = {0, 380, 856, 550, 44, 899, -339, -808, -600, -17, -831, 0, 0, 0},
-	.actions[12].servoAngles = {0, 401, 857, 550, 44, 899, -380, -817, -600, -17, -831, 0, 0, 0},
-	.actions[13].servoAngles = {0, 374, 857, 550, 70, 896, -379, -817, -599, -37, -829, 0, 0, 0},
-	.actions[14].servoAngles = {0, 266, 857, 550, 103, 899, -289, -818, -599, -57, -828, 0, 0, 0},
-	.actions[15].servoAngles = {0, 180, 857, 550, 104, 899, -76, -809, -599, -57, -828, 0, 0, 0},
-	.actions[16].servoAngles = {0, 149, 858, 550, 94, 899, -33, -809, -599, -53, -832, 0, 0, 0},
-	.actions[17].servoAngles = {0, 275, 857, 550, 94, 899, -225, -815, -599, -48, -832, 0, 0, 0},
-	.actions[18].servoAngles = {0, 519, 857, 550, 94, 899, -404, -818, -599, -48, -832, 0, 0, 0},
-	.actions[19].servoAngles = {0, 554, 857, 550, 105, 900, -504, -819, -599, -59, -830, 0, 0, 0},
-	.actions[20].servoAngles = {0, 551, 858, 550, 106, 899, -434, -820, -599, -81, -832, 0, 0, 0},
-	.actions[21].servoAngles = {0, 405, 868, 550, 106, 898, -254, -820, -599, -97, -832, 0, 0, 0},
-	.actions[22].servoAngles = {0, 195, 867, 550, 125, 900, -75, -819, -599, -97, -830, 0, 0, 0},
-	.actions[23].servoAngles = {0, 155, 867, 555, 133, 901, -12, -810, -599, -92, -828, 0, 0, 0},
-	.actions[24].servoAngles = {0, 180, 865, 556, 133, 901, -167, -815, -599, -90, -828, 0, 0, 0},
-	.actions[25].servoAngles = {0, 332, 866, 552, 133, 901, -258, -819, -599, -90, -828, 0, 0, 0},
-	.actions[26].servoAngles = {0, 466, 867, 555, 133, 901, -397, -820, -605, -90, -828, 0, 0, 0},
-	.actions[27].servoAngles = {0, 465, 868, 552, 133, 901, -479, -820, -601, -90, -828, 0, 0, 0},
-	.actions[28].servoAngles = {0, 465, 868, 550, 145, 902, -458, -820, -599, -115, -828, 0, 0, 0},
-	.actions[29].servoAngles = {0, 395, 868, 550, 177, 899, -327, -820, -599, -169, -829, 0, 0, 0},
-	.actions[30].servoAngles = {0, 260, 868, 550, 220, 902, -231, -819, -599, -175, -828, 0, 0, 0},
-	.actions[31].servoAngles = {0, 244, 867, 550, 222, 901, -125, -819, -599, -176, -829, 0, 0, 0},
-	.actions[32].servoAngles = {0, 244, 867, 555, 223, 900, -97, -819, -599, -176, -832, 0, 0, 0},
-	.actions[33].servoAngles = {0, 254, 867, 556, 215, 900, -111, -819, -600, -175, -833, 0, 0, 0},
-	.actions[34].servoAngles = {0, 295, 859, 551, 213, 900, -324, -819, -600, -167, -831, 0, 0, 0},
-
-	.emotionType = EMOTION_NEUTRAL,
-	.total_step = 35,
-	.totalDuration = 5000
+Motion_t Active_Micromove_6 = {
 
 };
 
-ServoActionSeries Active_Micromove_4 = (ServoActionSeries){
-
-};
-
-ServoActionSeries Active_Micromove_5 = (ServoActionSeries){
-
-};
-
-ServoActionSeries Active_Micromove_6 = (ServoActionSeries){
-
-};
-
-ServoActionSeries Active_Micromove_7 = (ServoActionSeries){
+Motion_t Active_Micromove_7 = {
 
 };
 // 开启示教模式
@@ -477,9 +483,9 @@ void Action_Teachmode(void)
 		printf(".servoAngles = {");
 		for (int i = 0; i < 13; i++)
 		{
-			printf("%d, ", Action_TEACH.actions[si].servoAngles[i]);
+			printf("%d, ", _Action_TEACH.motion[0].actions[si].servoAngles[i]);
 		}
-		printf("%d ", Action_TEACH.actions[si].servoAngles[13]);
+		printf("%d ", _Action_TEACH.motion[0].actions[si].servoAngles[13]);
 		printf("},\r\n");
 	}
 	printf("	.emotionType = EMOTION_NEUTRAL,\r\n		.total_step = 35,\r\n	.totalDuration = 5000\r\n");
@@ -487,19 +493,19 @@ void Action_Teachmode(void)
 // 动作库初始化函数
 void Action_init(void)
 {
-	Action_index[0] = &Action_TEACH;
-	Action_index[1] = &Action_Walk;
-	Action_index[2] = &Action_Hug;
-	Action_index[3] = &Active_Wave;
-	Action_index[4] = &Active_Sit;
-	Action_index[5] = &Active_SittoEat;
-	Action_index[6] = &Action_Lie2Standup;
-	Action_index[7] = &Action_Crawl;
-	Action_index[10] = &Action_Crawlrepeat;
-	Action_index[14] = &Action_Test;
+	//	Action_index[0] = &Action_TEACH;
+	//	Action_index[1] = &Action_Walk;
+	//	Action_index[2] = &Action_Hug;
+	//	Action_index[3] = &Active_Wave;
+	//	Action_index[4] = &Active_Sit;
+	//	Action_index[5] = &Active_SittoEat;
+	//	Action_index[6] = &Action_Lie2Standup;
+	//	Action_index[7] = &Action_Crawl;
+	//	Action_index[10] = &Action_Crawlrepeat;
+	//	Action_index[14] = &Action_Test;
 
-	Action_TEACH.actionId = 0;
-	Action_TEACH.emotionType = EMOTION_NEUTRAL;
-	Action_TEACH.totalDuration = 5000;
-	Action_TEACH.total_step = TEACH_TOTAL_STEP;
+	//	Action_TEACH.actionId = 0;
+	//	Action_TEACH.emotionType = EMOTION_NEUTRAL;
+	//	Action_TEACH.totalDuration = 5000;
+	//	Action_TEACH.total_step = TEACH_TOTAL_STEP;
 }
