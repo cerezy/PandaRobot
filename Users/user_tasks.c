@@ -249,15 +249,15 @@ void TeachmodeRUN(void)
 			/*示教结束*/
 			for (int i = 1; i <= 12; i++)
 			{
-				goal_pos[i] = Action_index[0]->actions[1].servoAngles[i];
+				goal_pos[i] = _Action_TEACH.motion[0].actions[1].servoAngles[i];
 			}
 			TEACHMODE = 0;
 			TEACH_OK = 0;
 			TEACH_FINISH = 0;
-
+			
 			/*用于立刻复现刚刚的动作*/
 			ActionNowFlag = 0;
-			Action_done[Action_index[ActionNowFlag]->actionId] = 0;
+			Action_done[_Action_TEACH.motion[0].actionId] = 0;
 			step_counter = 1;
 			ActionNow = ACTION_TEACH;
 
