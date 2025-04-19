@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c
 panda_robot\cmsis_os.o: D:\Dkong\ARM\ARMCC\Bin\..\include\string.h
 panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
@@ -18,24 +17,3 @@ panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue
 panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 panda_robot\cmsis_os.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
-=======
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c
-panda_robot\cmsis_os.o: D:\Dkong\ARM\ARMCC\Bin\..\include\string.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-panda_robot\cmsis_os.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stddef.h
-panda_robot\cmsis_os.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdint.h
-panda_robot\cmsis_os.o: ../Core/Inc/FreeRTOSConfig.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
-panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-panda_robot\cmsis_os.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
->>>>>>> Stashed changes

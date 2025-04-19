@@ -25,19 +25,11 @@ FILE __stdout;
 int fputc(int ch, FILE *stream)
 {
 	/* 堵塞判断串口是否发送完成 */
-<<<<<<< Updated upstream
-	while ((UART4->ISR & 0X40) == 0)
-		;
-
-	/* 串口发送完成，将该字符发送 */
-	UART4->TDR = (uint8_t)ch;
-=======
 	while ((UART7->ISR & 0X40) == 0)
 		;
 
 	/* 串口发送完成，将该字符发送 */
 	UART7->TDR = (uint8_t)ch;
->>>>>>> Stashed changes
 
 	return ch;
 }
@@ -51,53 +43,6 @@ int TEACH_OK = 0;	  // 置位表示开始实际进行示教
 int TEACH_FINISH = 0; // 标识当前示教结束与否
 
 /*
-<<<<<<< Updated upstream
-Action_index[0] = &Action_TEACH;
-	Action_index[1] = &Action_Walk;
-	Action_index[2] = &Action_Hug;
-	Action_index[3] = &Action_Standup;
-	Action_index[4] = &Action_Sit2Prone;
-	Action_index[5] = &Action_PronetoSit;
-	Action_index[6] = &Action_Lie2Standup;
-	Action_index[7] = &Action_Crawl;
-	Action_index[8] = &Action_Crawlrepeat;
-	Action_index[9] = &Action_Test;
-*/
-
-// 下面为实际动作序列的定义
-ServoActionSeries Action_LieDown = (ServoActionSeries){
-	.actionId = 12,
-	.ifNeedBezier = 1,
-	.total_step = 35,
-	.emotionType = EMOTION_NEUTRAL,
-	.totalDuration = 2000,
-	.endservoAngles = {0, 662, 778, 432, -843, 1044, -720, -678, -564, 867, -1096, 0, 0, 0},
-
-	//	.endservoAngles = {0, -837, 621, 529, -62, 1056, 792, -657, -462, 96, -1097, 0, 0, 0},//坐
-
-	//	.actions[0] = (ServoActionStep){
-	//		.servoAngles = {0, -10, -402, 71, -114, 16, -3, 206, -27, -19, -242, 0, 0, 0},
-	//		.stepDuration = 2},//大字躺
-}; // 趴着
-
-ServoActionSeries Action_Unit1 = (ServoActionSeries){
-	.actionId = 10,
-	.ifNeedBezier = 1,
-	.emotionType = EMOTION_NEUTRAL,
-	.totalDuration = 2000,
-	.endservoAngles = {0, -837, 621, 529, -62, 1056, 792, -657, -462, 96, -1097, 0, 0, 0},
-}; //
-
-ServoActionSeries Action_UnitTest = (ServoActionSeries){
-	.actionId = 11,
-	.ifNeedBezier = 1,
-	.total_step = 25,
-	.emotionType = EMOTION_NEUTRAL,
-	.totalDuration = 2000,
-	.endservoAngles = {0, -837, 621, 529, -62, 1056, 792, -657, -462, 96, -1097, 0, 0, 0}}; // 坐
-//	.endservoAngles = {0, 721, 688, 570, -809, 1031, -735, -821, -214, 895, -1007, 0, 0, 0}}; // 坐起来
-
-=======
 typedef struct
 {
 	ServoActionSeries motion[MAX_NUM_MOTION];
@@ -112,7 +57,7 @@ Motion_t _Action_TEACH = {
 		{.actionId = 0, // 单个动作的id
 		 .ifNeedBezier = 0,
 		 .emotionType = EMOTION_NEUTRAL,
-		 .total_step = 35,
+		 .total_step = 49,
 		 .totalDuration = 5000},
 	}};
 
@@ -332,73 +277,10 @@ Motion_t _Action_Crawlrepeat;
 Motion_t _Action_Hello;
 
 // 下面为实际动作序列的定义
->>>>>>> Stashed changes
 ServoActionSeries Action_Hello;
-
-/*-------------拥抱---------*/
-ServoActionSeries Action_Hug = (ServoActionSeries){
-	.actionId = 2,
-	.ifNeedBezier = 1,
-	.total_step = 20,
-	.emotionType = EMOTION_NEUTRAL,
-	.totalDuration = 2000,
-	.endservoAngles = {0, -3, 779, 607, -62, 1056, 87, -845, -513, 96, -1097, 0, 0, 0}};
-//-2, 453, 326, 87, -277, -360
-// 0
-ServoActionSeries Action_1_Hug = (ServoActionSeries){
-	.actionId = 16,
-	.ifNeedBezier = 1,
-	.total_step = 20,
-	.emotionType = EMOTION_NEUTRAL,
-	.totalDuration = 2000,
-	.endservoAngles = {0, -2, 453, 326, -62, 1056, 87, -277, -360, 96, -1097, 0, 0, 0}};
-
-ServoActionSeries Action_BIGLIE = (ServoActionSeries){
-	.actionId = 15,
-	.ifNeedBezier = 0,
-	.actions[0] = (ServoActionStep){
-		.servoAngles = {0, -10, -402, 71, -114, 16, -3, 206, -27, -19, -242, 0, 0, 0},
-		.stepDuration = 2},
-	.emotionType = EMOTION_NEUTRAL,
-	.total_step = 1,
-	.totalDuration = 5000}; // 大字躺
-
-/*-------------站起来---------*/
-
-ServoActionSeries Action_1_Standup = (ServoActionSeries){
-	.actionId = 13,
-	.ifNeedBezier = 1,
-	.total_step = 35,
-	.emotionType = EMOTION_NEUTRAL,
-	.totalDuration = 2000,
-	.endservoAngles = {0, 20, -406, 325, -543, 629, -73, 539, -442, 651, -629, 0, 0, 0}};
-
-ServoActionSeries Action_Standup = (ServoActionSeries){
-	.actionId = 3,
-	.ifNeedBezier = 1,
-	.total_step = 35,
-	.emotionType = EMOTION_NEUTRAL,
-	.totalDuration = 2000,
-	.endservoAngles = {0, 19, 420, 318, -302, 866, -59, -421, -350, 347, -841, 0, 0, 0}};
-
-/*-------------坐起来---------*/
-ServoActionSeries Action_1_Sit2Prone = (ServoActionSeries){
-	.actionId = 14,
-	.ifNeedBezier = 1,
-	.total_step = 40,
-	.emotionType = EMOTION_NEUTRAL,
-	.totalDuration = 2000,
-	.endservoAngles = {0, 219, 867, 472, 551, 616, -238, -754, -611, -578, -628, 0, 0, 0}};
-// 跪着
-ServoActionSeries Action_Sit2Prone = (ServoActionSeries){
-	.actionId = 4,
-	.ifNeedBezier = 1,
-	.total_step = 25,
-	.emotionType = EMOTION_NEUTRAL,
-	.totalDuration = 2000,
-	.endservoAngles = {0, -400, 621, 529, -62, 1056, 400, -657, -462, 96, -1097, 0, 0, 0}}; // 坐
-// 坐起来
-
+ServoActionSeries Action_Hug;
+ServoActionSeries Action_Standup;
+ServoActionSeries Action_Sit2Prone;
 ServoActionSeries Action_PronetoSit;
 ServoActionSeries Action_Lie2Standup;
 ServoActionSeries Action_Crawl;
@@ -406,35 +288,6 @@ ServoActionSeries Action_Crawlrepeat;
 
 ServoActionSeries Action_Walk = (ServoActionSeries){
 	.actionId = 1,
-<<<<<<< Updated upstream
-	.ifNeedBezier = 0,
-	.actions[0] = (ServoActionStep){
-		.servoAngles = {0, 97, 504, 658, 37, 801, -75, -642, -524, 217, -1082, 0, 0, 0},
-		.stepDuration = 2},
-	.actions[1] = (ServoActionStep){.servoAngles = {0, 97, 504, 658, 37, 801, -75, -642, -524, 217, -1082, 0, 0, 0}, .stepDuration = 2},
-	.actions[2] = (ServoActionStep){.servoAngles = {0, 300, 504, 658, 37, 801, -75, -642, -524, 217, -1082, 0, 0, 0}, .stepDuration = 2},
-	.actions[3] = (ServoActionStep){.servoAngles = {0, 266, 442, 410, 42, 796, -81, -647, -527, 218, -1082, 0, 0, 0}, .stepDuration = 2},
-	.actions[4] = (ServoActionStep){.servoAngles = {0, 179, 535, 542, 16, 914, -87, -591, -527, 198, -946, 0, 0, 0}, .stepDuration = 2},
-	.actions[5] = (ServoActionStep){.servoAngles = {0, 84, 614, 644, -123, 890, 100, -539, -700, 250, -915, 0, 0, 0}, .stepDuration = 2},
-	.actions[6] = (ServoActionStep){.servoAngles = {0, 84, 614, 644, -123, 890, 100, -539, -700, 125, -755, 0, 0, 0}, .stepDuration = 2},
-	.actions[7] = (ServoActionStep){.servoAngles = {0, 7, 563, 647, -188, 843, 96, -603, -704, -61, -850, 0, 0, 0}, .stepDuration = 2},
-	.actions[8] = (ServoActionStep){.servoAngles = {0, 13, 644, 651, -243, 1100, 38, -600, -692, 78, -823, 0, 0, 0}, .stepDuration = 2},
-	.actions[9] = (ServoActionStep){.servoAngles = {0, 13, 644, 651, -243, 1050, -275, -598, -692, 78, -823, 0, 0, 0}, .stepDuration = 2},
-	.actions[10] = (ServoActionStep){.servoAngles = {0, 13, 644, 651, -243, 1050, -250, -639, -315, 78, -823, 0, 0, 0}, .stepDuration = 2},
-	.actions[11] = (ServoActionStep){.servoAngles = {0, 19, 580, 658, -325, 900, -125, -614, -600, 250, -1050, 0, 0, 0}, .stepDuration = 2},
-	.actions[12] = (ServoActionStep){.servoAngles = {0, 19, 580, 658, -200, 700, -125, -614, -600, 250, -1050, 0, 0, 0}, .stepDuration = 2},
-	.actions[13] = (ServoActionStep){.servoAngles = {0, 24, 586, 662, -22, 860, 27, -639, -674, 349, -1053, 0, 0, 0}, .stepDuration = 2},
-	.actions[14] = (ServoActionStep){.servoAngles = {0, 97, 504, 658, 37, 801, -75, -642, -524, 217, -1082, 0, 0, 0}, .stepDuration = 2},
-
-	.emotionType = EMOTION_NEUTRAL,
-	.total_step = 15,
-	.totalDuration = 5000
-
-};
-ServoActionSeries Action_TEACH;
-ServoActionSeries Action_Test = (ServoActionSeries){
-	.actionId = 9,
-=======
 
 	.actions[0].servoAngles = {0, 97, 504, 658, 37, 801, -75, -642, -524, 217, -1082, 0, 0, 0},
 	.actions[1].servoAngles = {0, 97, 504, 658, 37, 801, -75, -642, -524, 217, -1082, 0, 0, 0},
@@ -458,48 +311,9 @@ ServoActionSeries Action_Test = (ServoActionSeries){
 
 ServoActionSeries Action_TEACH;
 ServoActionSeries Action_Test = (ServoActionSeries){
->>>>>>> Stashed changes
 
-	.actions[0] = (ServoActionStep){
-		.servoAngles = {672, -5, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0},
-		.stepDuration = 2},
-	.actions[1] = (ServoActionStep){.servoAngles = {672, -5, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[2] = (ServoActionStep){.servoAngles = {672, -5, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[3] = (ServoActionStep){.servoAngles = {672, -5, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[4] = (ServoActionStep){.servoAngles = {672, -3, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[5] = (ServoActionStep){.servoAngles = {655, -6, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[6] = (ServoActionStep){.servoAngles = {410, -6, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[7] = (ServoActionStep){.servoAngles = {744, -1, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[8] = (ServoActionStep){.servoAngles = {1010, -6, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[9] = (ServoActionStep){.servoAngles = {693, -32, 365, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[10] = (ServoActionStep){.servoAngles = {377, -32, 365, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[11] = (ServoActionStep){.servoAngles = {739, -79, 365, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[12] = (ServoActionStep){.servoAngles = {1008, -84, 365, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[13] = (ServoActionStep){.servoAngles = {605, -79, 367, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[14] = (ServoActionStep){.servoAngles = {405, -47, 366, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[15] = (ServoActionStep){.servoAngles = {746, -122, 367, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[16] = (ServoActionStep){.servoAngles = {978, -107, 368, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[17] = (ServoActionStep){.servoAngles = {636, -71, 367, -37, 134, 130, 555, -118, -478, -904, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[18] = (ServoActionStep){.servoAngles = {428, -61, 367, -37, 134, 130, 555, -118, -478, -904, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[19] = (ServoActionStep){.servoAngles = {723, -144, 367, -37, 134, 130, 555, -118, -478, -904, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[20] = (ServoActionStep){.servoAngles = {826, -151, 368, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[21] = (ServoActionStep){.servoAngles = {450, -138, 366, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[22] = (ServoActionStep){.servoAngles = {381, -117, 366, -37, 134, 130, 555, -118, -478, -904, -99, -183, 0, 0}, .stepDuration = 2},
-	.actions[23] = (ServoActionStep){.servoAngles = {724, -138, 366, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[24] = (ServoActionStep){.servoAngles = {742, -137, 366, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[25] = (ServoActionStep){.servoAngles = {347, -110, 366, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[26] = (ServoActionStep){.servoAngles = {589, -102, 366, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[27] = (ServoActionStep){.servoAngles = {899, -105, 366, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[28] = (ServoActionStep){.servoAngles = {691, -113, 366, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[29] = (ServoActionStep){.servoAngles = {411, -95, 366, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[30] = (ServoActionStep){.servoAngles = {543, -84, 365, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[31] = (ServoActionStep){.servoAngles = {863, -85, 365, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[32] = (ServoActionStep){.servoAngles = {923, -85, 365, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[33] = (ServoActionStep){.servoAngles = {678, -87, 365, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0}, .stepDuration = 2},
-	.actions[34] = (ServoActionStep){.servoAngles = {551, -85, 365, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0}, .stepDuration = 2},
+};
 
-<<<<<<< Updated upstream
-=======
 ServoActionSeries Active_Wave = (ServoActionSeries){
 	.actionId = 3,
 
@@ -539,24 +353,12 @@ ServoActionSeries Active_Wave = (ServoActionSeries){
 	.actions[33].servoAngles = {0, 169, 615, 561, -50, 897, -106, -799, -597, 90, -827, 0, 0, 0},
 	.actions[34].servoAngles = {0, 169, 608, 561, -49, 897, -106, -799, -597, 90, -827, 0, 0, 0},
 
->>>>>>> Stashed changes
 	.emotionType = EMOTION_NEUTRAL,
 	.total_step = 35,
 	.totalDuration = 5000
 
 };
 
-<<<<<<< Updated upstream
-ServoActionSeries Active_Micromove_1 = (ServoActionSeries){
-
-};
-
-ServoActionSeries Active_Micromove_2 = (ServoActionSeries){
-
-};
-
-ServoActionSeries Active_Micromove_3 = (ServoActionSeries){
-=======
 ServoActionSeries Active_Sit = (ServoActionSeries){
 	.actionId = 4,
 	.actions[0].servoAngles = {0, 113, 892, 644, 388, 903, -124, -798, -595, -361, -827, 0, 0, 0},
@@ -643,7 +445,6 @@ ServoActionSeries Active_SittoEat = (ServoActionSeries){
 	.emotionType = EMOTION_NEUTRAL,
 	.total_step = 35,
 	.totalDuration = 5000
->>>>>>> Stashed changes
 
 };
 
@@ -672,19 +473,13 @@ void Action_Teachmode(void)
 {
 	for (int si = 0; si < 35; si++)
 	{
-<<<<<<< Updated upstream
-		printf("	.actions[%d] = (ServoActionStep){", si);
-		printf("\r\n");
-=======
 		printf("	.actions[%d]", si);
->>>>>>> Stashed changes
 		printf(".servoAngles = {");
 		for (int i = 0; i < 13; i++)
 		{
 			printf("%d, ", Action_TEACH.actions[si].servoAngles[i]);
 		}
 		printf("%d ", Action_TEACH.actions[si].servoAngles[13]);
-		printf("},\r\n	.stepDuration = 2\r\n");
 		printf("},\r\n");
 	}
 	printf("	.emotionType = EMOTION_NEUTRAL,\r\n		.total_step = 35,\r\n	.totalDuration = 5000\r\n");
@@ -695,468 +490,16 @@ void Action_init(void)
 	Action_index[0] = &Action_TEACH;
 	Action_index[1] = &Action_Walk;
 	Action_index[2] = &Action_Hug;
-	Action_index[3] = &Action_Standup;
-	Action_index[4] = &Action_Sit2Prone;
-	Action_index[5] = &Action_PronetoSit;
+	Action_index[3] = &Active_Wave;
+	Action_index[4] = &Active_Sit;
+	Action_index[5] = &Active_SittoEat;
 	Action_index[6] = &Action_Lie2Standup;
 	Action_index[7] = &Action_Crawl;
-<<<<<<< Updated upstream
-	Action_index[8] = &Action_Crawlrepeat;
-	Action_index[9] = &Action_Test;
-	Action_index[10] = &Action_Unit1;
-	Action_index[11] = &Action_UnitTest;
-	Action_index[12] = &Action_LieDown;
-	Action_index[13] = &Action_1_Standup;
-	Action_index[14] = &Action_1_Sit2Prone;
-	Action_index[15] = &Action_BIGLIE;
-	Action_index[16] = &Action_1_Hug;
-=======
 	Action_index[10] = &Action_Crawlrepeat;
 	Action_index[14] = &Action_Test;
->>>>>>> Stashed changes
 
 	Action_TEACH.actionId = 0;
 	Action_TEACH.emotionType = EMOTION_NEUTRAL;
 	Action_TEACH.totalDuration = 5000;
 	Action_TEACH.total_step = TEACH_TOTAL_STEP;
-<<<<<<< Updated upstream
-
-	/*
-	.actions[0] = (ServoActionStep){
-	.servoAngles = {672, -5, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[1] = (ServoActionStep){
-	.servoAngles = {672, -5, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[2] = (ServoActionStep){
-	.servoAngles = {672, -5, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[3] = (ServoActionStep){
-	.servoAngles = {672, -5, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[4] = (ServoActionStep){
-	.servoAngles = {672, -3, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[5] = (ServoActionStep){
-	.servoAngles = {655, -6, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[6] = (ServoActionStep){
-	.servoAngles = {410, -6, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[7] = (ServoActionStep){
-	.servoAngles = {744, -1, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[8] = (ServoActionStep){
-	.servoAngles = {1010, -6, 365, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[9] = (ServoActionStep){
-	.servoAngles = {693, -32, 365, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[10] = (ServoActionStep){
-	.servoAngles = {377, -32, 365, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[11] = (ServoActionStep){
-	.servoAngles = {739, -79, 365, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[12] = (ServoActionStep){
-	.servoAngles = {1008, -84, 365, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[13] = (ServoActionStep){
-	.servoAngles = {605, -79, 367, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[14] = (ServoActionStep){
-	.servoAngles = {405, -47, 366, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[15] = (ServoActionStep){
-	.servoAngles = {746, -122, 367, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[16] = (ServoActionStep){
-	.servoAngles = {978, -107, 368, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[17] = (ServoActionStep){
-	.servoAngles = {636, -71, 367, -37, 134, 130, 555, -118, -478, -904, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[18] = (ServoActionStep){
-	.servoAngles = {428, -61, 367, -37, 134, 130, 555, -118, -478, -904, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[19] = (ServoActionStep){
-	.servoAngles = {723, -144, 367, -37, 134, 130, 555, -118, -478, -904, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[20] = (ServoActionStep){
-	.servoAngles = {826, -151, 368, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[21] = (ServoActionStep){
-	.servoAngles = {450, -138, 366, -37, 134, 130, 555, -118, -478, -903, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[22] = (ServoActionStep){
-	.servoAngles = {381, -117, 366, -37, 134, 130, 555, -118, -478, -904, -99, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[23] = (ServoActionStep){
-	.servoAngles = {724, -138, 366, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[24] = (ServoActionStep){
-	.servoAngles = {742, -137, 366, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[25] = (ServoActionStep){
-	.servoAngles = {347, -110, 366, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[26] = (ServoActionStep){
-	.servoAngles = {589, -102, 366, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[27] = (ServoActionStep){
-	.servoAngles = {899, -105, 366, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[28] = (ServoActionStep){
-	.servoAngles = {691, -113, 366, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[29] = (ServoActionStep){
-	.servoAngles = {411, -95, 366, -37, 134, 130, 555, -118, -478, -903, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[30] = (ServoActionStep){
-	.servoAngles = {543, -84, 365, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[31] = (ServoActionStep){
-	.servoAngles = {863, -85, 365, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[32] = (ServoActionStep){
-	.servoAngles = {923, -85, 365, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[33] = (ServoActionStep){
-	.servoAngles = {678, -87, 365, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	.actions[34] = (ServoActionStep){
-	.servoAngles = {551, -85, 365, -37, 134, 130, 555, -118, -478, -904, -98, -183, 0, 0 },
-	.stepDuration = 2
-	},
-	//1：挥手动作
-	Action_Hello.actionId = 1;
-	Action_Hello.emotionType = EMOTION_HAPPY;
-	Action_Hello.totalDuration = 5000;
-	Action_Hello.total_step = 6;
-
-	Action_Hello.actions[0] = (ServoActionStep){
-		.servoAngles = {1650, 200, 0, 0, 900, 0, 900, 0, 0, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	Action_Hello.actions[1] = (ServoActionStep){
-		.servoAngles = {1650, 0, -500, 0, 900, 0, 900, 0, 0, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	Action_Hello.actions[2] = (ServoActionStep){
-		.servoAngles = {1650, 200, 0, 0, 900, 0, 900, 0, 0, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	Action_Hello.actions[3] = (ServoActionStep){
-		.servoAngles = {950, 200, -300, 0, 900, 0, 900, 0, 0, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	Action_Hello.actions[4] = (ServoActionStep){
-		.servoAngles = {1650, 200, -300, 0, 900, 0, 900, 0, 0, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	Action_Hello.actions[5] = (ServoActionStep){
-		.servoAngles = {700, 200, 0, 0, 900, 0, 900, 0, 0, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-
-	//2：拥抱动作
-	Action_Hug.actionId = 2;
-	Action_Hug.emotionType = EMOTION_HAPPY;
-	Action_Hug.totalDuration = 5000;
-	Action_Hug.total_step = 4;
-	Action_Hug.actions[0] = (ServoActionStep){
-		.servoAngles = {1000, 200, -300, 0, 900, 0, 900, 0, 0, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	Action_Hug.actions[1] = (ServoActionStep){
-		.servoAngles = {1000, 500, 100, 0, 900, 0, 900, -500, -100, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	Action_Hug.actions[2] = (ServoActionStep){
-		.servoAngles = {1000, -200, -300, 0, 900, 0, 900, 200, 300, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	Action_Hug.actions[3] = (ServoActionStep){
-		.servoAngles = {700, 200, -300, 0, 900, 0, 900, 0, 0, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-
-	//3：全趴姿势到站立
-	Action_Standup.actionId = 3;
-	Action_Standup.emotionType = EMOTION_HAPPY;
-	Action_Standup.totalDuration = 5000;
-	Action_Standup.total_step = 2;
-	Action_Standup.actions[0] = (ServoActionStep){
-		.servoAngles = {950, -700, 0, 0, -700, 0, 900, 700, 0, -900, 700, 0, 0, 0},
-		.stepDuration = 2
-	};
-	Action_Standup.actions[1] = (ServoActionStep){
-		.servoAngles = {950, 0, 0, 0, 0, 0, 900, 0, 0, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-
-	//4：坐姿到向前趴着
-	Action_Sit2Prone.actionId = 4;
-	Action_Sit2Prone.emotionType = EMOTION_HAPPY;
-	Action_Sit2Prone.totalDuration = 5000;
-	Action_Sit2Prone.total_step = 2;
-	Action_Sit2Prone.totalDuration = 5000;
-	Action_Sit2Prone.total_step = 2;
-	Action_Sit2Prone.totalDuration = 5000;
-	Action_Sit2Prone.total_step = 2;
-	Action_Sit2Prone.actions[0] = (ServoActionStep){
-		.servoAngles = {950, 0, 0, 0, 0, 0, 900, 0, 0, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	Action_Sit2Prone.actions[1] = (ServoActionStep){
-		.servoAngles = {1100, 0, 0, -350, 0, 0, 750, 0, 0, -550, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-
-	//5：由向前趴转为坐姿
-	Action_PronetoSit.actionId = 5;
-	Action_PronetoSit.emotionType = EMOTION_HAPPY;
-	Action_PronetoSit.total_step = 2;
-	Action_PronetoSit.totalDuration = 5000;
-	Action_PronetoSit.actions[0] = (ServoActionStep){
-		.servoAngles = {1100, 0, 0, -350, 0, 0, 750, 0, 0, -550, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	Action_PronetoSit.actions[1] = (ServoActionStep){
-		.servoAngles = {1400, 0, 0, 0, 0, 0, 400, 0, 0, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-
-	//6：由趴转为站姿
-	Action_Lie2Standup.actionId = 6;
-	Action_Lie2Standup.emotionType = EMOTION_HAPPY;
-	Action_Lie2Standup.totalDuration = 5000;
-	Action_Lie2Standup.total_step = 2;
-	Action_Lie2Standup.actions[0] = (ServoActionStep){
-		.servoAngles = {350, -200, 750, -550, -200, 750, 1450, 200, -750, -450, 200, -750, 0, 0},
-		.stepDuration = 2
-	};
-	Action_Lie2Standup.actions[1] = (ServoActionStep){
-		.servoAngles = {950, -200, 550, 0, -200, 550, 900, 200, -550, -900, 200, -550, 0, 0},
-		.stepDuration = 2
-	};
-
-	//7：由趴转为站姿
-	Action_Crawl.actionId = 7;
-	Action_Crawl.emotionType = EMOTION_HAPPY;
-	Action_Crawl.totalDuration = 5000;
-	Action_Crawl.total_step = 20;
-	Action_Crawl.actions[0] = (ServoActionStep){
-		.servoAngles = {900, -300, 700, 100, 0, 0, 900, 300, -700, -1000, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//右腿抬腿（起步）
-	Action_Crawl.actions[1] = (ServoActionStep){
-		.servoAngles = {500, -300, 700, 100, 0, 0, 900, 300, -700, -1000, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左前腿往后++右前腿落下
-	Action_Crawl.actions[2] = (ServoActionStep){
-		.servoAngles = {700, -300, 500, 100, 0, 0, 700, 300, -700, -1000, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左后腿向前&右后腿向后
-	Action_Crawl.actions[3] = (ServoActionStep){
-		.servoAngles = {700, -300, 500, 200, 0, 0, 700, 300, -700, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左前臂收手
-	Action_Crawl.actions[4] = (ServoActionStep){
-		.servoAngles = {700, -300, 500, 200, 0, 0, 700, 300, -900, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左前臂向前，右前臂向后一部分
-	Action_Crawl.actions[5] = (ServoActionStep){
-		.servoAngles = {900, -300, 700, 200, 0, 0, 1300, 300, -900, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左右前臂落地
-	Action_Crawl.actions[6] = (ServoActionStep){
-		.servoAngles = {1100, -300, 700, 200, 0, 0, 1100, 300, -500, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左右后腿推动前行
-	Action_Crawl.actions[7] = (ServoActionStep){
-		.servoAngles = {1100, -300, 700, 0, 0, 0, 1100, 300, -500, -1100, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//右前臂收手
-	Action_Crawl.actions[8] = (ServoActionStep){
-		.servoAngles = {1100, -300, 900, 0, 0, 0, 1100, 300, -500, -1100, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//右前臂向前，左前臂向后一部分
-	Action_Crawl.actions[9] = (ServoActionStep){
-		.servoAngles = {500, -300, 900, 0, 0, 0, 900, 300, -700, -1100, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左右前臂落地
-	Action_Crawl.actions[10] = (ServoActionStep){
-		.servoAngles = {700, -300, 500, 0, 0, 0, 700, 300, -700, -1100, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左后腿向前&右后腿向后
-	Action_Crawl.actions[11] = (ServoActionStep){
-		.servoAngles = {700, -300, 500, 200, 0, 0, 700, 300, -700, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左前臂收手
-	Action_Crawl.actions[12] = (ServoActionStep){
-		.servoAngles = {700, -300, 500, 200, 0, 0, 700, 300, -900, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左前臂向前，右前臂向后一部分
-	Action_Crawl.actions[13] = (ServoActionStep){
-		.servoAngles = {900, -300, 700, 200, 0, 0, 1300, 300, -700, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左右前臂落地
-	Action_Crawl.actions[14] = (ServoActionStep){
-		.servoAngles = {1100, -300, 700, 200, 0, 0, 1100, 300, -500, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左右后腿推动前行
-	Action_Crawl.actions[15] = (ServoActionStep){
-		.servoAngles = {1100, -300, 700, 0, 0, 0, 1100, 300, -500, -1100, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//右前臂收手
-	Action_Crawl.actions[16] = (ServoActionStep){
-		.servoAngles = {1100, -300, 900, 0, 0, 0, 1100, 300, -500, -1100, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//右前臂向前，左前臂向后一部分
-	Action_Crawl.actions[17] = (ServoActionStep){
-		.servoAngles = {500, -300, 900, 0, 0, 0, 900, 300, -700, -1100, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左右前臂落地
-	Action_Crawl.actions[18] = (ServoActionStep){
-		.servoAngles = {700, -300, 500, 0, 0, 0, 700, 300, -700, -1100, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左后腿向前&右后腿向后
-	Action_Crawl.actions[19] = (ServoActionStep){
-		.servoAngles = {700, -300, 500, 200, 0, 0, 700, 300, -700, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-
-	//7：由趴转为站姿
-	Action_Crawlrepeat.actionId = 10;
-	Action_Crawlrepeat.emotionType = EMOTION_HAPPY;
-	Action_Crawlrepeat.totalDuration = 5000;
-	Action_Crawlrepeat.total_step = 8;
-	//左前臂收手
-	Action_Crawlrepeat.actions[0] = (ServoActionStep){
-		.servoAngles = {700, -300, 500, 200, 0, 0, 700, 300, -900, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左前臂向前，右前臂向后一部分
-	Action_Crawlrepeat.actions[1] = (ServoActionStep){
-		.servoAngles = {900, -300, 700, 200, 0, 0, 1300, 300, -900, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左右前臂落地
-	Action_Crawlrepeat.actions[2] = (ServoActionStep){
-		.servoAngles = {1100, -300, 700, 200, 0, 0, 1100, 300, -500, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左右后腿推动前行
-	Action_Crawlrepeat.actions[3] = (ServoActionStep){
-		.servoAngles = {1100, -300, 700, 0, 0, 0, 1100, 300, -500, -1100, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//右前臂收手
-	Action_Crawlrepeat.actions[4] = (ServoActionStep){
-		.servoAngles = {1100, -300, 900, 0, 0, 0, 1100, 300, -500, -1100, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//右前臂向前，左前臂向后一部分
-	Action_Crawlrepeat.actions[5] = (ServoActionStep){
-		.servoAngles = {500, -300, 900, 0, 0, 0, 900, 300, -700, -1100, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左右前臂落地
-	Action_Crawlrepeat.actions[6] = (ServoActionStep){
-		.servoAngles = {700, -300, 500, 0, 0, 0, 700, 300, -700, -1100, 0, 0, 0, 0},
-		.stepDuration = 2
-	};
-	//左后腿向前&右后腿向后
-	Action_Crawlrepeat.actions[7] = (ServoActionStep){
-		.servoAngles = {700, -300, 500, 200, 0, 0, 700, 300, -700, -900, 0, 0, 0, 0},
-		.stepDuration = 2
-	};*/
-
-	// 6：由趴转为站姿
-	/*Action_Lie2Standup.actionId = 7;
-	Action_Lie2Standup.emotionType = EMOTION_HAPPY;
-	Action_Lie2Standup.totalDuration = 5000;
-	Action_Lie2Standup.total_step = 2;
-	Action_Lie2Standup.actions[0] = (ServoActionStep){
-		.discretePoints = {
-			{0.1, 0.2, 0.3},                {0.7, 0.8, 0.9},
-			{0.4, 0.5, 0.6},                {0.7, 0.8, 0.9},
-			{1.0, 1.1, 1.2},                {1.3, 1.4, 1.5},
-			{0.1, 0.2, 0.3},                {0.1, 0.2, 0.3},
-			{0.1, 0.2, 0.3},                {0.1, 0.2, 0.3},
-			{0.1, 0.2, 0.3},                {0.1, 0.2, 0.3},
-			{0.1, 0.2, 0.3},                {0.1, 0.2, 0.3}
-		},
-		.servoAngles = {350, -200, 750, -550, -200, 750, 1450, 200, -750, -450, 200, -750, 0, 0},
-		.stepDuration = 2
-	};
-	Action_Lie2Standup.actions[1] = (ServoActionStep){
-		.discretePoints = {
-			{0.1, 0.2, 0.3},                {0.7, 0.8, 0.9},
-			{0.4, 0.5, 0.6},                {0.7, 0.8, 0.9},
-			{1.0, 1.1, 1.2},                {1.3, 1.4, 1.5},
-			{0.1, 0.2, 0.3},                {0.1, 0.2, 0.3},
-			{0.1, 0.2, 0.3},                {0.1, 0.2, 0.3},
-			{0.1, 0.2, 0.3},                {0.1, 0.2, 0.3},
-			{0.1, 0.2, 0.3},                {0.1, 0.2, 0.3}
-		},
-		.servoAngles = {950, -200, 550, 0, -200, 550, 900, 200, -550, -900, 200, -550, 0, 0},
-		.stepDuration = 2
-	};*/
-=======
->>>>>>> Stashed changes
 }

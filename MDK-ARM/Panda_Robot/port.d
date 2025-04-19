@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c
 panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
 panda_robot\port.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stddef.h
@@ -11,17 +10,3 @@ panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM
 panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
 panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
 panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
-=======
-panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c
-panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-panda_robot\port.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stddef.h
-panda_robot\port.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdint.h
-panda_robot\port.o: ../Core/Inc/FreeRTOSConfig.h
-panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
-panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
-panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
-panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
-panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
-panda_robot\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
->>>>>>> Stashed changes

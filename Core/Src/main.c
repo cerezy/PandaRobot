@@ -95,7 +95,6 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_UART4_Init();
-  
   MX_DMA_Init();
   MX_USART3_UART_Init();
   MX_UART5_Init();
@@ -103,6 +102,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_TIM6_Init();
   MX_USART2_UART_Init();
+  MX_UART7_Init();
   /* USER CODE BEGIN 2 */
   HAL_Delay(1500);
   //读取引脚状态，判定开机
@@ -111,6 +111,7 @@ int main(void)
 	  HAL_GPIO_WritePin(Power_out_GPIO_Port,Power_out_Pin,GPIO_PIN_SET);//板子供电
 	  POWERON = 1;
   }
+  //while(HAL_GPIO_ReadPin(Power_in_GPIO_Port, Power_in_Pin) != GPIO_PIN_SET);
   HAL_Delay(500);
   HAL_GPIO_WritePin(Servo_Power_GPIO_Port,Servo_Power_Pin,GPIO_PIN_SET);//舵机供电
   HAL_Delay(2500);//等待舵机上电
@@ -132,10 +133,19 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */     
-	  
-	FEETECH_ReadServoPos(cococo);
-	HAL_Delay(5);
+    /* USER CODE BEGIN 3 */
+	
+	//FEETECH_ReadServoPos(cococo);
+	 Action_Teachmode();
+	 if (HAL_GPIO_ReadPin(Power_in_GPIO_Port, Power_in_Pin) == GPIO_PIN_RESET)
+	{
+		cococo++;
+		if(cococo > 5)
+			HAL_GPIO_WritePin(Power_out_GPIO_Port,Power_out_Pin,GPIO_PIN_RESET);//板子供电
+	}
+	else if(cococo>0)
+		cococo--;
+	HAL_Delay(500);
   }
   /* USER CODE END 3 */
 }

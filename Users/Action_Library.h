@@ -4,7 +4,7 @@
 
 #define ACTION_COUNT_MAX 50
 //示教总步进数设置（默认定时器为5次/秒，例如35次对应了7s总时长）
-#define TEACH_TOTAL_STEP 35
+#define TEACH_TOTAL_STEP 50
 //定义了每个动作最大的步进数
 #define MAX_TOTAL_STEP 100
 //定义了一个动作最多分为几步
@@ -20,9 +20,7 @@ typedef struct {
 
 // 动作序列结构体（单步动作）
 typedef struct {
-    //Coordinate discretePoints[14];   // 14个舵机对应的坐标点
-    int16_t    servoAngles[14];      // 该动作下14个舵机角度值
-    float      stepDuration;         // 本步执行时间（单位：ms）
+    int16_t    servoAngles[14];      // 该动作下舵机角度值
 } ServoActionStep;
 
 // 情绪类型枚举
@@ -43,17 +41,11 @@ typedef struct {
     EmotionType     emotionType;     // 对应的情绪类型
 	uint16_t        total_step;
     float           totalDuration;   // 总执行时间（单位：ms）
-<<<<<<< Updated upstream
-    int16_t         startservoAngles[14];  // 该动作开始时14个舵机角度值
-=======
 	int16_t         startservoAngles[14];  // 该动作开始时14个舵机角度值
->>>>>>> Stashed changes
     int16_t         endservoAngles[14];    // 该动作结束时14个舵机角度值
     uint8_t         ifNeedBezier; // 是否需要贝塞尔曲线插值
 } ServoActionSeries;
 
-<<<<<<< Updated upstream
-=======
 typedef struct 
 {
     ServoActionSeries motion[MAX_NUM_MOTION];
@@ -62,7 +54,6 @@ typedef struct
 } Motion_t;
 
 
->>>>>>> Stashed changes
 //#pragma pack(pop)
 void Action_init(void);
 void Action_Teachmode_Init(void);

@@ -3,35 +3,20 @@
 #include "user_servo.h"
 #include "user_timer.h"
 #include "user_states.h"
-<<<<<<< Updated upstream
-
-=======
 #include <stdbool.h>
->>>>>>> Stashed changes
 int16_t ang_goal[15] = {0};
 uint16_t ms_goal[15] = {0};
 uint8_t Action_done[50] = {0};
 uint8_t ActionNowFlag = 1;
-<<<<<<< Updated upstream
-ACTION_STATE ActionNow = ACTION_LIEDOWN; // 当前动作状态
-uint8_t speed = 10;						 // 动作的步进速度（单位0.1°）
-int32_t step_counter = 0;				 // 当前步进到该动作序列的第几步
-uint8_t vis[15] = {0};					 // 判断舵机是否抵达位置
-=======
 ACTION_STATE ActionNow = IDLE; // 当前动作状态
 ACTION_STATE ActionLast = IDLE; // 上一个动作状态
 uint8_t speed = 5;		  // 动作的步进速度（单位0.1°）
 int32_t step_counter = 0; // 当前步进到该动作序列的第几步
 uint8_t vis[15] = {0};	  // 判断舵机是否抵达位置
->>>>>>> Stashed changes
 uint8_t Servo_Reset_Flag = 0;
 uint8_t Init_OK = 0;
 int16_t LookPos[14] = {0};
 uint8_t actionStandup_getStartAngle = 0; // 执行动作站立时获取当前舵机位置为初始位置
-<<<<<<< Updated upstream
-uint8_t state[25] = {0};				 // 用于跑每个动作的分段
-=======
->>>>>>> Stashed changes
 
 void User_Init(void)
 {
@@ -43,79 +28,6 @@ void User_Init(void)
 	Init_OK = 1;
 }
 
-<<<<<<< Updated upstream
-// 跑动作函数
-void ActionRUN(void)
-{
-	/*for(int i = 1;i <= 12;i++)
-		goal_pos[i] = Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i];
-	if(step_counter<14)
-		step_counter++;
-	if(step_counter==14)
-		step_counter=0;*/
-
-	// 判断当前在进行的动作ActionNowFlag是没有结束的并且验证ID的正确性
-	if (Action_done[ActionNowFlag] == 0 && Action_index[ActionNowFlag]->actionId == ActionNowFlag)
-	{
-		if (Action_index[ActionNowFlag]->ifNeedBezier == 1)
-		{
-			if (actionStandup_getStartAngle == 0)
-			{
-				for (int i = 1; i <= 12; i++)
-					Action_index[ActionNowFlag]->startservoAngles[i] = SERVO[i].ang_read;//获取当前角度
-				actionStandup_getStartAngle = 1;
-			}
-			User_BezierCurve(Action_index[ActionNowFlag]->total_step, Action_index[ActionNowFlag]);
-		}
-
-		// 遍历舵机并更新下一时刻的目标值
-		for (int i = 1; i <= 12; i++)
-		{
-			if (goal_pos[i] <= Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i] - speed)
-				goal_pos[i] += speed;
-			else if (goal_pos[i] >= Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i] + speed)
-				goal_pos[i] -= speed;
-			// 判断是否抵达目标位置
-			if (goal_pos[i] > Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i] - speed && goal_pos[i] < Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i] + speed)
-				vis[i] = 1;
-		}
-		for (int i = 1; i <= 12; i++)
-		{
-			if (vis[i] == 0)
-				break;
-			if (i == 12)
-			{
-				// 未执行完所有步数
-				if (step_counter < Action_index[ActionNowFlag]->total_step - 1)
-				{
-					step_counter++;
-					for (int i = 1; i <= 12; i++)
-						vis[i] = 0;
-				}
-				// 执行完毕
-				else if (step_counter == Action_index[ActionNowFlag]->total_step - 1)
-				{
-					// 当前动作Done
-					Action_done[Action_index[ActionNowFlag]->actionId] = 1;
-					// 相关参数复位
-					step_counter = 0;
-					actionStandup_getStartAngle = 0;
-
-					for (int i = 1; i <= 12; i++)
-						vis[i] = 0;
-					if (ActionNowFlag == 1)
-					{
-						Action_done[Action_index[ActionNowFlag]->actionId] = 0;
-						step_counter = 1;
-					}
-				}
-			}
-		}
-	}
-}
-
-// 机器人运行函数
-=======
 // 判断单独动作是否到位
 bool _SingleAction_CheckApproch(ServoActionSeries *action)
 {
@@ -210,118 +122,17 @@ bool Motion_Run(Motion_t *motion_)
 	return false;
 }
 
->>>>>>> Stashed changes
 void robotRun()
 {
 	switch (ActionNow)
 	{
-<<<<<<< Updated upstream
-	case ACTION_WALK:
-
-		break;
-	case ACTION_HUG:
-		//拥抱
-		if (state[ACTION_HUG] == 0)
-		{
-			static int timDel = 0;
-			ActionNowFlag = 2;
-			ActionRUN();
-			if (Action_done[ActionNowFlag] == 1)
-			{
-				timDel++;
-			}
-			if (timDel > 100)
-			{
-				ActionNowFlag = 16;
-				state[ACTION_HUG]++;
-				Action_done[2] = 0;
-				timDel = 0;
-			}
-		}
-		else if (state[ACTION_HUG] == 1)
-		{
-			ActionRUN();
-			if (Action_done[ActionNowFlag] == 1)
-			{
-				ActionNowFlag = 2;
-				state[ACTION_HUG]--;
-				Action_done[16] = 0;
-			}
-		}
-
-		break;
-	case ACTION_STANDUP:
-		// 站立动作
-		if (state[ACTION_STANDUP] == 0)
-		{
-			ActionNowFlag = 13; // 1_stant
-			ActionRUN();
-			if (Action_done[ActionNowFlag] == 1)
-			{
-				ActionNowFlag = ACTION_STANDUP;
-				state[ACTION_STANDUP]++;
-			}
-		}
-		else if (state[ACTION_STANDUP] == 1)
-			ActionRUN();
-		else
-			break;
-	case ACTION_SIT2PRONE:
-		// 坐
-		if (state[ACTION_SIT2PRONE] == 0)
-		{
-			ActionNowFlag = 15; // 1_sit
-			ActionRUN();
-			if (Action_done[ActionNowFlag] == 1)
-			{
-				ActionNowFlag = 14;
-				state[ACTION_SIT2PRONE]++;
-			}
-		}
-		else if (state[ACTION_SIT2PRONE] == 1)
-		{
-			ActionRUN();
-			if (Action_done[ActionNowFlag] == 1)
-			{
-				ActionNowFlag = ACTION_SIT2PRONE;
-				state[ACTION_SIT2PRONE]++;
-			}
-		}
-		else
-			ActionRUN();
-
-		break;
-	case ACTION_PRONETOSIT:
-
-		break;
-	case ACTION_LIE2STANDUP:
-
-		break;
-	case ACTION_CRAWL:
-
-		break;
-	case ACTION_CRAWLREPEAT:
-
-		break;
-	case ACTION_TEST:
-
-		break;
-	case ACTION_UNIT1:
-
-		break;
-	case ACTION_UNITTEST:
-
-		break;
-	case ACTION_LIEDOWN:
-		ActionNowFlag = 12; //
-		ActionRUN();
-=======
 	case ACTION_TEACH://0
 		// 示教
 		if (Motion_Run(&_Action_TEACH) == true)
 		{
 			Motion_Reset(&_Action_TEACH); // 重新使能该动作，便于下次再次跑
-			ActionNow = IDLE;
+			step_counter = 1;//测爬行需要重复
+			//ActionNow = IDLE;
 		}
 		break;
 
@@ -417,7 +228,6 @@ void robotRun()
 			goal_pos[i] = SERVO[i].pos_read;
 		}
 		step_counter = 0;
->>>>>>> Stashed changes
 		break;
 	default:
 		break;
@@ -429,9 +239,6 @@ void TeachmodeRUN(void)
 	// 用于三个串口上的舵机进入阻尼模式，一般在示教时使用
 	if (Servo_Reset_Flag == 1)
 	{
-		// User_SetDamping(1,1000);
-		// User_SetDamping(2,1000);
-		// User_SetDamping(3,1000);
 		Servo_Reset_Flag = 0;
 	}
 	if (TEACHMODE == 1)
@@ -452,10 +259,7 @@ void TeachmodeRUN(void)
 			ActionNowFlag = 0;
 			Action_done[Action_index[ActionNowFlag]->actionId] = 0;
 			step_counter = 1;
-<<<<<<< Updated upstream
-=======
 			ActionNow = ACTION_TEACH;
->>>>>>> Stashed changes
 
 			/*用于向上位机发送数据*/
 			Action_Teachmode();
@@ -479,28 +283,14 @@ void StartTaskMid(void const *argument)
 		if (TEACHMODE == 1)
 			TeachmodeRUN();
 		else if (Init_OK == 1)
-<<<<<<< Updated upstream
-		{
-			robotRun();
-			// ActionRUN();
-		}
-
-		for (int i = 1; i <= 12; i++)
-			LookPos[i] = SERVO[i].ang_read;
-=======
 			robotRun();
 		for (int i = 1; i <= 12; i++)
 			LookPos[i] = SERVO[i].pos_read;
->>>>>>> Stashed changes
 		if (OPEN == 1)
 			HAL_GPIO_WritePin(Servo_Power_GPIO_Port, Servo_Power_Pin, GPIO_PIN_SET); // 舵机供电
 		else
 			HAL_GPIO_WritePin(Servo_Power_GPIO_Port, Servo_Power_Pin, GPIO_PIN_RESET); // 舵机供电
-<<<<<<< Updated upstream
-		osDelay(20);
-=======
 		osDelay(10);
->>>>>>> Stashed changes
 	}
 }
 void StartTaskLow(void const *argument)

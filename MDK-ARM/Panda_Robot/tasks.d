@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/tasks.c
 panda_robot\tasks.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdlib.h
 panda_robot\tasks.o: D:\Dkong\ARM\ARMCC\Bin\..\include\string.h
@@ -15,21 +14,3 @@ panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
 panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/stack_macros.h
-=======
-panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/tasks.c
-panda_robot\tasks.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdlib.h
-panda_robot\tasks.o: D:\Dkong\ARM\ARMCC\Bin\..\include\string.h
-panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-panda_robot\tasks.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stddef.h
-panda_robot\tasks.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdint.h
-panda_robot\tasks.o: ../Core/Inc/FreeRTOSConfig.h
-panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
-panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
-panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
-panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
-panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
-panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
-panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
-panda_robot\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/stack_macros.h
->>>>>>> Stashed changes
