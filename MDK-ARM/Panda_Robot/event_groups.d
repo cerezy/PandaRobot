@@ -1,8 +1,8 @@
 panda_robot\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
-panda_robot\event_groups.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdlib.h
+panda_robot\event_groups.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 panda_robot\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-panda_robot\event_groups.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stddef.h
-panda_robot\event_groups.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdint.h
+panda_robot\event_groups.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+panda_robot\event_groups.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 panda_robot\event_groups.o: ../Core/Inc/FreeRTOSConfig.h
 panda_robot\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 panda_robot\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

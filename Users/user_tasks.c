@@ -133,7 +133,7 @@ void robotRun()
 		if (Motion_Run(&_Action_TEACH) == true)
 		{
 			Motion_Reset(&_Action_TEACH); // 重新使能该动作，便于下次再次跑
-			// step_counter = 1;//测爬行需要重复
+//			step_counter = 1;
 			ActionNow = IDLE;
 		}
 		break;
@@ -226,18 +226,6 @@ void robotRun()
 
 		break;
 
-	case ACTION_LIE2STANDUP:
-
-		break;
-
-	case ACTION_CRAWL:
-
-		break;
-
-	case ACTION_CRAWLREPEAT:
-
-		break;
-
 	case ACTION_TEST:
 
 		break;
@@ -253,6 +241,103 @@ void robotRun()
 		// 空闲
 		step_counter = 0;
 		break;
+	
+	 case ACTION_ScratchHead: // 14
+        if (Motion_Run(&_Action_ScratchHead) == 1)
+        {
+            Motion_Reset(&_Action_ScratchHead); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_Worship: // 15
+        if (Motion_Run(&_Action_Worship) == 1)
+        {
+            Motion_Reset(&_Action_Worship); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_ShakeHead: // 16
+        if (Motion_Run(&_Action_ShakeHead) == 1)
+        {
+            Motion_Reset(&_Action_ShakeHead); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_Pouting: // 17
+        if (Motion_Run(&_Action_Pouting) == 1)
+        {
+            Motion_Reset(&_Action_Pouting); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_TurnThings:
+        if (Motion_Run(&_Action_TurnThings) == 1)
+        {
+            Motion_Reset(&_Action_TurnThings); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_SleepTilt:
+        if (Motion_Run(&_Action_SleepTilt) == 1)
+        {
+            Motion_Reset(&_Action_SleepTilt); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_WashFace:
+        if (Motion_Run(&_Action_WashFace) == 1)
+        {
+            Motion_Reset(&_Action_WashFace); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_SideLieScratch:
+        if (Motion_Run(&_Action_SideLieScratch) == 1)
+        {
+            Motion_Reset(&_Action_SideLieScratch); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_SitLegsOpen:
+        if (Motion_Run(&_Action_SitLegsOpen) == 1)
+        {
+            Motion_Reset(&_Action_SitLegsOpen); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_StandToSit:
+        if (Motion_Run(&_Action_StandToSit) == 1)
+        {
+            Motion_Reset(&_Action_StandToSit); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_SideLie:
+        if (Motion_Run(&_Action_SideLie) == 1)
+        {
+            Motion_Reset(&_Action_SideLie); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_WagHips:
+        if (Motion_Run(&_Action_WagHips) == 1)
+        {
+            Motion_Reset(&_Action_WagHips); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+		
 	default:
 		break;
 	}
@@ -283,6 +368,7 @@ void TeachmodeRUN(void)
 			ActionNowFlag = 0;
 			Action_done[_Action_TEACH.motion[0].actionId] = 0;
 			step_counter = 1;
+			_Action_TEACH.motion[0].total_step = TEACH_TOTAL_STEP - 1;
 			ActionNow = ACTION_TEACH;
 
 			/*用于向上位机发送数据*/

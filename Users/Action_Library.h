@@ -4,7 +4,7 @@
 
 #define ACTION_COUNT_MAX 50
 //示教总步进数设置（默认定时器为5次/秒，例如35次对应了7s总时长）
-#define TEACH_TOTAL_STEP 50
+#define TEACH_TOTAL_STEP 35
 //定义了每个动作最大的步进数
 #define MAX_TOTAL_STEP 100
 //定义了一个动作最多分为几步
@@ -76,10 +76,18 @@ extern Motion_t _Action_LieProne;
 extern Motion_t _Action_BigLie;
 extern Motion_t _Action_Sit2Prone;
 extern Motion_t _Action_PronetoSit;
-extern Motion_t _Action_Lie2Standup;
-extern Motion_t _Action_Crawl;
-extern Motion_t _Action_Crawlrepeat;
 extern Motion_t _Action_Test;
 extern Motion_t _Action_Hello;
-
+extern Motion_t _Action_ScratchHead;
+extern Motion_t _Action_Worship;
+extern Motion_t _Action_ShakeHead;
+extern Motion_t _Action_Pouting;
+extern Motion_t _Action_TurnThings;
+extern Motion_t _Action_SleepTilt;
+extern Motion_t _Action_WashFace;
+extern Motion_t _Action_SideLieScratch;
+extern Motion_t _Action_SitLegsOpen;
+extern Motion_t _Action_StandToSit;
+extern Motion_t _Action_SideLie;
+extern Motion_t _Action_WagHips;
 #endif

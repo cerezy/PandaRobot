@@ -1,7 +1,7 @@
 panda_robot\user_servo.o: ..\Users\user_servo.c
 panda_robot\user_servo.o: ..\Users\user_servo.h
 panda_robot\user_servo.o: ..\Users\Action_Library.h
-panda_robot\user_servo.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdint.h
+panda_robot\user_servo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 panda_robot\user_servo.o: ..\Users\user_includes.h
 panda_robot\user_servo.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
 panda_robot\user_servo.o: ../Core/Inc/stm32h7xx_hal_conf.h
@@ -17,8 +17,8 @@ panda_robot\user_servo.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 panda_robot\user_servo.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h
 panda_robot\user_servo.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
 panda_robot\user_servo.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-panda_robot\user_servo.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stddef.h
-panda_robot\user_servo.o: D:\Dkong\ARM\ARMCC\Bin\..\include\math.h
+panda_robot\user_servo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+panda_robot\user_servo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 panda_robot\user_servo.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h
 panda_robot\user_servo.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h
 panda_robot\user_servo.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h
@@ -62,5 +62,5 @@ panda_robot\user_servo.o: ..\Users\user_imu.h
 panda_robot\user_servo.o: ..\Users\user_comm.h
 panda_robot\user_servo.o: ..\Users\user_servo.h
 panda_robot\user_servo.o: ..\Users\user_gait.h
-panda_robot\user_servo.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdio.h
-panda_robot\user_servo.o: D:\Dkong\ARM\ARMCC\Bin\..\include\string.h
+panda_robot\user_servo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+panda_robot\user_servo.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
