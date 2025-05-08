@@ -1,7 +1,7 @@
 panda_robot\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/croutine.c
 panda_robot\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-panda_robot\croutine.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-panda_robot\croutine.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+panda_robot\croutine.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stddef.h
+panda_robot\croutine.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdint.h
 panda_robot\croutine.o: ../Core/Inc/FreeRTOSConfig.h
 panda_robot\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 panda_robot\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

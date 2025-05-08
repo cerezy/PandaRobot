@@ -1,9 +1,9 @@
 panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c
-panda_robot\cmsis_os.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+panda_robot\cmsis_os.o: D:\Dkong\ARM\ARMCC\Bin\..\include\string.h
 panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
 panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-panda_robot\cmsis_os.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-panda_robot\cmsis_os.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+panda_robot\cmsis_os.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stddef.h
+panda_robot\cmsis_os.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdint.h
 panda_robot\cmsis_os.o: ../Core/Inc/FreeRTOSConfig.h
 panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
 panda_robot\cmsis_os.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h

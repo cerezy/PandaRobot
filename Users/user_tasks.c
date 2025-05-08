@@ -101,16 +101,16 @@ bool Motion_Run(Motion_t *motion_)
 	{
 		if (motion_->point_iter < motion_->point_total - 1)
 		{
-			if (motion_ == &_Action_Hug)
-			{
-				delTim++;
-				if (delTim > 100)
-				{
-					delTim = 0;
-					motion_->point_iter++;
-				}
-			}
-			else
+//			if (motion_ == &_Action_Hug)
+//			{
+//				delTim++;
+//				if (delTim > 100)
+//				{
+//					delTim = 0;
+//					motion_->point_iter++;
+//				}
+//			}
+//			else
 				motion_->point_iter++; // 切换下一个动作点
 			return false;
 		}
@@ -130,10 +130,11 @@ void robotRun()
 	{
 	case ACTION_TEACH: // 0
 		// 示教
+	_Action_TEACH.motion[0].total_step = TEACH_TOTAL_STEP;
 		if (Motion_Run(&_Action_TEACH) == true)
 		{
 			Motion_Reset(&_Action_TEACH); // 重新使能该动作，便于下次再次跑
-//			step_counter = 1;
+			step_counter = 1;
 			ActionNow = IDLE;
 		}
 		break;
@@ -147,14 +148,14 @@ void robotRun()
 
 		break;
 
-	case ACTION_WAVE: // 2
-		// 挥手
-		if (Motion_Run(&_Active_Wave) == true)
-		{
-			Motion_Reset(&_Active_Wave); // 重新使能该动作，便于下次再次跑
-			ActionNow = IDLE;
-		}
-		break;
+//	case ACTION_WAVE: // 2
+//		// 挥手
+//		if (Motion_Run(&_Active_Wave) == true)
+//		{
+//			Motion_Reset(&_Active_Wave); // 重新使能该动作，便于下次再次跑
+//			ActionNow = IDLE;
+//		}
+//		break;
 
 	case ACTION_STANDUP: // 3
 		// 站立
@@ -167,176 +168,326 @@ void robotRun()
 
 	case ACTION_SIT: // 4
 		// 坐下
-		if (Motion_Run(&_Active_Sit) == true)
+		if (Motion_Run((Motion_t*)&_Active_Sit) == true)
 		{
-			Motion_Reset(&_Active_Sit); // 重新使能该动作，便于下次再次跑
+			Motion_Reset((Motion_t*)&_Active_Sit); // 重新使能该动作，便于下次再次跑
 			ActionNow = IDLE;
 		}
 		break;
 
-	case ACTION_SITTOEAT: // 5
-		// 坐下吃东西
-		if (Motion_Run(&_Active_SittoEat) == true)
-		{
-			Motion_Reset(&_Active_SittoEat); // 重新使能该动作，便于下次再次跑
-			ActionNow = IDLE;
-		}
-		break;
+//	case ACTION_SITTOEAT: // 5 坐着吃东西
+//        // 坐下吃东西
+//        if (Motion_Run(&_Active_SittoEat) == true)
+//        {
+//            Motion_Reset(&_Active_SittoEat); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
 
-	case ACTION_HUG: //
-		// 拥抱
-		if (Motion_Run(&_Action_Hug) == true)
-		{
-			Motion_Reset(&_Action_Hug); // 重新使能该动作，便于下次再次跑
-		}
-		break;
+//    case ACTION_HUG: // 6 拥抱
+//        // 拥抱
+//        if (Motion_Run(&_Action_Hug) == true)
+//        {
+//            Motion_Reset(&_Action_Hug); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
 
-	case ACTION_LIEPRONE:
-		if (Motion_Run(&_Action_LieProne) == true)
-		{
-			Motion_Reset(&_Action_LieProne); // 重新使能该动作，便于下次再次跑
-			ActionNow = IDLE;
-		}
-		break;
-
-	case ACTION_BIGLIE:
-		if (Motion_Run(&_Action_BigLie) == true)
-		{
-			Motion_Reset(&_Action_BigLie); // 重新使能该动作，便于下次再次跑
-			ActionNow = IDLE;
-		}
-		break;
-
-	case ACTION_SIT2PRONE:
-		// 坐->卧着
-		if (Motion_Run(&_Action_Sit2Prone) == true)
-		{
-			Motion_Reset(&_Action_Sit2Prone); // 重新使能该动作，便于下次再次跑
-			ActionNow = IDLE;
-		}
-		break;
-
-	case ACTION_PRONETOSIT:
-		// 卧着->坐
-		if (Motion_Run(&_Action_PronetoSit) == true)
-		{
-			Motion_Reset(&_Action_PronetoSit); // 重新使能该动作，便于下次再次跑
-			ActionNow = IDLE;
-		}
-
-		break;
-
-	case ACTION_TEST:
-
-		break;
-
-	case ACTION_HELLO:
-		if (Motion_Run(&_Action_Hello) == true)
-		{
-			Motion_Reset(&_Action_Hello); // 重新使能该动作，便于下次再次跑
-		}
-		break;
-
-	case IDLE:
-		// 空闲
-		step_counter = 0;
-		break;
-	
-	 case ACTION_ScratchHead: // 14
-        if (Motion_Run(&_Action_ScratchHead) == 1)
+    case ACTION_LIEPRONE: // 7 卧
+        if (Motion_Run(&_Action_LieProne) == true)
         {
-            Motion_Reset(&_Action_ScratchHead); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Action_LieProne); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
 
-    case ACTION_Worship: // 15
-        if (Motion_Run(&_Action_Worship) == 1)
+//    case ACTION_BIGLIE: // 8 大字躺
+//        if (Motion_Run(&_Action_BigLie) == true)
+//        {
+//            Motion_Reset(&_Action_BigLie); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+    case ACTION_SIT2PRONE: // 9 坐->卧
+        if (Motion_Run(&_Action_Sit2Prone) == true)
         {
-            Motion_Reset(&_Action_Worship); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Action_Sit2Prone); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
 
-    case ACTION_ShakeHead: // 16
-        if (Motion_Run(&_Action_ShakeHead) == 1)
+    case ACTION_PRONETOSIT: // 10 卧->坐
+        if (Motion_Run(&_Action_PronetoSit) == true)
         {
-            Motion_Reset(&_Action_ShakeHead); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Action_PronetoSit); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
 
-    case ACTION_Pouting: // 17
-        if (Motion_Run(&_Action_Pouting) == 1)
+    // case ACTION_TEST: // 11 测试动作
+    //     if (Motion_Run(&_Action_Test) == true)
+    //     {
+    //         Motion_Reset(&_Action_Test); // 重新使能该动作，便于下次再次跑
+    //         ActionNow = IDLE;
+    //     }
+    //     break;
+
+//    case ACTION_HELLO: // 13 你好
+//        if (Motion_Run(&_Action_Hello) == true)
+//        {
+//            Motion_Reset(&_Action_Hello); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+//    case ACTION_ScratchHead: // 14 挠头
+//        if (Motion_Run(&_Action_ScratchHead) == true)
+//        {
+//            Motion_Reset(&_Action_ScratchHead); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+//    case ACTION_Worship: // 15 拜一拜
+//        if (Motion_Run(&_Action_Worship) == true)
+//        {
+//            Motion_Reset(&_Action_Worship); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+//    case ACTION_ShakeHead: // 16 摇头
+//        if (Motion_Run(&_Action_ShakeHead) == true)
+//        {
+//            Motion_Reset(&_Action_ShakeHead); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+//    case ACTION_Pouting: // 17 撅屁股
+//        if (Motion_Run(&_Action_Pouting) == true)
+//        {
+//            Motion_Reset(&_Action_Pouting); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+//    case ACTION_TurnThings: // 18 翻东西
+//        if (Motion_Run(&_Action_TurnThings) == true)
+//        {
+//            Motion_Reset(&_Action_TurnThings); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+//    case ACTION_SleepTilt: // 19 歪头睡觉
+//        if (Motion_Run(&_Action_SleepTilt) == true)
+//        {
+//            Motion_Reset(&_Action_SleepTilt); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+//    case ACTION_WashFace: // 20 洗脸
+//        if (Motion_Run(&_Action_WashFace) == true)
+//        {
+//            Motion_Reset(&_Action_WashFace); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+//    case ACTION_SideLieScratch: // 21 侧躺挠痒
+//        if (Motion_Run(&_Action_SideLieScratch) == true)
+//        {
+//            Motion_Reset(&_Action_SideLieScratch); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+//    case ACTION_SitLegsOpen: // 22 开腿坐
+//        if (Motion_Run(&_Action_SitLegsOpen) == true)
+//        {
+//            Motion_Reset(&_Action_SitLegsOpen); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+//    case ACTION_StandToSit: // 23 站->坐
+//        if (Motion_Run(&_Action_StandToSit) == true)
+//        {
+//            Motion_Reset(&_Action_StandToSit); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+//    case ACTION_SideLie: // 24 侧躺
+//        if (Motion_Run(&_Action_SideLie) == true)
+//        {
+//            Motion_Reset(&_Action_SideLie); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+//    case ACTION_WagHips: // 25 扭屁股
+//        if (Motion_Run(&_Action_WagHips) == true)
+//        {
+//            Motion_Reset(&_Action_WagHips); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
+
+    case ACTION_HighFive: // 26 击掌动作
+        if (Motion_Run(&_Action_HighFive) == true)
         {
-            Motion_Reset(&_Action_Pouting); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Action_HighFive); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
 
-    case ACTION_TurnThings:
-        if (Motion_Run(&_Action_TurnThings) == 1)
+    case ACTION_HugKiss: // 27 环抱kiss动作
+        if (Motion_Run(&_Action_HugKiss) == true)
         {
-            Motion_Reset(&_Action_TurnThings); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Action_HugKiss); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
 
-    case ACTION_SleepTilt:
-        if (Motion_Run(&_Action_SleepTilt) == 1)
+    case ACTION_Handshake: // 28 握手动作
+        if (Motion_Run(&_Action_Handshake) == true)
         {
-            Motion_Reset(&_Action_SleepTilt); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Action_Handshake); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
 
-    case ACTION_WashFace:
-        if (Motion_Run(&_Action_WashFace) == 1)
+    case ACTION_ScratchButt: // 29 挠屁股动作
+        if (Motion_Run(&_Action_ScratchButt) == true)
         {
-            Motion_Reset(&_Action_WashFace); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Action_ScratchButt); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
 
-    case ACTION_SideLieScratch:
-        if (Motion_Run(&_Action_SideLieScratch) == 1)
+    case ACTION_Bow: // 30 鞠躬动作
+        if (Motion_Run(&_Action_Bow) == true)
         {
-            Motion_Reset(&_Action_SideLieScratch); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Action_Bow); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
 
-    case ACTION_SitLegsOpen:
-        if (Motion_Run(&_Action_SitLegsOpen) == 1)
+    case ACTION_Cheer: // 31 挥臂加油动作
+        if (Motion_Run(&_Action_Cheer) == true)
         {
-            Motion_Reset(&_Action_SitLegsOpen); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Action_Cheer); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
 
-    case ACTION_StandToSit:
-        if (Motion_Run(&_Action_StandToSit) == 1)
+    case ACTION_DrawHeart: // 32 画爱心动作
+        if (Motion_Run(&_Action_DrawHeart) == true)
         {
-            Motion_Reset(&_Action_StandToSit); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Action_DrawHeart); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
 
-    case ACTION_SideLie:
-        if (Motion_Run(&_Action_SideLie) == 1)
+    case ACTION_StompFoot: // 33 掐腰跺脚动作
+        if (Motion_Run(&_Action_StompFoot) == true)
         {
-            Motion_Reset(&_Action_SideLie); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Action_StompFoot); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
 
-    case ACTION_WagHips:
-        if (Motion_Run(&_Action_WagHips) == 1)
+    case ACTION_Drum: // 34 击鼓动作
+        if (Motion_Run(&_Action_Drum) == true)
         {
-            Motion_Reset(&_Action_WagHips); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Action_Drum); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
+
+    case ACTION_RubEyes: // 35 揉眼睛动作
+        if (Motion_Run(&_Action_RubEyes) == true)
+        {
+            Motion_Reset(&_Action_RubEyes); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_Yawn: // 36 打哈欠动作
+        if (Motion_Run(&_Action_Yawn) == true)
+        {
+            Motion_Reset(&_Action_Yawn); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_SitPatButt: // 37 坐着拍屁股动作
+        if (Motion_Run(&_Action_SitPatButt) == true)
+        {
+            Motion_Reset(&_Action_SitPatButt); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+		 case ACTION_Eat: // 38 吃东西
+        if (Motion_Run(&_Action_Eat) == true)
+        {
+            Motion_Reset(&_Action_Eat); 
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_Stretch: // 39 伸懒腰
+        if (Motion_Run(&_Action_Stretch) == true)
+        {
+            Motion_Reset(&_Action_Stretch); 
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_StretchLying: // 40 躺着伸懒腰
+        if (Motion_Run(&_Action_StretchLying) == true)
+        {
+            Motion_Reset(&_Action_StretchLying); 
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_WaveStanding: // 41 站立挥手
+        if (Motion_Run(&_Action_WaveStanding) == true)
+        {
+            Motion_Reset(&_Action_WaveStanding); 
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_ScratchButtStanding: // 42 站立挠屁股
+        if (Motion_Run(&_Action_ScratchButtStanding) == true)
+        {
+            Motion_Reset(&_Action_ScratchButtStanding); 
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_SplitStanding: // 43 站立劈叉
+        if (Motion_Run(&_Action_SplitStanding) == true)
+        {
+            Motion_Reset(&_Action_SplitStanding); 
+            ActionNow = IDLE;
+        }
+        break;
+
+    case ACTION_PatTummy: // 44 拍肚子
+        if (Motion_Run(&_Action_PatTummy) == true)
+        {
+            Motion_Reset(&_Action_PatTummy); 
+            ActionNow = IDLE;
+        }
+        break;
+		
 		
 	default:
 		break;

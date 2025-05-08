@@ -73,6 +73,7 @@ void Error_Handler(void);
 #define Power_in_GPIO_Port GPIOD
 #define Servo_Power_Pin GPIO_PIN_4
 #define Servo_Power_GPIO_Port GPIOD
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
