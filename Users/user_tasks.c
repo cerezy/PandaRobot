@@ -28,19 +28,67 @@ void User_Init(void)
 	Init_OK = 1;
 }
 
+//示教用
+void ActionRUN(void)
+{
+	// 判断当前在进行的动作ActionNowFlag是没有结束的并且验证ID的正确性
+	if (Action_done[ActionNowFlag] == 0)
+	{
+		// 遍历舵机并更新下一时刻的目标值
+		for (int i = 1; i <= 12; i++)
+		{
+			if (goal_pos[i] <= Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i] - speed)
+				goal_pos[i] += speed;
+			else if (goal_pos[i] >= Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i] + speed)
+				goal_pos[i] -= speed;
+			// 判断是否抵达目标位置
+			if (goal_pos[i] > Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i] - speed && goal_pos[i] < Action_index[ActionNowFlag]->actions[step_counter].servoAngles[i] + speed)
+				vis[i] = 1;
+		}
+		for (int i = 1; i <= 12; i++)
+		{
+			if (vis[i] == 0)
+				break;
+			if (i == 12)
+			{
+				// 未执行完所有步数
+				if (step_counter < Action_index[ActionNowFlag]->total_step - 1)
+				{
+					step_counter++;
+					for (int i = 1; i <= 12; i++)
+						vis[i] = 0;
+				}
+				// 执行完毕
+				else if (step_counter == Action_index[ActionNowFlag]->total_step - 1)
+				{
+					// 当前动作Done
+					Action_done[Action_index[ActionNowFlag]->actionId] = 1;
+					// 相关参数复位
+					step_counter = 0;
+					actionStandup_getStartAngle = 0;
+
+					for (int i = 1; i <= 12; i++)
+						vis[i] = 0;
+				}
+			}
+		}
+	}
+}
+
 // 判断单独动作是否到位
 bool _SingleAction_CheckApproch(ServoActionSeries *action)
 {
-	if (action->ifNeedBezier == 1)
-	{
-		if (actionStandup_getStartAngle == 0)
-		{
-			for (int i = 1; i <= 12; i++)
-				action->startservoAngles[i] = SERVO[i].pos_read; // 获取当前角度
-			actionStandup_getStartAngle = 1;
-		}
-		User_BezierCurve(action->total_step, action);
-	}
+	//不需要
+//	if (action->ifNeedBezier == 1)
+//	{
+//		if (actionStandup_getStartAngle == 0)
+//		{
+//			for (int i = 1; i <= 12; i++)
+//				action->startservoAngles[i] = SERVO[i].pos_read; // 获取当前角度
+//			actionStandup_getStartAngle = 1;
+//		}
+//		User_BezierCurve(action->total_step, action);
+//	}
 
 	for (int i = 1; i <= 12; i++)
 	{
@@ -101,16 +149,6 @@ bool Motion_Run(Motion_t *motion_)
 	{
 		if (motion_->point_iter < motion_->point_total - 1)
 		{
-//			if (motion_ == &_Action_Hug)
-//			{
-//				delTim++;
-//				if (delTim > 100)
-//				{
-//					delTim = 0;
-//					motion_->point_iter++;
-//				}
-//			}
-//			else
 				motion_->point_iter++; // 切换下一个动作点
 			return false;
 		}
@@ -130,13 +168,15 @@ void robotRun()
 	{
 	case ACTION_TEACH: // 0
 		// 示教
-	_Action_TEACH.motion[0].total_step = TEACH_TOTAL_STEP;
-		if (Motion_Run(&_Action_TEACH) == true)
-		{
-			Motion_Reset(&_Action_TEACH); // 重新使能该动作，便于下次再次跑
-			step_counter = 1;
-			ActionNow = IDLE;
-		}
+//	_Action_TEACH.motion[0].total_step = TEACH_TOTAL_STEP;
+//		if (Motion_Run(&_Action_TEACH) == true)
+//		{
+//			Motion_Reset(&_Action_TEACH); // 重新使能该动作，便于下次再次跑
+//			step_counter = 1;
+//			ActionNow = IDLE;
+//		}
+	ActionNowFlag = 0;
+	ActionRUN();
 		break;
 
 	case ACTION_WALK: // 1
@@ -148,23 +188,23 @@ void robotRun()
 
 		break;
 
-//	case ACTION_WAVE: // 2
-//		// 挥手
-//		if (Motion_Run(&_Active_Wave) == true)
-//		{
-//			Motion_Reset(&_Active_Wave); // 重新使能该动作，便于下次再次跑
-//			ActionNow = IDLE;
-//		}
-//		break;
-
-	case ACTION_STANDUP: // 3
-		// 站立
-		if (Motion_Run(&_Action_Standup) == true)
+	case ACTION_WAVE: // 2
+		// 挥手
+		if (Motion_Run(&_Active_Wave) == true)
 		{
-			Motion_Reset(&_Action_Standup); // 重新使能该动作，便于下次再次跑
+			Motion_Reset(&_Active_Wave); // 重新使能该动作，便于下次再次跑
 			ActionNow = IDLE;
 		}
 		break;
+
+//	case ACTION_STANDUP: // 3
+//		// 站立
+//		if (Motion_Run(&_Action_Standup) == true)
+//		{
+//			Motion_Reset(&_Action_Standup); // 重新使能该动作，便于下次再次跑
+//			ActionNow = IDLE;
+//		}
+//		break;
 
 	case ACTION_SIT: // 4
 		// 坐下
@@ -175,31 +215,31 @@ void robotRun()
 		}
 		break;
 
-//	case ACTION_SITTOEAT: // 5 坐着吃东西
-//        // 坐下吃东西
-//        if (Motion_Run(&_Active_SittoEat) == true)
-//        {
-//            Motion_Reset(&_Active_SittoEat); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
-
-//    case ACTION_HUG: // 6 拥抱
-//        // 拥抱
-//        if (Motion_Run(&_Action_Hug) == true)
-//        {
-//            Motion_Reset(&_Action_Hug); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
-
-    case ACTION_LIEPRONE: // 7 卧
-        if (Motion_Run(&_Action_LieProne) == true)
+	case ACTION_SITTOEAT: // 5 坐着吃东西
+        // 坐下吃东西
+        if (Motion_Run(&_Active_SittoEat) == true)
         {
-            Motion_Reset(&_Action_LieProne); // 重新使能该动作，便于下次再次跑
+            Motion_Reset(&_Active_SittoEat); // 重新使能该动作，便于下次再次跑
             ActionNow = IDLE;
         }
         break;
+
+    case ACTION_HUG: // 6 拥抱
+        // 拥抱
+        if (Motion_Run(&_Action_Hug) == true)
+        {
+            Motion_Reset(&_Action_Hug); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
+
+//    case ACTION_LIEPRONE: // 7 卧
+//        if (Motion_Run(&_Action_LieProne) == true)
+//        {
+//            Motion_Reset(&_Action_LieProne); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
 
 //    case ACTION_BIGLIE: // 8 大字躺
 //        if (Motion_Run(&_Action_BigLie) == true)
@@ -217,13 +257,13 @@ void robotRun()
         }
         break;
 
-    case ACTION_PRONETOSIT: // 10 卧->坐
-        if (Motion_Run(&_Action_PronetoSit) == true)
-        {
-            Motion_Reset(&_Action_PronetoSit); // 重新使能该动作，便于下次再次跑
-            ActionNow = IDLE;
-        }
-        break;
+//    case ACTION_PRONETOSIT: // 10 卧->坐
+//        if (Motion_Run(&_Action_PronetoSit) == true)
+//        {
+//            Motion_Reset(&_Action_PronetoSit); // 重新使能该动作，便于下次再次跑
+//            ActionNow = IDLE;
+//        }
+//        break;
 
     // case ACTION_TEST: // 11 测试动作
     //     if (Motion_Run(&_Action_Test) == true)
@@ -233,13 +273,13 @@ void robotRun()
     //     }
     //     break;
 
-//    case ACTION_HELLO: // 13 你好
-//        if (Motion_Run(&_Action_Hello) == true)
-//        {
-//            Motion_Reset(&_Action_Hello); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
+    case ACTION_HELLO: // 13 你好
+        if (Motion_Run(&_Action_Hello) == true)
+        {
+            Motion_Reset(&_Action_Hello); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
 
 //    case ACTION_ScratchHead: // 14 挠头
 //        if (Motion_Run(&_Action_ScratchHead) == true)
@@ -249,93 +289,93 @@ void robotRun()
 //        }
 //        break;
 
-//    case ACTION_Worship: // 15 拜一拜
-//        if (Motion_Run(&_Action_Worship) == true)
-//        {
-//            Motion_Reset(&_Action_Worship); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
+    case ACTION_Worship: // 15 拜一拜
+        if (Motion_Run(&_Action_Worship) == true)
+        {
+            Motion_Reset(&_Action_Worship); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
 
-//    case ACTION_ShakeHead: // 16 摇头
-//        if (Motion_Run(&_Action_ShakeHead) == true)
-//        {
-//            Motion_Reset(&_Action_ShakeHead); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
+    case ACTION_ShakeHead: // 16 摇头
+        if (Motion_Run(&_Action_ShakeHead) == true)
+        {
+            Motion_Reset(&_Action_ShakeHead); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
 
-//    case ACTION_Pouting: // 17 撅屁股
-//        if (Motion_Run(&_Action_Pouting) == true)
-//        {
-//            Motion_Reset(&_Action_Pouting); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
+    case ACTION_Pouting: // 17 撅屁股
+        if (Motion_Run(&_Action_Pouting) == true)
+        {
+            Motion_Reset(&_Action_Pouting); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
 
-//    case ACTION_TurnThings: // 18 翻东西
-//        if (Motion_Run(&_Action_TurnThings) == true)
-//        {
-//            Motion_Reset(&_Action_TurnThings); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
+    case ACTION_TurnThings: // 18 翻东西
+        if (Motion_Run(&_Action_TurnThings) == true)
+        {
+            Motion_Reset(&_Action_TurnThings); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
 
-//    case ACTION_SleepTilt: // 19 歪头睡觉
-//        if (Motion_Run(&_Action_SleepTilt) == true)
-//        {
-//            Motion_Reset(&_Action_SleepTilt); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
+    case ACTION_SleepTilt: // 19 歪头睡觉
+        if (Motion_Run(&_Action_SleepTilt) == true)
+        {
+            Motion_Reset(&_Action_SleepTilt); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
 
-//    case ACTION_WashFace: // 20 洗脸
-//        if (Motion_Run(&_Action_WashFace) == true)
-//        {
-//            Motion_Reset(&_Action_WashFace); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
+    case ACTION_WashFace: // 20 洗脸
+        if (Motion_Run(&_Action_WashFace) == true)
+        {
+            Motion_Reset(&_Action_WashFace); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
 
-//    case ACTION_SideLieScratch: // 21 侧躺挠痒
-//        if (Motion_Run(&_Action_SideLieScratch) == true)
-//        {
-//            Motion_Reset(&_Action_SideLieScratch); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
+    case ACTION_SideLieScratch: // 21 侧躺挠痒
+        if (Motion_Run(&_Action_SideLieScratch) == true)
+        {
+            Motion_Reset(&_Action_SideLieScratch); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
 
-//    case ACTION_SitLegsOpen: // 22 开腿坐
-//        if (Motion_Run(&_Action_SitLegsOpen) == true)
-//        {
-//            Motion_Reset(&_Action_SitLegsOpen); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
+    case ACTION_SitLegsOpen: // 22 开腿坐
+        if (Motion_Run(&_Action_SitLegsOpen) == true)
+        {
+            Motion_Reset(&_Action_SitLegsOpen); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
 
-//    case ACTION_StandToSit: // 23 站->坐
-//        if (Motion_Run(&_Action_StandToSit) == true)
-//        {
-//            Motion_Reset(&_Action_StandToSit); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
+    case ACTION_StandToSit: // 23 站->坐
+        if (Motion_Run(&_Action_StandToSit) == true)
+        {
+            Motion_Reset(&_Action_StandToSit); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
 
-//    case ACTION_SideLie: // 24 侧躺
-//        if (Motion_Run(&_Action_SideLie) == true)
-//        {
-//            Motion_Reset(&_Action_SideLie); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
+    case ACTION_SideLie: // 24 侧躺
+        if (Motion_Run(&_Action_SideLie) == true)
+        {
+            Motion_Reset(&_Action_SideLie); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
 
-//    case ACTION_WagHips: // 25 扭屁股
-//        if (Motion_Run(&_Action_WagHips) == true)
-//        {
-//            Motion_Reset(&_Action_WagHips); // 重新使能该动作，便于下次再次跑
-//            ActionNow = IDLE;
-//        }
-//        break;
+    case ACTION_WagHips: // 25 扭屁股
+        if (Motion_Run(&_Action_WagHips) == true)
+        {
+            Motion_Reset(&_Action_WagHips); // 重新使能该动作，便于下次再次跑
+            ActionNow = IDLE;
+        }
+        break;
 
     case ACTION_HighFive: // 26 击掌动作
         if (Motion_Run(&_Action_HighFive) == true)
@@ -509,7 +549,7 @@ void TeachmodeRUN(void)
 			/*示教结束*/
 			for (int i = 1; i <= 12; i++)
 			{
-				goal_pos[i] = _Action_TEACH.motion[0].actions[1].servoAngles[i];
+				goal_pos[i] = Action_TEACH.actions[1].servoAngles[i];
 			}
 			TEACHMODE = 0;
 			TEACH_OK = 0;
@@ -517,9 +557,9 @@ void TeachmodeRUN(void)
 
 			/*用于立刻复现刚刚的动作*/
 			ActionNowFlag = 0;
-			Action_done[_Action_TEACH.motion[0].actionId] = 0;
+			Action_done[0] = 0;
 			step_counter = 1;
-			_Action_TEACH.motion[0].total_step = TEACH_TOTAL_STEP - 1;
+			Action_TEACH.total_step = TEACH_TOTAL_STEP - 1;
 			ActionNow = ACTION_TEACH;
 
 			/*用于向上位机发送数据*/

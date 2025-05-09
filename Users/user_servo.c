@@ -399,18 +399,18 @@ void User_AllSetAngTime(void)
 }
 
 /*用贝塞尔来计算每单个动作的舵机角度*/
-void User_BezierCurve(int stepping, ServoActionSeries* Action_analyze)
-{
-    //曲线上控制点个数(分度值)
-    float count_t = 1.0f /(stepping - 1);
-    for(int i = 0; i <= stepping - 1; i++)
-    {
-        float cur_t = count_t * (float)i;
-        float one_minus_t = 1.0f - cur_t;
-        for(int j = 1; j <= 12; j++)
-        {
-            Action_analyze->actions[i].servoAngles[j] = one_minus_t * Action_analyze->startservoAngles[j] + cur_t * Action_analyze->endservoAngles[j];
-        }
-    }
-}
+//void User_BezierCurve(int stepping, ServoActionSeries* Action_analyze)
+//{
+//    //曲线上控制点个数(分度值)
+//    float count_t = 1.0f /(stepping - 1);
+//    for(int i = 0; i <= stepping - 1; i++)
+//    {
+//        float cur_t = count_t * (float)i;
+//        float one_minus_t = 1.0f - cur_t;
+//        for(int j = 1; j <= 12; j++)
+//        {
+//            Action_analyze->actions[i].servoAngles[j] = one_minus_t * Action_analyze->startservoAngles[j] + cur_t * Action_analyze->endservoAngles[j];
+//        }
+//    }
+//}
 

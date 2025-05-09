@@ -18,7 +18,7 @@ HAL_StatusTypeDef status_erase;
 HAL_StatusTypeDef status_write;
 uint8_t Len = 0;
 const uint32_t testData[8] = {
-    0x12345611, 0x34, 0x56, 0x78, 0x9A, 0xBC, 0xDE, 0xF0,
+    0x12345611, 0x341212, 0x561212, 0x7845, 0x9A, 0xBC, 0xDE, 0xF0,
 };
 
 
@@ -106,27 +106,70 @@ void Flash_Verify(uint32_t addr) {
  */
 
 //示教mode下35总数的系列动作的写入函数
+//HAL_StatusTypeDef Flash_Write_User_Action(uint32_t addr, Motion_t motion_t) {
+//    HAL_StatusTypeDef status = HAL_OK;
+//    int16_t pData[35][14] = {0}; // 35 个动作，每个动作 14 个舵机角度
+//    //uint32_t words = 2; // 转换为 32-bit 字
+
+//    HAL_FLASH_Unlock();
+//    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS_BANK1);
+//	__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS_BANK2);
+
+//    // 以 32-bit 为单位写入（H7 支持 256-bit 写入，但 HAL 库限制为 32-bit）4bytes = 32bits
+//    for (uint32_t i = 0; i < 35; i++) {
+//        for(uint32_t j = 0; j < 14; j++) //14*2=28
+//        {
+//            pData[i][j] = motion_t.motion[0].actions[i].servoAngles[j];//存单个动作14个舵机的角度
+//        }
+//        for(uint32_t h = 0; h < 7; h++)
+//        {
+//            status = HAL_FLASH_Program(FLASH_TYPEPROGRAM_FLASHWORD, addr + (i*14*2 + h*4), *(uint32_t*)&pData[i][h*4]);//写入数据到flash
+//            if (status != HAL_OK) break;
+//        }
+//    }
+//    HAL_FLASH_Lock();
+//    return status;
+//}
+
 HAL_StatusTypeDef Flash_Write_User_Action(uint32_t addr, Motion_t motion_t) {
-    HAL_StatusTypeDef status = HAL_OK;
-    int16_t pData[35][14] = {0}; // 35 个动作，每个动作 14 个舵机角度
-    //uint32_t words = 2; // 转换为 32-bit 字
-
-    HAL_FLASH_Unlock();
-    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS_BANK1);
-	__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS_BANK2);
-
-    // 以 32-bit 为单位写入（H7 支持 256-bit 写入，但 HAL 库限制为 32-bit）4bytes = 32bits
-    for (uint32_t i = 0; i < 35; i++) {
-        for(uint32_t j = 0; j < 14; j++) //14*2=28
-        {
-            pData[i][j] = motion_t.motion[0].actions[i].servoAngles[j];//存单个动作14个舵机的角度
-        }
-        for(uint32_t h = 0; h < 7; h++)
-        {
-            status = HAL_FLASH_Program(FLASH_TYPEPROGRAM_FLASHWORD, addr + (i*14*2 + h*4), *(uint32_t*)&pData[i][h*4]);//写入数据到flash
-            if (status != HAL_OK) break;
-        }
+    // 1. 检查地址是否32字节对齐（必须满足）
+    if ((addr % 32) != 0) {
+        return HAL_ERROR;
     }
+
+    // 2. 定义对齐的数据缓冲区（按32字节对齐）
+    uint32_t flash_buffer[8]; // 32字节 = 8x uint32_t
+    HAL_StatusTypeDef status = HAL_OK;
+
+    // 3. 解锁Flash并清除错误标志
+    HAL_FLASH_Unlock();
+    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS_BANK1 | FLASH_FLAG_ALL_ERRORS_BANK2);
+
+    // 4. 按FLASHWORD（32字节）写入
+    for (uint32_t i = 0; i < 35; i++) {
+        // 4.1 将14个int16_t角度值打包到flash_buffer（注意字节序）
+        for (uint32_t j = 0; j < 14; j++) {
+            // 将int16_t存入uint32_t的低16位（高16位填0）
+            if (j % 2 == 0) {
+                flash_buffer[j / 2] = (uint32_t)motion_t.motion[0].actions[i].servoAngles[j];
+            } else {
+                flash_buffer[j / 2] |= (uint32_t)motion_t.motion[0].actions[i].servoAngles[j] << 16;
+            }
+        }
+
+        // 4.2 填充剩余的flash_buffer（14个int16_t = 28字节，需补4字节对齐到32字节）
+        flash_buffer[7] = 0; // 可选：填充为0或其他默认值
+
+        // 4.3 写入32字节到Flash（FLASHWORD模式）
+        status = HAL_FLASH_Program(
+            FLASH_TYPEPROGRAM_FLASHWORD,
+            addr + (i * 32),           // 地址按32字节递增
+            (uint64_t)(uint32_t)flash_buffer // 数据地址
+        );
+        if (status != HAL_OK) break;
+    }
+
+    // 5. 重新上锁Flash
     HAL_FLASH_Lock();
     return status;
 }
@@ -188,7 +231,6 @@ void sroreInit(void)
                 dataStore[i][j] = 0;
             }
         }
-		
 	}
 }
 

@@ -1,65 +1,57 @@
-panda_robot\stm32h7xx_it.o: ../Core/Src/stm32h7xx_it.c
-panda_robot\stm32h7xx_it.o: ../Core/Inc/main.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
-panda_robot\stm32h7xx_it.o: ../Core/Inc/stm32h7xx_hal_conf.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h
-panda_robot\stm32h7xx_it.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h
-panda_robot\stm32h7xx_it.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h
-panda_robot\stm32h7xx_it.o: ../Drivers/CMSIS/Include/core_cm7.h
-panda_robot\stm32h7xx_it.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stdint.h
-panda_robot\stm32h7xx_it.o: ../Drivers/CMSIS/Include/cmsis_version.h
-panda_robot\stm32h7xx_it.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
-panda_robot\stm32h7xx_it.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
-panda_robot\stm32h7xx_it.o: ../Drivers/CMSIS/Include/mpu_armv7.h
-panda_robot\stm32h7xx_it.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-panda_robot\stm32h7xx_it.o: D:\Dkong\ARM\ARMCC\Bin\..\include\stddef.h
-panda_robot\stm32h7xx_it.o: D:\Dkong\ARM\ARMCC\Bin\..\include\math.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma_ex.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash_ex.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hsem.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c_ex.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h
-panda_robot\stm32h7xx_it.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h
-panda_robot\stm32h7xx_it.o: ../Core/Inc/stm32h7xx_it.h
-panda_robot\stm32h7xx_it.o: ../Users/user_servo.h
-panda_robot\stm32h7xx_it.o: ../Users/Action_Library.h
-panda_robot\stm32h7xx_it.o: ../Users/user_includes.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-panda_robot\stm32h7xx_it.o: ../Core/Inc/FreeRTOSConfig.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
-panda_robot\stm32h7xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
-panda_robot\stm32h7xx_it.o: ../Users/user_tasks.h
-panda_robot\stm32h7xx_it.o: ../Users/user_led.h
-panda_robot\stm32h7xx_it.o: ../Users/user_includes.h
-panda_robot\stm32h7xx_it.o: ../Users/user_adc.h
-panda_robot\stm32h7xx_it.o: ../Users/user_timer.h
-panda_robot\stm32h7xx_it.o: ../Users/user_imu.h
-panda_robot\stm32h7xx_it.o: ../Users/user_comm.h
-panda_robot\stm32h7xx_it.o: ../Users/user_servo.h
-panda_robot\stm32h7xx_it.o: ../Users/user_gait.h
+panda_robot/stm32h7xx_it.o: ..\Core\Src\stm32h7xx_it.c ..\Core\Inc\main.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h \
+  ..\Core\Inc\stm32h7xx_hal_conf.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_rcc.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_def.h \
+  ..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h \
+  ..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h743xx.h \
+  ..\Drivers\CMSIS\Include\core_cm7.h \
+  D:\Dkong\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  ..\Drivers\CMSIS\Include\cmsis_version.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  ..\Drivers\CMSIS\Include\cmsis_armclang.h \
+  D:\Dkong\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  D:\Dkong\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  ..\Drivers\CMSIS\Include\mpu_armv7.h \
+  ..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
+  D:\Dkong\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  D:\Dkong\ARM\ARMCLANG\Bin\..\include\math.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_rcc_ex.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_gpio.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_gpio_ex.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_dma.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_dma_ex.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_mdma.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_exti.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_cortex.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_flash.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_flash_ex.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_hsem.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_i2c.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_i2c_ex.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pwr.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pwr_ex.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_tim.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_tim_ex.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_uart.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_uart_ex.h \
+  ..\Core\Inc\stm32h7xx_it.h ..\Users\user_servo.h \
+  ..\Users\Action_Library.h ..\Users\user_includes.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
+  ..\Core\Inc\FreeRTOSConfig.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\timers.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\event_groups.h \
+  ..\Users\user_tasks.h ..\Users\user_led.h ..\Users\user_adc.h \
+  ..\Users\user_timer.h ..\Users\user_imu.h ..\Users\user_comm.h \
+  ..\Users\user_gait.h

@@ -112,7 +112,7 @@ void User_TimerTeachIRQ(void)
 				else if((T_COUNTER - step_record)>=0 && (T_COUNTER - step_record) <= TEACH_TOTAL_STEP - 1){
 					//存储示教过程中的角度数据
 					for(int i = 0;i<14; i++)
-					_Action_TEACH.motion[0].actions[T_COUNTER - step_record].servoAngles[i] = SERVO[i].pos_read;
+					Action_TEACH.actions[T_COUNTER - step_record].servoAngles[i] = SERVO[i].pos_read;
 				}
 			}
 		}

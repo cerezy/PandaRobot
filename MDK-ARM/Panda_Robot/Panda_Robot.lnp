@@ -50,4 +50,4 @@
 --strict --scatter "Panda_Robot\Panda_Robot.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
---list "Panda_Robot.map" -o Panda_Robot\Panda_Robot.axf
+--list "C:\Users\14978\Documents\Panda_Robot.map" -o Panda_Robot\Panda_Robot.axf

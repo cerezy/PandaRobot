@@ -138,16 +138,17 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	
 	//FEETECH_ReadServoPos(cococo);
-	 Action_Teachmode();
-	 if (HAL_GPIO_ReadPin(Power_in_GPIO_Port, Power_in_Pin) == GPIO_PIN_RESET)
-	{
-		cococo++;
-		if(cococo > 5)
-			HAL_GPIO_WritePin(Power_out_GPIO_Port,Power_out_Pin,GPIO_PIN_RESET);//板子供电
-	}
-	else if(cococo>0)
-		cococo--;
-	HAL_Delay(500);
+//	 Action_Teachmode();
+//	 if (HAL_GPIO_ReadPin(Power_in_GPIO_Port, Power_in_Pin) == GPIO_PIN_RESET)
+//	{
+//		cococo++;
+//		if(cococo > 5)
+//			HAL_GPIO_WritePin(Power_out_GPIO_Port,Power_out_Pin,GPIO_PIN_RESET);//板子供电
+//	}
+//	else if(cococo>0)
+//		cococo--;
+	  
+	HAL_Delay(1);
   }
   /* USER CODE END 3 */
 }
