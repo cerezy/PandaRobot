@@ -116,7 +116,7 @@ void MX_FREERTOS_Init(void) {
   TaskLowHandle = osThreadCreate(osThread(TaskLow), NULL);
 
   /* definition and creation of TaskMid */
-  osThreadDef(TaskMid, StartTaskMid, osPriorityNormal, 0, 128);
+  osThreadDef(TaskMid, StartTaskMid, osPriorityNormal, 0, 256);
   TaskMidHandle = osThreadCreate(osThread(TaskMid), NULL);
 
   /* definition and creation of TaskHigh */
