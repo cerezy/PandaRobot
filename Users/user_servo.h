@@ -31,7 +31,8 @@ typedef struct
 	uint16_t power_read;
 	int16_t zero_ang;
 }SERVO_INFO_TYPEDEF;
-extern SERVO_INFO_TYPEDEF SERVO[17];
+
+extern SERVO_INFO_TYPEDEF SERVO[14];
 
 extern uint8_t SERVO_COMM_BUSY;
 

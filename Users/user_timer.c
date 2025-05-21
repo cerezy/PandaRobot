@@ -1,4 +1,5 @@
 #include "user_timer.h"
+#include "user_communication.h"
 
 // 设置模式
 #define _CMD_TYPE_SET 0
@@ -39,8 +40,21 @@ void User_TeachTimerInit(void)
 */
 
 extern uint8_t OPEN;
+extern uint8_t Init_OK;
+extern uint8_t touchTopofHead_Downside;
+extern uint8_t touchChin_Downside;
 void User_TimerServoIRQ(void)
 {
+	Key_Downside_Record();
+	if(touchTopofHead_Downside == 1 && Init_OK == 1 && ActionNow == IDLE)//摸脑袋
+	{
+		ActionNow = ACTION_M61;//M61. 头缓慢左右摇动几下后保持静止。
+
+	}
+	if(touchChin_Downside == 1 && Init_OK == 1 && ActionNow == IDLE)//摸下巴
+	{
+		ActionNow = ACTION_M65;//M65. 抬手摸脸或耳朵，随后缓缓放下。
+	}
 	static uint8_t cmd_type = _CMD_TYPE_READ;
 	static uint8_t read_type = _READ_TYPE_ANG;
 	static uint8_t cnt_servo_id = 0;

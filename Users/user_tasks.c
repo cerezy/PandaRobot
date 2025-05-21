@@ -4,6 +4,8 @@
 #include "user_timer.h"
 #include "user_states.h"
 #include <stdbool.h>
+#include "user_communication.h"
+
 int16_t ang_goal[15] = {0};
 uint16_t ms_goal[15] = {0};
 uint8_t Action_done[50] = {0};
@@ -20,15 +22,23 @@ uint8_t actionStandup_getStartAngle = 0; // 执行动作站立时获取当前舵机位置为初始
 Motion_t_ram* motion_ram_last = &_Action_TEACH;
 Motion_t*  motion_last = &M1;
 uint8_t ifStartAct = 0;
-uint8_t PoweronAction = 0;//上电开始做一系列动作
+uint8_t PoweronAction;//上电开始做一系列动作
 
 void User_Init(void)
 {
+	#if 1
+		PoweronAction = 0;//
+		TEACHMODE = 1;
+	#else
+		PoweronAction = 1;//上电开始做一系列动作
+		TEACHMODE = 0;
+	#endif
+	
     Action_init();         // 动作库初始化（动作信息）
     User_ServoInit();      // 舵机信息初始化（对应串口等）
     User_TimerInit();      // 统领全局的定时器
     User_TeachTimerInit(); // 示教模式专用定时器
-    TEACHMODE = 1;
+    User_CommunicationInit(); // 通信协议初始化
     Init_OK = 1;
 	if(PoweronAction == 1)
 	ActionNow = ACTION_Yawn;
@@ -1296,6 +1306,7 @@ void StartTaskHigh(void const *argument)
     }
 }
 uint8_t OPEN = 1;
+
 void StartTaskMid(void const *argument)
 {
     for (;;)

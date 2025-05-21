@@ -740,6 +740,16 @@
               <FileType>5</FileType>
               <FilePath>..\Users\user_flash.h</FilePath>
             </File>
+            <File>
+              <FileName>user_communication.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Users\user_communication.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_communication.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Users\user_communication.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

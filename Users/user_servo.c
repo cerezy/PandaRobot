@@ -11,7 +11,7 @@ USART_SERVO_TYPEDEF USART_RIGHT_LEG = {0}; // ÓÒ±ßÍÈ ID:1 - 6 usart1
 USART_SERVO_TYPEDEF USART_LEFT_LEG = {0};  // ×ó±ßÍÈ ID: 7 - 12 usart2
 USART_SERVO_TYPEDEF USART_HEAD = {0};	   // ×ó±ßÍÈ ID: 13 - 14 usart3
 
-SERVO_INFO_TYPEDEF SERVO[17] = {0};
+SERVO_INFO_TYPEDEF SERVO[14] = {0};
 
 uint8_t SERVO_COMM_BUSY = 0;
 extern int16_t ang_goal[15];
