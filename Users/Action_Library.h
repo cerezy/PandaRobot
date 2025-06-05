@@ -214,5 +214,30 @@ extern Motion_t M196;
 extern Motion_t M202;
 extern Motion_t M204;
 extern Motion_t M205;
+//5.25
+extern Motion_t M63;  // 新增
+extern Motion_t M77;  // 新增
+extern Motion_t M98;  // 新增
+extern Motion_t M99;  // 新增
+extern Motion_t M102; // 新增
+extern Motion_t M130; // 新增
+extern Motion_t M137; // 新增
+extern Motion_t M148; // 新增
+extern Motion_t M160; // 新增
+extern Motion_t M177; // 新增
+extern Motion_t M179;
+extern Motion_t M181;
+extern Motion_t M189;
+extern Motion_t M193;
+extern Motion_t M197;
+extern Motion_t M199;
+extern Motion_t M207;
+extern Motion_t M210;
+extern Motion_t MCrawlToSit;   // 趴->坐
+extern Motion_t MSitToCrawl;   // 坐->趴
+extern Motion_t MSitToStand;   // 坐->站
+extern Motion_t MStandToSit;   // 站->坐
+extern Motion_t MStandToCrawl; // 站->趴
+extern Motion_t MCrawlToStand; // 趴->站
 
 #endif

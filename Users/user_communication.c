@@ -3,15 +3,16 @@
 #include "main.h"
 
 ProtocolHandle ph; // 协议句柄实例
-
+uint8_t actionStop = 0;
+WorkStatus stateRobot;
 /**
  * @brief 通信模块初始化
  * @note 配置UART和DMA，启用空闲中断
  */
 void User_CommunicationInit(void)
 {
-    ph.huart = &huart7;       // UART句柄
-    ph.hdma = &hdma_uart7_rx; // DMA句柄
+    ph.huart = &huart4;       // UART句柄
+    ph.hdma = &hdma_uart4_rx; // DMA句柄
     ph.buf_idx = 0;           // 初始化缓冲区索引
     __HAL_UART_ENABLE_IT(ph.huart, UART_IT_IDLE);
     HAL_UART_Receive_DMA(ph.huart, ph.rx_buf[ph.buf_idx], MAX_DATA_LEN + 9);
@@ -19,49 +20,54 @@ void User_CommunicationInit(void)
 
 void Single_Key_Record(uint8_t *key, uint8_t *last_key, uint8_t *key_downside, uint8_t *key_upside)
 {
-	// 下降沿检测
-	if ((*last_key == 1) && (*key == 0))
-	{
-		*key_downside = 1;
-	}
-	else
-	{
-		*key_downside = 0;
-	}
-	// 上升沿检测
-	if ((*last_key == 0) && (*key == 1))
-	{
-		*key_upside = 1;
-	}
-	else
-	{
-		*key_upside = 0;
-	}
+    // 下降沿检测
+    if ((*last_key == 1) && (*key == 0))
+    {
+        *key_downside = 1;
+    }
+    else
+    {
+        *key_downside = 0;
+    }
+    // 上升沿检测
+    if ((*last_key == 0) && (*key == 1))
+    {
+        *key_upside = 1;
+    }
+    else
+    {
+        *key_upside = 0;
+    }
 
-	*last_key = *key;
+    *last_key = *key;
 }
 
-uint8_t touchTopofHead_Downside, touchTopofHead_Upside, touchTopofHead, Last_touchTopofHead;//触摸头部
-uint8_t touchChin_Downside, touchChin_Upside, touchChin, Last_touchChin;//触摸下巴
+uint8_t touchTopofHead_Downside, touchTopofHead_Upside, touchTopofHead, Last_touchTopofHead; // 触摸头部
+uint8_t touchChin_Downside, touchChin_Upside, touchChin, Last_touchChin;                     // 触摸下巴
+uint8_t humanDetection_Downside, humanDetection_Upside, humanDetection, Last_humanDetection; // 触摸下巴
 void Key_Downside_Record(void)
 {
-	touchTopofHead = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11);
-	touchChin = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12);
-	Single_Key_Record(&touchTopofHead, &Last_touchTopofHead, &touchTopofHead_Downside, &touchTopofHead_Upside);
-	Single_Key_Record(&touchChin, &Last_touchChin, &touchChin_Downside, &touchChin_Upside);
+    touchTopofHead = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11);
+    touchChin = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_12);
+    humanDetection = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_4);
+    Single_Key_Record(&touchTopofHead, &Last_touchTopofHead, &touchTopofHead_Downside, &touchTopofHead_Upside);
+    Single_Key_Record(&touchChin, &Last_touchChin, &touchChin_Downside, &touchChin_Upside);
+    Single_Key_Record(&humanDetection, &Last_humanDetection, &humanDetection_Downside, &humanDetection_Upside);
 }
 
 /*------------------------ 函数定义 ------------------------*/
 
-	/**
+/**
  * @brief 计算简单和校验（16位）
  * @param data 待校验数据指针
  * @param len 校验数据长度（字节数）
  * @return 计算得到的16位校验值
  */
-uint16_t Calculate_SumCheck(const uint8_t *data, uint16_t len) {
+uint16_t Calculate_SumCheck(uint8_t *data, uint16_t len)
+{
     uint16_t sum = 0;
-    while (len--) {
+    while (len--)
+    {
         sum += *data++;
     }
     return sum;
@@ -74,8 +80,9 @@ uint16_t Calculate_SumCheck(const uint8_t *data, uint16_t len) {
  */
 WorkMode Get_WorkMode(void)
 {
-    // 临时返回空闲模式
-    return MODE_NORMAL;
+	if(ActionNow == IDLE)
+    return MODE_IDLE;
+	else return MODE_ACTION;
 }
 
 /**
@@ -85,7 +92,7 @@ WorkMode Get_WorkMode(void)
 float Power_GetVoltage(void)
 {
     // 临时返回0电压
-    return 0.0f;
+    return USER_ADC.bat_volt;
 }
 
 /**
@@ -95,7 +102,7 @@ float Power_GetVoltage(void)
 uint8_t Get_BatteryLevel(void)
 {
     // 临时返回0%电量
-    return 0;
+    return USER_ADC.bat_power;
 }
 
 /**
@@ -191,10 +198,14 @@ char *WarningCodeToString(uint16_t code)
 {
     switch (code)
     {
-    case 0: return "none";
-    case 1: return "low battery";
-    case 2: return "high temp";
-    default: return "unknown";
+    case 0:
+        return "none";
+    case 1:
+        return "low battery";
+    case 2:
+        return "high temp";
+    default:
+        return "unknown";
     }
 }
 
@@ -207,13 +218,19 @@ char *ErrorCodeToString(uint16_t code)
 {
     switch (code)
     {
-    case 0: return "none";
-    case 1: return "motor fault";
-    case 2: return "sensor error";
-    default: return "unknown";
+    case 0:
+        return "none";
+    case 1:
+        return "motor fault";
+    case 2:
+        return "sensor error";
+    default:
+        return "unknown";
     }
 }
 
+
+uint8_t tx_buf_[136];
 /**
  * @brief 发送传感器数据响应帧
  * @param ph 协议句柄指针
@@ -230,33 +247,33 @@ void Send_Sensor_Data(ProtocolHandle *ph, const char *data, uint16_t len)
     }
 
     // 构造完整数据帧（动态计算帧长度）
-    uint8_t tx_buf[2 + 2 + 5 + len]; // 头帧尾帧4+功能码1+数据长度2+校验1
-    uint16_t frame_len = sizeof(tx_buf);
+//    uint8_t tx_buf[2 + 2 + 5 + len]; // 头帧尾帧4+功能码1+数据长度2+校验1
+    uint16_t frame_len = 2+2+5+len;
 
     // 帧头（2字节）
-    tx_buf[0] = FRAME_HEADER_DOWN >> 8;
-    tx_buf[1] = FRAME_HEADER_DOWN & 0xFF;
+    tx_buf_[0] = FRAME_HEADER_DOWN >> 8;
+    tx_buf_[1] = FRAME_HEADER_DOWN & 0xFF;
 
     // 功能码（1字节）
-    tx_buf[2] = ph->current_cmd;
+    tx_buf_[2] = ph->current_cmd;
 
     // 数据长度（小端格式，2字节）
-    tx_buf[3] = len & 0xFF;
-    tx_buf[4] = (len >> 8) & 0xFF;
+    tx_buf_[3] = len & 0xFF;
+    tx_buf_[4] = (len >> 8) & 0xFF;
 
     // 数据内容
-    memcpy(&tx_buf[5], data, len);
+    memcpy(&tx_buf_[5], data, len);
 
     // 计算和校验（功能码+长度+数据）
-    uint16_t checksum = Calculate_SumCheck(&tx_buf[3], len);
-    tx_buf[5 + len] = checksum;
+    uint16_t checksum = Calculate_SumCheck(&tx_buf_[3], len);
+    tx_buf_[5 + len] = checksum;
 
     // 帧尾（2字节）
-    tx_buf[6 + len] = FRAME_FOOTER_DOWN >> 8;
-    tx_buf[7 + len] = FRAME_FOOTER_DOWN & 0xFF;
+    tx_buf_[6 + len] = FRAME_FOOTER_DOWN >> 8;
+    tx_buf_[7 + len] = FRAME_FOOTER_DOWN & 0xFF;
 
     // DMA发送
-    HAL_UART_Transmit_DMA(ph->huart, tx_buf, 8 + len);
+    HAL_UART_Transmit_DMA(ph->huart, tx_buf_, 8 + len);
 }
 
 /*------------------------ 舵机参数获取函数 ------------------------*/
@@ -278,25 +295,49 @@ void Servo_GetAllParams(SERVO_INFO_TYPEDEF *params)
  * @brief 发送标准响应帧
  * @param ph 协议句柄指针
  * @param result 响应结果码（0表示成功，1表示校验失败，2表示开始执行，3表示执行完毕）
- * @note 帧结构：BB BB | func | 01 00 | result | CRC16 | ++ ++
+ * @note 帧结构：BB BB | func | 01 00 | result | 和校验 | ++ ++
  */
+uint8_t _tx_buf_[10] = {0x42, 0x42, 0, 1, 0, 0, 0, 0, 0x2B, 0x2B};
 void Send_Response(ProtocolHandle *ph, uint8_t result)
 {
-    uint8_t tx_buf[10] = {
-        FRAME_HEADER_DOWN >> 8, FRAME_HEADER_DOWN & 0xFF, // 帧头BB BB
-        ph->current_cmd,                                  // 原样回传功能码
-        1, 0,                                             // 数据长度小端（固定1字节）
-        result,                                           // 结果码
-        0, 0,                                             // CRC16占位
-        FRAME_FOOTER_DOWN >> 8, FRAME_FOOTER_DOWN & 0xFF  // 帧尾++ ++
-    };
-
+//    uint8_t tx_buf[10] = {
+//        FRAME_HEADER_DOWN >> 8, FRAME_HEADER_DOWN & 0xFF, // 帧头BB BB
+//        ph->current_cmd,                                  // 原样回传功能码
+//        1, 0,                                             // 数据长度小端（固定1字节）
+//        result,                                           // 结果码
+//        0, 0,                                             // 和校验占位
+//        FRAME_FOOTER_DOWN >> 8, FRAME_FOOTER_DOWN & 0xFF  // 帧尾++ ++
+//    };
+	_tx_buf_[2] = ph->current_cmd;
+	_tx_buf_[5] = result;
     // 计算校验和（仅对数据内容校验）
-    uint16_t checksum = Calculate_SumCheck(&tx_buf[5], 1);
-    tx_buf[6] = checksum & 0xFF; // 校验低字节在前
-    tx_buf[7] = checksum >> 8;   // 高字节在后
+    uint16_t checksum = Calculate_SumCheck(&_tx_buf_[5], 1);
+    _tx_buf_[6] = checksum & 0xFF; // 校验低字节在前
+    _tx_buf_[7] = checksum >> 8;   // 高字节在后
 
-    HAL_UART_Transmit_DMA(ph->huart, tx_buf, sizeof(tx_buf));
+    HAL_UART_Transmit_DMA(ph->huart, _tx_buf_, sizeof(_tx_buf_));
+}
+
+void sendStateActive(ProtocolHandle *ph, WorkStatus status)
+{
+	/* 获取所需状态数据 */
+            status.voltage = Power_GetVoltage();       // 电压值（float）
+            status.battery_level = Get_BatteryLevel(); // 电量百分比（0~100）
+            status.is_charging = Is_Charging();         // 充电状态
+
+        /* 生成精简的JSON格式状态数据 */
+        char json_buf[128]; // 适当大小的缓冲区
+        snprintf(json_buf, sizeof(json_buf),
+                 "{\"mode\":%d,\"voltage\":%.2f,\"battery\":\"%d%%\",\"charging\":%s}",
+                 status.mode,
+                 status.voltage,        // %.2f 保留两位小数
+                 status.battery_level,  // 
+                 status.is_charging ? "true" : "false");
+        
+        ph->cmd_state = CMD_RECEIVED;
+        
+        /* 发送状态数据 */
+        Send_Sensor_Data(ph, json_buf, strlen(json_buf));
 }
 
 /**
@@ -308,17 +349,17 @@ void Parse_Protocol(ProtocolHandle *ph)
 {
     ProtocolFrame *frame = (ProtocolFrame *)ph->rx_buf[ph->buf_idx];
     frame->checksum = (frame->data[frame->data_len + 1] << 8) | frame->data[frame->data_len];
-    frame->footer = *(uint16_t*)&frame->data[frame->data_len + 2];
-    
-    // 清空校验和及帧尾区域（可选）
-    for(int i = 0; i < 4; i++)
+    frame->footer = *(uint16_t *)&frame->data[frame->data_len + 2];
+
+    // 清空校验和及帧尾区域
+    for (int i = 0; i < 4; i++)
         frame->data[frame->data_len + i] = 0;
 
     /* 基础结构校验 */
     if (frame->header != FRAME_HEADER_UP || // 验证上位机帧头
         frame->footer != FRAME_FOOTER_UP || // 验证上位机帧尾
         frame->data_len > MAX_DATA_LEN)     // 数据长度合法性检查
-    { 
+    {
         return;
     }
 
@@ -330,8 +371,8 @@ void Parse_Protocol(ProtocolHandle *ph)
         Send_Response(ph, ph->cmd_state); // 响应校验失败
         return;
     }
-    
-    TEACHMODE = 0; // 清除教学模式标志（如有）
+
+    TEACHMODE = 0;                 // 清除教学模式标志（如有）
     ph->current_cmd = frame->func; // 记录当前命令功能码
 
     /* 功能码分发处理 */
@@ -343,13 +384,13 @@ void Parse_Protocol(ProtocolHandle *ph)
             // 解析状态和程度值（示例）
             uint8_t state = frame->data[0];
             uint8_t level = frame->data[1];
-            
+
             // 更新状态机
             ph->cmd_state = CMD_RECEIVED;
             Send_Response(ph, ph->cmd_state); // 立即响应接收成功
         }
         break;
-        
+
     case 0x02: // 动作库控制
     {
         // 首次响应（接收成功）
@@ -358,19 +399,27 @@ void Parse_Protocol(ProtocolHandle *ph)
 
         // 解析动作编号（范围0-255）
         uint8_t action_id = frame->data[0];
+		
+		if(action_id == 255) 
+		{
+			actionStop = 1;
+		}
+//        // 验证动作编号有效性（示例：有效范围0-121）
+//        else if (action_id > 150)
+//        {
+//            ph->cmd_state = CMD_CHECK_ERROR;
+//            Send_Response(ph, ph->cmd_state);
+//            break;
+//        }
 
-        // 验证动作编号有效性（示例：有效范围0-121）
-        if (action_id > 121)
-        {
-            ph->cmd_state = CMD_CHECK_ERROR;
-            Send_Response(ph, ph->cmd_state);
-            break;
-        }
-
-        // 更新动作控制参数
-        ph->cmd_state = CMD_RECEIVED;
-        Send_Response(ph, ph->cmd_state); // 再次响应
-        ActionNow = action_id; // 设置当前动作
+		else
+		{
+			// 更新动作控制参数
+			actionStop = 0;
+			ph->cmd_state = CMD_RECEIVED;
+			Send_Response(ph, ph->cmd_state); // 再次响应
+			ActionNow = action_id;            // 设置当前动作
+		}
         break;
     }
 
@@ -398,8 +447,7 @@ void Parse_Protocol(ProtocolHandle *ph)
             .chin_touch = Get_TouchValue(TOUCH_CHIN),
             .roll = IMU_GetRoll(),
             .pitch = IMU_GetPitch(),
-            .yaw = IMU_GetYaw()
-        };
+            .yaw = IMU_GetYaw()};
 
         // 转换为JSON字符串
         char json_buf[128];
@@ -415,40 +463,32 @@ void Parse_Protocol(ProtocolHandle *ph)
     }
 
     /*------ 0x05: 工作状态查询 ------*/
-    case 0x05:
+	case 0x05:
     {
-        /* 获取所有状态数据 */
+        /* 获取所需状态数据 */
         WorkStatus status = {
             .mode = Get_WorkMode(),              // 工作模式
-            .voltage = Power_GetVoltage(),       // 电压值
-            .battery_level = Get_BatteryLevel(), // 电量百分比
-            .is_charging = Is_Charging(),        // 充电状态
-            .max_temp = Get_MaxTemperature(),    // 最高温度
-            .warning_code = Get_Warning(),       // 警告代码
-            .error_code = Get_LastError(),       // 错误代码
+            .voltage = Power_GetVoltage(),       // 电压值（float）
+            .battery_level = Get_BatteryLevel(), // 电量百分比（0~100）
+            .is_charging = Is_Charging()         // 充电状态
         };
 
-        /* 将警告和错误代码转换为可读字符串 */
-        char *warning_str = WarningCodeToString(status.warning_code);
-        char *error_str = ErrorCodeToString(status.error_code);
-
-        /* 生成JSON格式状态数据 */
-        char json_buf[128]; // 适当增大缓冲区
+        /* 生成精简的JSON格式状态数据 */
+        char json_buf[128]; // 适当大小的缓冲区
         snprintf(json_buf, sizeof(json_buf),
-                 "{\"mode\":%d,\"warning\":\"%s\",\"error\":\"%s\","
-                 "\"electricity\":%d,\"charging\":%s}",
+                 "{\"mode\":%d,\"voltage\":%.2f,\"battery\":\"%d%%\",\"charging\":%s}",
                  status.mode,
-                 warning_str,
-                 error_str,
-                 status.battery_level,
+                 status.voltage,        // %.2f 保留两位小数
+                 status.battery_level,  // 
                  status.is_charging ? "true" : "false");
+        
         ph->cmd_state = CMD_RECEIVED;
-        Send_Response(ph, ph->cmd_state); // 立即响应接收成功
-
+        
         /* 发送状态数据 */
         Send_Sensor_Data(ph, json_buf, strlen(json_buf));
         break;
     }
+	
 
     default:                     // 未知功能码
         Send_Response(ph, 0x01); // 响应校验失败

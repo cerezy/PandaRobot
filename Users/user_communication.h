@@ -39,22 +39,22 @@ typedef struct __attribute__((packed))
     uint16_t footer;            // 帧尾（2字节）
 } ProtocolFrame;
 
-
 typedef struct
 {
     UART_HandleTypeDef *huart;           // 绑定的UART硬件实例指针
     DMA_HandleTypeDef *hdma;             // 绑定的DMA硬件实例指针
-    uint8_t rx_buf[2][MAX_DATA_LEN + 8]; // 双缓冲接收阵列，+8容纳完整帧头尾
+    uint8_t rx_buf[2][MAX_DATA_LEN + 10]; // 双缓冲接收阵列，+8容纳完整帧头尾
     volatile uint8_t buf_idx;            // 当前活动缓冲区索引（0或1）
     CmdState cmd_state;                  // 命令执行状态机
     uint8_t current_cmd;                 // 当前处理的命令功能码
 } ProtocolHandle;
 
 // 触摸传感器类型枚举
-typedef enum {
-    TOUCH_HEAD = 0,     // 头部触摸
-    TOUCH_BODY,         // 身体触摸
-    TOUCH_CHIN          // 下巴触摸
+typedef enum
+{
+    TOUCH_HEAD = 0, // 头部触摸
+    TOUCH_BODY,     // 身体触摸
+    TOUCH_CHIN      // 下巴触摸
 } TouchType;
 
 typedef struct
@@ -67,31 +67,33 @@ typedef struct
     float yaw;          // 偏航角（单位：度）
 } SensorData;
 
-
-typedef enum {
-    MODE_IDLE = 0,      // 空闲模式
-    MODE_NORMAL,         // 正常工作模式
-    MODE_CHARGING,       // 充电模式
-    MODE_ERROR           // 错误模式
+typedef enum
+{
+	MODE_NORMAL = 0,   // 正常工作模式
+    MODE_IDLE , // 空闲模式
+    MODE_ACTION, // 做动作模式
 } WorkMode;
 
-typedef struct {
-    WorkMode mode;           // 工作模式
-    float voltage;           // 当前电压(V)
-    uint8_t battery_level;   // 电量百分比(0-100)
-    bool is_charging;        // 充电状态
-    float max_temp;          // 最高温度(℃)
-    uint16_t warning_code;   // 警告代码
-    uint16_t error_code;     // 错误代码
-    uint32_t uptime;         // 运行时间(s)
+typedef struct
+{
+    WorkMode mode;         // 工作模式
+    float voltage;         // 当前电压(V)
+    uint8_t battery_level; // 电量百分比(0-100)
+    bool is_charging;      // 充电状态
+    float max_temp;        // 最高温度(℃)
+    uint16_t warning_code; // 警告代码
+    uint16_t error_code;   // 错误代码
+    uint32_t uptime;       // 运行时间(s)
 } WorkStatus;
 
-
 extern ACTION_STATE ActionNow;
+extern ProtocolHandle ph;
+extern WorkStatus stateRobot;
+extern uint8_t actionStop;
 
+void sendStateActive(ProtocolHandle *ph, WorkStatus status);
 void Key_Downside_Record(void);
 void User_CommunicationInit(void);
 void User_Communication_IRQHandler(void);
-
-
+void Send_Response(ProtocolHandle *ph, uint8_t result);
 #endif

@@ -1,5 +1,6 @@
 #include "user_timer.h"
 #include "user_communication.h"
+#include "user_adc.h"
 
 // 设置模式
 #define _CMD_TYPE_SET 0
@@ -43,18 +44,27 @@ extern uint8_t OPEN;
 extern uint8_t Init_OK;
 extern uint8_t touchTopofHead_Downside;
 extern uint8_t touchChin_Downside;
+extern uint8_t humanDetection_Downside;
+uint8_t testinput;
 void User_TimerServoIRQ(void)
 {
-	Key_Downside_Record();
-	if(touchTopofHead_Downside == 1 && Init_OK == 1 && ActionNow == IDLE)//摸脑袋
+	User_AdcBatVoltGet();
+	//Key_Downside_Record();
+	if(touchTopofHead_Downside == 1 && Init_OK == 1 && ActionNow == IDLE && TEACHMODE == 0)//摸脑袋
 	{
-		ActionNow = ACTION_M61;//M61. 头缓慢左右摇动几下后保持静止。
-
+		ActionNow = ACTION_M65;//M61. 头缓慢左右摇动几下后保持静止。
 	}
-	if(touchChin_Downside == 1 && Init_OK == 1 && ActionNow == IDLE)//摸下巴
+	if(touchChin_Downside == 1 && Init_OK == 1 && ActionNow == IDLE && TEACHMODE == 0)//摸下巴
 	{
-		ActionNow = ACTION_M65;//M65. 抬手摸脸或耳朵，随后缓缓放下。
+		ActionNow = ACTION_M61;//M65. 抬手摸脸或耳朵，随后缓缓放下。
 	}
+	if(humanDetection_Downside == 1 && Init_OK == 1 && ActionNow == IDLE && TEACHMODE == 0)//人体检测
+	{
+		ActionNow = ACTION_HELLO;//hello
+	}
+//	if(testinput == 1) ActionNow = ACTION_M61;
+//		else  ActionNow = ACTION_M65;
+	
 	static uint8_t cmd_type = _CMD_TYPE_READ;
 	static uint8_t read_type = _READ_TYPE_ANG;
 	static uint8_t cnt_servo_id = 0;
@@ -69,7 +79,7 @@ void User_TimerServoIRQ(void)
 			wait_to_set++;
 			if (wait_to_set == 1)
 			{
-				if (TEACHMODE != 1 && flag_act == 1) // 示教模式下，电机不动
+				if (TEACHMODE != 1 && flag_act == 1 && actionStop == 0) // 示教模式下，电机不动
 					User_AllSetAngTime();
 			}
 			else if (wait_to_set == 2) // 2

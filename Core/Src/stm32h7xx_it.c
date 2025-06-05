@@ -360,6 +360,7 @@ void UART4_IRQHandler(void)
   /* USER CODE END UART4_IRQn 0 */
   HAL_UART_IRQHandler(&huart4);
   /* USER CODE BEGIN UART4_IRQn 1 */
+	User_Communication_IRQHandler();
 
   /* USER CODE END UART4_IRQn 1 */
 }
@@ -458,7 +459,6 @@ void UART7_IRQHandler(void)
   /* USER CODE END UART7_IRQn 0 */
   HAL_UART_IRQHandler(&huart7);
   /* USER CODE BEGIN UART7_IRQn 1 */
-	User_Communication_IRQHandler();
 
   /* USER CODE END UART7_IRQn 1 */
 }

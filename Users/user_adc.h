@@ -3,15 +3,17 @@
 
 #include "user_includes.h"
 
-#define ADC1_CH_NUM	2
+#define ADC3_CH_NUM	1
 
 typedef struct
 {
-	uint16_t adc1_dma_buf[ADC1_CH_NUM];	
+	uint16_t adc3_dma_buf[ADC3_CH_NUM];	
 	
 	float bat_volt;
+	uint16_t bat_power;
 	
 }USER_ADC_TYPE;
+
 extern USER_ADC_TYPE USER_ADC;
 
 

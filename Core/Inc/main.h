@@ -57,8 +57,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define UART_LEG4_Pin GPIO_PIN_0
-#define UART_LEG4_GPIO_Port GPIOA
 #define UART_LEG2_Pin GPIO_PIN_2
 #define UART_LEG2_GPIO_Port GPIOA
 #define UART_LEG3_Pin GPIO_PIN_10
